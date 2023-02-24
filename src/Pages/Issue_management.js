@@ -17,7 +17,7 @@ export default function Issue_management() {
             <h3>प्रकाशन व्यवस्थापन</h3>
             <h4>शीर्षलेख माहिती</h4>
           </div>
-          {/* Input Field */}
+                    {/* Input Field */}
         </div>
       </div>
       {/* Footer */}

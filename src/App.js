@@ -1,11 +1,14 @@
-import './App.css';
-import Issue_management from './Pages/Issue_management';
+import React from 'react'
 
+import ContentManagement from './Pages/ContentManagement'
 
-function App() {
+export default function App() {
   return (
-      <Issue_management/>
-  );
+    <div>
+    <ContentManagement/>
+    </div>
+  )
 }
 
-export default App;
+
+

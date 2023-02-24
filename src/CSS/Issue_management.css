@@ -1,58 +1,63 @@
-.box{
+.box {
     width: 100%;
     align-content: center;
     position: absolute;
     align-items: center;
     justify-content: center;
 }
-.backBox{
-  width: 95%;
-  height: 600px;
-  background-color: #E1E5F8;
-  margin-top: 17px;
-  margin-left: 40px;
-  margin-right: 40px;
-  /* margin-bottom: 100px; */
-  display: flex;
-  flex-direction: column;
-}
-h3{
-    color:#4F62B0;
-    padding-left:75px;
-    padding-top:5px;
-    font-size: 16px;
-}
-h4{
-    color:#4F62B0;
-    padding-left:75px;   
+
+.backBox {
+    width: 95%;
+    height: 500;
+    background-color: #E1E5F8;
+    margin-top: 17px;
+    margin-left: 40px;
+    margin-right: 40px;
+    /* margin-bottom: 100px; */
+    display: flex;
+    flex-direction: column;
 }
 
-@media  ( max-width: 1010px) and (min-width:768px) {
-    .backBox{
+h3 {
+    color: #4F62B0;
+    padding-left: 75px;
+    padding-top: 5px;
+    font-size: 16px;
+}
+
+h4 {
+    color: #4F62B0;
+    padding-left: 75px;
+}
+
+@media ( max-width: 1010px) and (min-width:768px) {
+    .backBox {
         height: auto;
         width: 100%;
         margin-bottom: 100px;
     }
 }
-@media  ( max-width: 768px) and (min-width:480px) {
-    .backBox{
+
+@media ( max-width: 768px) and (min-width:480px) {
+    .backBox {
         margin-left: 20px;
         width: 100%;
         height: auto;
         margin-bottom: 100px;
     }
 }
-@media  ( max-width: 480px) and (min-width:320px) {
-    .backBox{
+
+@media ( max-width: 480px) and (min-width:320px) {
+    .backBox {
         margin-left: 10px;
         width: 100%;
         height: auto;
-        margin-bottom: 100px;   
+        margin-bottom: 100px;
     }
-    h3{
+    h3 {
         font-size: 16px;
     }
-    h4{
+    h4 {
         font-size: 16px;
     }
 }
