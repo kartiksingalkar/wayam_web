@@ -8,7 +8,7 @@ import benefits1 from "../Images/benefits1.png";
 import writer1 from "../Images/writer1.png";
 import uidesign1 from "../Images/uidesign1.png";
 import "../CSS/dashboard.css";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 export default function Dashboard() {
   return (
@@ -159,7 +159,8 @@ export default function Dashboard() {
               minWidth: "250px",
               m: 1,
             }}
-          ><Link to="/BenefitManagement">
+          >
+            {/* <Link to="/BenefitManagement"> */}
             <Box
               sx={{
                 height: "10vh",
@@ -180,7 +181,7 @@ export default function Dashboard() {
             >
               <img src={benefits1} alt="SVG" width="80vh" height="80vh" />
             </Box>
-            </Link>
+            {/* </Link> */}
           </Box>
 
          <Box
@@ -195,7 +196,8 @@ export default function Dashboard() {
               minWidth: "250px",
               m: 1,
             }}
-          ><Link to="/Librarymanagement"> 
+          >
+            {/* <Link to="/Librarymanagement">  */}
             <Box
               sx={{
                 height: "10vh",
@@ -218,7 +220,7 @@ export default function Dashboard() {
             >
               <img src={writer1} alt="SVG" width="80vh" height="80vh" />
             </Box>
-            </Link>
+            {/* </Link> */}
           </Box>
           
 
@@ -234,7 +236,8 @@ export default function Dashboard() {
               minWidth: "250px",
               m: 1,
             }}
-          ><Link to="/ContentManagement">
+          >
+            {/* <Link to="/ContentManagement"> */}
             <Box
               sx={{
                 height: "10vh",
@@ -255,7 +258,7 @@ export default function Dashboard() {
             >
               <img src={uidesign1} alt="SVG" width="80vh" height="80vh" />
             </Box>
-            </Link>
+            {/* </Link> */}
           </Box>
          
         </Box>

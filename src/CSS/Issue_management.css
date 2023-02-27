@@ -14,9 +14,9 @@
   margin-right: 40px;
   /* margin-bottom: 100px; */
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
-h3{
+.prakashanTag{
     color:#4F62B0;
     padding-left:75px;
     padding-top:5px;
@@ -26,12 +26,42 @@ h4{
     color:#4F62B0;
     padding-left:75px;   
 }
+.inputBox{
+    margin-left:70px;
+    margin-top:16px; 
+}
+.inputField1{
+    width:450px;
+    /* margin-left:70px; */
+    border-radius: 5px;
+    background-color:white;
+}
+.inputField2{
+    width:350px;
+    /* margin-left:70px; */
+    border-radius: 5px;
+    background-color:white;
+}
+.img2{
+    width: 70%;
+    height: 50%;
+    margin: 30%;
+    margin-left: 50%;
+}
+
 
 @media  ( max-width: 1010px) and (min-width:768px) {
     .backBox{
         height: auto;
         width: 100%;
         margin-bottom: 100px;
+    }
+    .inputBox{
+       margin-top: 20px;
+    }
+    .inputField1{                                                                                                                                                                       
+        margin-top: 40px;
+        margin-left: 0%;
     }
 }
 @media  ( max-width: 768px) and (min-width:480px) {
