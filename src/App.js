@@ -1,14 +1,107 @@
-import React from 'react'
+// import './App.css';
+// import { BrowserRouter as Router,
+//   Route,} from "react-router-dom";
+//    import {  Switch } from "react-router";
 
-import ContentManagement from './Pages/ContentManagement'
+// import AddButton from '../src/Components/AddButton';
+// import SubmitButton from '../src/Components/SubmitButton';
+// import SearchBox from '../src/Components/SearchBox';
+// import BenefitManagementComponent1 from '../src/Components/BenefitManagementComponent1';
+// import BenefitManagementComponent2 from '../src/Components/BenefitManagementComponent2';
 
-export default function App() {
+// import Librarymanagement from '../src/Pages/Librarymanagement';
+// import Dashboard from './Pages/Dashboard';
+// import BenefitManagement from '../src/Pages/BenefitMangement';
+// import ContentManagement from './Pages/ContentManagement';
+// import Organisational_info from './Pages/OrganisationalInfo'
+// import NewBenfitPopup from './Pop Up/NewBenfitPopup'
+// import PrimaryInformation from '../src/Pages/PrimaryInformation';
+// import NewStaffPopup from './Pop Up/NewStaffPopup'
+
+// export default function App() {
+//   return (
+//     <div>
+//     <ContentManagement/>
+//     </div>
+//   )
+// }
+import "./App.css";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Switch } from "react-router";
+import IssueManagement from "./Pages/IssueManagement";
+// import AddButton from '../src/Components/AddButton';
+// import SubmitButton from '../src/Components/SubmitButton';
+// import SearchBox from '../src/Components/SearchBox';
+// import BenefitManagementComponent1 from '../src/Components/BenefitManagementComponent1';
+// import BenefitManagementComponent2 from '../src/Components/BenefitManagementComponent2';
+// import HeaderBar from '../src/Components/HeaderBar'
+import Librarymanagement from "../src/Pages/Librarymanagement";
+import Dashboard from "../src/Pages/Dashboard";
+import BenefitMangement from "../src/Pages/BenefitMangement";
+import ContentManagement from "./Pages/ContentManagement";
+import OrganisationalInfo from "./Pages/OrganisationalInfo";
+import PrimaryInformation from "./Pages/PrimaryInformation"
+import StaffList from "./Components/StaffList";
+
+function App() {
   return (
-    <div>
-    <ContentManagement/>
-    </div>
-  )
+    <>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Dashboard />
+          </Route>
+          <Route path="/IssueManagement">
+            <IssueManagement />
+          </Route>
+
+          {/* libraryvyavasthapn */}
+          <Route path="/Librarymanagement">
+            <Librarymanagement />
+          </Route>
+          {/* libraryvyavasthapn */}
+
+          {/* prakashanvyavasthapan */}
+          <Route path="/BenefitMangement">
+            <StaffList />
+          </Route>
+          <Route path="/BenefitMangement">
+            <BenefitMangement />
+          </Route>
+          {/* prakashanvyavasthapan */}
+
+          {/* yojnavyavasthapan */}
+          <Route path="/ContentManagement">
+            <ContentManagement />
+          </Route>
+          {/* yojnavyavasthapan */}
+
+          {/* Organisationalinfo */}
+          <Route path="/Organisationalinfo">
+            <OrganisationalInfo />
+          </Route>
+          {/* Organisationalinfo */}
+
+          {/* PrimaryInformation */}
+          <Route path="/PrimaryInformation">
+            <PrimaryInformation />
+          </Route>
+          
+          {/* PrimaryInformation */}
+        </Switch>
+      </Router>
+
+      {/* <AddButton/> */}
+      {/* <SubmitButton/> */}
+      {/* <SearchBox/> */}
+      {/* <BenefitManagementComponent1/> */}
+      {/* <BenefitManagementComponent2/> */}
+
+      {/* <BenefitManagement/> */}
+
+      {/* <HeaderBar/> */}
+    </>
+  );
 }
 
-
-
+export default App;

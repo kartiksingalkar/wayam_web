@@ -1,0 +1,90 @@
+/* Images  */
+
+.img1 {
+    width: 250px;
+    height: 250px;
+    margin-top: 10%;
+}
+
+.img2 {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin: 20px;
+}
+
+
+/* Boxes */
+
+.firstBox {
+    min-width: 81px;
+    margin-left: 3%;
+    width: 681px;
+    background-color: #e1e5f8;
+    height: 510px;
+    text-align: center;
+    padding-top: 3%;
+}
+
+.secondBox {
+    margin-left: 2%;
+    min-width: 81px;
+    width: 681px;
+    background-color: #e1e5f8;
+    height: 250px;
+    text-align: center;
+    padding-top: 3%;
+}
+
+.thirdBox {
+    flex-direction: row;
+    margin-top: 2%;
+    margin-left: 2%;
+    min-width: 81px;
+    width: 681px;
+    background-color: #e1e5f8;
+    height: 250px;
+    text-align: center;
+    padding-top: 3%;
+}
+
+
+/* Heading  */
+
+.h3tag {
+    margin-left: 0px;
+    font-size: 22px;
+    color: #4f62b0;
+}
+
+
+/* Hovering  */
+
+.firstBox:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 10px grey;
+}
+
+.secondBox:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 10px grey;
+}
+
+.thirdBox:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 10px grey;
+}
+
+
+/* Media Screen */
+
+@media (min-width: 400px) and (max-width: 1000px) {
+    .firstBox {
+        width: 90%;
+    }
+    .img1 {
+        width: 150px;
+        height: 150px;
+        margin-top: 10%;
+    }
+}

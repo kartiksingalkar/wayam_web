@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import ContentInside from "../Components/ContentInside";
 import { Box } from "@mui/material";
@@ -7,12 +6,13 @@ import SearchContentM from "../Components/SearchContentM";
 import LinkContent from "../Components/LinkContent";
 import AddMajkur from "../Components/AddMajkur";
 import SadarMajkur from "../Components/SadarMajkur";
+import HeaderBar from '../Components/HeaderBar'
 import SearchDownContent from "../Components/SearchDownContent";
 
 export default function ContentManagement() {
   return (
     <div>
-      <Header />
+      <HeaderBar />
 
       <Box sx={{ mx: "8%" }}>
         <LinkContent
