@@ -1,5 +1,5 @@
 import { Box } from "@mui/system";
-import React from "react";
+import {React , useState} from "react";
 import Footer from "../Components/Footer";
 // import Header from "../Components/Header";
 import "../CSS/Organisational_info.css";
@@ -8,8 +8,15 @@ import img2 from "../Images/organizationchart2.png";
 import img3 from "../Images/organizationchart1.png";
 import HeaderBar from '../Components/HeaderBar'
 import { Link } from "react-router-dom";
+import StaffList from "../Components/StaffList";
 
 export default function OrganisationalInfo() {
+  const [open, setOpen] = useState(false)
+
+  const openStaffList = () =>{
+      setOpen(!open)
+  }
+
   return (
     <div>
       {/* Header */}
@@ -32,7 +39,7 @@ export default function OrganisationalInfo() {
           sx={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}
         >
           {/* Right Box 1 */}
-          <Box className="secondBox">
+          <Box className="secondBox" onClick={openStaffList}>
             <h3 className="h3tag">प्राथमिक माहिती</h3>
             <Box>
               <img className="img2" alt="hello" src={img2} />
@@ -47,6 +54,12 @@ export default function OrganisationalInfo() {
       </Box>
       {/* Footer */}
       <Footer />
+      {
+        open && (
+          <StaffList open={open} setOpen={setOpen}/>
+        )
+      }
+
     </div>
   );
 }

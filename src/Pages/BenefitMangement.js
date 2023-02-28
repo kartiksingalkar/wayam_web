@@ -16,6 +16,7 @@ import BenefitManagementComponent1 from '../Components/BenefitManagementComponen
 import BenefitManagementComponent2 from '../Components/BenefitManagementComponent2';
 
 import '../CSS/benefitmanagement.css';
+import NewBenfitPopup from "../Pop Up/NewBenfitPopup";
 
 const plans = [
   { plan:"वार्षिक सभासदत्त्व " ,benefit:"लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3" },
@@ -45,6 +46,12 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function BenefitManagement() {
   const [value, setValue] = useState(0);
+  const [open, setOpen] = useState(false)
+
+  const openNewBenifitPopuo = () =>{
+      setOpen(!open)
+  }
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -166,6 +173,7 @@ export default function BenefitManagement() {
                         margin={2}
                         justifyContent="flex-end"
                         sx={{ width:'100%' }}
+                        onClick={openNewBenifitPopuo}
                       >
                         <AddButton buttonTitle={"+ नवीन योजना"} />
                       </Box>
@@ -208,6 +216,7 @@ export default function BenefitManagement() {
                         margin={2}
                         justifyContent="flex-end"
                         sx={{ width:'100%'}}
+                        onClick={openNewBenifitPopuo}
                       >
                         <AddButton buttonTitle={"+ नवीन लाभ"} />
                       </Box>
@@ -233,6 +242,11 @@ export default function BenefitManagement() {
         <Footer/>
       </Box>
       {/* // end of footer */}
+      {
+        open && (
+          <NewBenfitPopup open={open} setOpen={setOpen}/>
+        )
+      }
     </Box>
   );
 }

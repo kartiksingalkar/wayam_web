@@ -15,18 +15,18 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
   }));
 
-export default function LibraryManagementComponent(props) {
-  const { name, type, authorName} = props;
+
+export default function IssueManagementComponent(props) {
+  const { templateTitle, type} = props;
   return (
       <Grid item xs={12}>
                 <Item sx={{display:'flex',flexDirection:'row',justifyContent:'space-between',backgroundColor:'#FFFFFF',color:"#4F62B0"}}>
-                    <Box sx={{width:"33%",textAlign:"center",display:"flex",flexDirection:"row"}}>
+                    <Box sx={{width:"50%",textAlign:"center",display:"flex",flexDirection:"row"}}>
                     <img src={edit} width="17.17px" height="17.17px" alt="SVG" style={{ paddingLeft:"10px",paddingRight:"10px" }} />
                     <img src={frame} width="17.17px" height="17.17px" alt="SVG" style={{ paddingLeft:"10px",paddingRight:"10px" }}/>
-                    <Typography>{name}</Typography>
+                    <Typography>{templateTitle}</Typography>
                     </Box>
-                    <Box sx={{textAlign:"center", width:"33%"}} ><Typography>{type}</Typography></Box>
-                    <Box sx={{textAlign:"center", width:"33%"}} ><Typography>{authorName}</Typography></Box>
+                    <Box sx={{textAlign:"left", width:"50%"}} ><Typography>{type}</Typography></Box>
                 </Item>
     </Grid>
   )

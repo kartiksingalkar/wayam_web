@@ -42,6 +42,10 @@ import ContentManagement from "./Pages/ContentManagement";
 import OrganisationalInfo from "./Pages/OrganisationalInfo";
 import PrimaryInformation from "./Pages/PrimaryInformation"
 import StaffList from "./Components/StaffList";
+import NewStaffPopup from "./Pop Up/NewStaffPopup";
+// import Issuemanagement from "./Pages/Issuemanagement1"
+import Issuemanagement1 from "./Pages/Issuemanagement1";
+import NewBenfitPopup from "./Pop Up/NewBenfitPopup";
 
 function App() {
   return (
@@ -63,11 +67,9 @@ function App() {
 
           {/* prakashanvyavasthapan */}
           <Route path="/BenefitMangement">
-            <StaffList />
-          </Route>
-          <Route path="/BenefitMangement">
             <BenefitMangement />
           </Route>
+        
           {/* prakashanvyavasthapan */}
 
           {/* yojnavyavasthapan */}
@@ -88,6 +90,28 @@ function App() {
           </Route>
           
           {/* PrimaryInformation */}
+
+            <Route path="/StaffList">
+            <StaffList />
+          </Route>
+
+          <Route path="/NewStaffPopup">
+            <NewStaffPopup />
+          </Route>
+
+          <Route path="/ContentManagement">
+            <ContentManagement />
+          </Route>
+
+          <Route path="/Issuemanagement1">
+            <Issuemanagement1/>
+          </Route>
+
+          <Route path='NewBenfitPopup'>
+            <NewBenfitPopup/>
+          </Route>
+
+
         </Switch>
       </Router>
 

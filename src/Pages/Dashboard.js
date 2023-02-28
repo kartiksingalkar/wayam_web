@@ -1,4 +1,4 @@
-import { React} from "react";
+import { React, useState} from "react";
 import { Box, Typography } from "@mui/material";
 // import Footer from "../Components/Footer";
 
@@ -11,8 +11,18 @@ import "../CSS/dashboard.css";
 import { Link } from "react-router-dom";
 
 import HeaderBar from '../Components/HeaderBar'
+import StaffList from "../Components/StaffList";
+
 
 export default function Dashboard() {
+ 
+  const [open, setOpen] = useState(false)
+
+  const openStaffList = () =>{
+      setOpen(!open)
+  }
+
+
   return (
     // start of navbar
     <Box sx={{ height: "100vh" }}>
@@ -102,7 +112,9 @@ export default function Dashboard() {
               m: 1,
            
             }}
+            onClick={openStaffList}
           >
+            {/* <Link to="/StaffList"> */}
             <Box
               sx={{
                 height: "10vh",
@@ -111,6 +123,7 @@ export default function Dashboard() {
                 alignItems: "center",
                 textAlign: "center",
               }}
+              onClick={openStaffList}
             >
               <Typography mt={3}>सदस्य व्यवस्थापन</Typography>
             </Box>
@@ -128,6 +141,7 @@ export default function Dashboard() {
                 height="80vh"
               />
             </Box>
+            {/* </Link> */}
           </Box>
         </Box>
 
@@ -239,7 +253,7 @@ export default function Dashboard() {
               minWidth: "250px",
               m: 1,
             }}
-          ><Link to="/BenefitMangement" style={{ textDecoration: 'none'  ,color:'black' }}>
+          ><Link to="/Issuemanagement1" style={{ textDecoration: 'none'  ,color:'black' }}>
             <Box
               sx={{
                 height: "10vh",
@@ -271,6 +285,14 @@ export default function Dashboard() {
       {/* // start of footer */}
       {/* <Footer /> */}
       {/* // end of footer */}
+      
+      {
+        open && (
+          <StaffList open={open} setOpen={setOpen}/>
+        )
+      }
+
+
     </Box>
   );
 }

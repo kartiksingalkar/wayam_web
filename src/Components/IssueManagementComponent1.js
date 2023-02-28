@@ -15,18 +15,21 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
   }));
 
-export default function LibraryManagementComponent(props) {
-  const { name, type, authorName} = props;
+
+export default function IssueManagementComponent1(props) {
+  const {number,date,type,status} = props;
   return (
       <Grid item xs={12}>
                 <Item sx={{display:'flex',flexDirection:'row',justifyContent:'space-between',backgroundColor:'#FFFFFF',color:"#4F62B0"}}>
-                    <Box sx={{width:"33%",textAlign:"center",display:"flex",flexDirection:"row"}}>
+                    <Box sx={{textAlign:"center",display:"flex",flexDirection:"row", width:"25%"}}>
                     <img src={edit} width="17.17px" height="17.17px" alt="SVG" style={{ paddingLeft:"10px",paddingRight:"10px" }} />
                     <img src={frame} width="17.17px" height="17.17px" alt="SVG" style={{ paddingLeft:"10px",paddingRight:"10px" }}/>
-                    <Typography>{name}</Typography>
+                    <Typography>{number}</Typography>
                     </Box>
-                    <Box sx={{textAlign:"center", width:"33%"}} ><Typography>{type}</Typography></Box>
-                    <Box sx={{textAlign:"center", width:"33%"}} ><Typography>{authorName}</Typography></Box>
+                    <Box sx={{textAlign:"center",width:"25%",justifyContent:'center'}} ><Typography>{date}</Typography></Box>
+                    <Box sx={{textAlign:"left", width:"25%"}} ><Typography>{type}</Typography></Box>
+                    <Box sx={{textAlign:"left",width:"25%"}} ><Typography>{status}</Typography></Box>
+
                 </Item>
     </Grid>
   )

@@ -19,11 +19,11 @@ export default function NewBenfitPopup(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    props.setOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    props.setOpen(false);
   };
   // DropDown
   const [age, setAge] = React.useState("");
@@ -40,7 +40,7 @@ export default function NewBenfitPopup(props) {
         + नवीन लाभ
       </Button>
       {/* POP UP */}
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={props.open} onClose={handleClose}>
         <DialogTitle sx={{ backgroundColor: "#E1E5F8", width: "400px" }}>
           <h3>+ नवीन लाभ </h3>
         </DialogTitle>

@@ -13,16 +13,18 @@ import "../CSS/PrimaryInformation.css";
 import img2 from "../Images/organizationchart2.png";
 import { Box } from "@mui/system";
 
-export default function NewStaffPopup() {
+export default function NewStaffPopup(props) {
   // Pop up
-  const [open, setOpen] = React.useState(false);
-
+  console.log("Hello")
+  // const [open, setOpen] = React.useState(true);
+console.log(props)
   const handleClickOpen = () => {
-    setOpen(true);
+    props.setOpen(true);
+    
   };
 
   const handleClose = () => {
-    setOpen(false);
+    props.setOpen(false);
   };
   // Drop down
   const [age, setAge] = React.useState("");
@@ -36,7 +38,7 @@ export default function NewStaffPopup() {
       + नवीन कर्मचारी
       </Button>
       {/* Popup Screen */}
-      <Dialog maxWidth="xl" open={open} onClose={handleClose}>
+      <Dialog maxWidth="xl" open={props.open} onClose={handleClose}>
         {/* Popup Title */}
         <DialogTitle sx={{ backgroundColor: "#E1E5F8", width: "1000px" }}>
           <h3>+ नवीन कर्मचारी </h3>

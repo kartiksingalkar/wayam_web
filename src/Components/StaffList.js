@@ -1,31 +1,43 @@
-import * as React from "react";
-import { Box } from "@mui/material";
-
-import Button from "@mui/material/Button";
-import Avatar from "@mui/material/Avatar";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-// import DialogTitle from "@mui/material/DialogTitle";
-import Dialog from "@mui/material/Dialog";
-import PersonIcon from "@mui/icons-material/Person";
-// import AddIcon from "@mui/icons-material/Add";
-import Typography from "@mui/material/Typography";
-import { blue } from "@mui/material/colors";
+import * as React from 'react';
+import { useState} from "react";
+import PropTypes from 'prop-types';
+import Button from '@mui/material/Button';
+import Avatar from '@mui/material/Avatar';
+import StaffListComponent from "./StaffListComponent";
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+// import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from '@mui/material/Dialog';
+import PersonIcon from '@mui/icons-material/Person';
+// import AddIcon from '@mui/icons-material/Add';
+import Typography from '@mui/material/Typography';
+import { blue } from '@mui/material/colors';
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
+
+import List from "@mui/material/List";
+
+// import DialogTitle from "@mui/material/DialogTitle";
+
+
 import Grid from "@mui/material/Grid";
 import SearchBoxNew from "./SearchBox";
 import AddButton from "./AddButton";
-import StaffListComponent from "./StaffListComponent";
-// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { Box } from '@mui/system';
+import NewStaffPopup from '../Pop Up/NewStaffPopup';
 
-// import edit from "../Images/edit.png";
-// import frame from "../assets/dashboard/frame.png";
+const emails = [];
 
-const Item = styled(Paper)(({ theme }) => ({
+function SimpleDialog(props) {
+  const { onClose, selectedValue, open } = props;
+
+  const handleClose = () => {
+    onClose(selectedValue);
+  };
+
+  const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
   padding: theme.spacing(1),
@@ -33,9 +45,10 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const emails = [];
-
-const email = [
+  const handleListItemClick = (value) => {
+    onClose(value);
+  };
+  const email = [
   {
     username: "हृषीकेश बारसिंग",
     email: "rushibarsing@gmail.com",
@@ -62,26 +75,16 @@ const email = [
     mobileno: "7609543724",
   },
 ];
+const [opn, setOpn] = useState(false)
 
-export interface SimpleDialogProps {
-  open: boolean;
-  selectedValue: string;
-  onClose: (value: string) => void;
+const openNewSubscriber = () =>{
+  // console.log("Hello")
+    setOpn(!opn)
 }
 
-function SimpleDialog(props: SimpleDialogProps) {
-  const { onClose, selectedValue, open } = props;
-
-  const handleClose = () => {
-    onClose(selectedValue);
-  };
-
-  const handleListItemClick = (value: string) => {
-    onClose(value);
-  };
 
   return (
-    <Box>
+    
       <Dialog
         fullWidth
         maxWidth="lg"
@@ -151,42 +154,53 @@ function SimpleDialog(props: SimpleDialogProps) {
             margin={2}
             justifyContent="flex-end"
             sx={{ marginLeft: "86%" }}
+            onClick={openNewSubscriber}
           >
-            <AddButton buttonTitle={"+ नवीन कर्मचारी  "} />
+            <AddButton  buttonTitle={"+ नवीन कर्मचारी  "} />
           </Box>
         </List>
+        {
+        opn && (
+          <NewStaffPopup open={opn} setOpen={setOpn}/>
+          // <Typography>Hello</Typography>
+        )
+      }
       </Dialog>
-    </Box>
   );
 }
 
-export default function StaffList() {
-  const [open, setOpen] = React.useState(false);
+SimpleDialog.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  selectedValue: PropTypes.string.isRequired,
+};
+
+export default function StaffList(props) {
+  const [opn, setOpn] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState(emails[1]);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    props.setOpen(true);
   };
 
-  const handleClose = (value: string) => {
-    setOpen(false);
+  const handleClose = (value) => {
+    props.setOpen(false);
     setSelectedValue(value);
   };
 
   return (
-    <div>
+    <Box>
       <Typography variant="subtitle1" component="div">
         Selected: {selectedValue}
       </Typography>
       <br />
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open simple dialog
-      </Button>
       <SimpleDialog
         selectedValue={selectedValue}
-        open={open}
+        open={props.open}
         onClose={handleClose}
       />
-    </div>
+      
+      
+    </Box>
   );
 }
