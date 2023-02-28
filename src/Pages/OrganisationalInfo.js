@@ -9,6 +9,7 @@ import img3 from "../Images/organizationchart1.png";
 import HeaderBar from '../Components/HeaderBar'
 import { Link } from "react-router-dom";
 import StaffList from "../Components/StaffList";
+import AssignRolepopUp from "../Pop Up/AssignRolepopUp"
 
 export default function OrganisationalInfo() {
   const [open, setOpen] = useState(false)
@@ -16,6 +17,12 @@ export default function OrganisationalInfo() {
   const openStaffList = () =>{
       setOpen(!open)
   }
+  const [opn, setopn] = useState(false)
+
+  const AssignRolepage = () =>{
+      setopn(!opn)
+  }
+
 
   return (
     <div>
@@ -40,14 +47,14 @@ export default function OrganisationalInfo() {
         >
           {/* Right Box 1 */}
           <Box className="secondBox" onClick={openStaffList}>
-            <h3 className="h3tag">प्राथमिक माहिती</h3>
+            <h3 className="h3tag">कर्मचारी जोडा</h3>
             <Box>
               <img className="img2" alt="hello" src={img2} />
             </Box>
           </Box>
           {/* Right Box 2 */}
-          <Box className="thirdBox">
-            <h3 className="h3tag">प्राथमिक माहिती</h3>
+          <Box className="thirdBox" onClick={AssignRolepage}>
+            <h3 className="h3tag">रोल कॉन्फिगरेशन</h3>
             <img className="img2" alt="hello" src={img3} />
           </Box>
         </Box>
@@ -57,6 +64,11 @@ export default function OrganisationalInfo() {
       {
         open && (
           <StaffList open={open} setOpen={setOpen}/>
+        )
+      }
+      {
+        opn&&(
+          <AssignRolepopUp open={opn} setOpen={setopn}/>
         )
       }
 

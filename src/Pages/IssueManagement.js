@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import img1 from "../Images/Picture1.png";
 import SubmitButton from "../Components/SubmitButton";
 import HeaderBar from '../Components/HeaderBar'
+import '../CSS/Issue_management.css'
 
 export default function IssueManagement() {
   return (

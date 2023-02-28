@@ -11,7 +11,8 @@ import "../CSS/dashboard.css";
 import { Link } from "react-router-dom";
 
 import HeaderBar from '../Components/HeaderBar'
-import StaffList from "../Components/StaffList";
+// import StaffList from "../Components/StaffList";
+import SubscriberListPopUp from "../Pop Up/SuscriberListPopUp";
 
 
 export default function Dashboard() {
@@ -288,7 +289,7 @@ export default function Dashboard() {
       
       {
         open && (
-          <StaffList open={open} setOpen={setOpen}/>
+          <SubscriberListPopUp open={open} setOpen={setOpen}/>
         )
       }
 

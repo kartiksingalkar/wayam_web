@@ -20,8 +20,10 @@ import Grid from "@mui/material/Grid";
 import IssueManagementComponent from "../Components/IssueManagementComponent";
 import IssueManagementComponent1 from "../Components/IssueManagementComponent1";
 import SearchBox from "../Components/SearchBox";
+import NewTemplate from "../Pop Up/NewTemplate";
 
 import AddButton from "../Components/AddButton";
+import { Link } from "react-router-dom";
 
 const data = [
   { templateTitle: "टेम्प्लेट 1", type: "चौकस चौरस , गप्पाटप्पा" },
@@ -73,6 +75,12 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Issuemanagement1() {
+  const [open, setopen] = useState(false)
+
+  const NewTemplatee = () =>{
+      setopen(!open)
+  }
+
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -191,6 +199,7 @@ export default function Issuemanagement1() {
                         margin={2}
                         justifyContent="flex-end"
                         sx={{ width:'100%' }}
+                        onClick={NewTemplatee}
                       >
                         <AddButton buttonTitle={"+ नवीन मजकूर"} />
                       </Box>
@@ -240,14 +249,17 @@ export default function Issuemanagement1() {
                       ))}
 
                       {/* button */}
+                      
                       <Box
                         display="flex"
                         margin={2}
                         justifyContent="flex-end"
                         sx={{ width:'100%'}}
-                      >
+                      ><Link to='/IssueManagement' style={{textDecoration:'none'}}>
                         <AddButton buttonTitle={"+ नवीन अंक"} />
+                        </Link>
                       </Box>
+                      
                     </Grid>
                   </Box>
                 )}
@@ -269,6 +281,11 @@ export default function Issuemanagement1() {
       >
         <Footer1 />
       </Box>
+      {
+        open && (
+          <NewTemplate open={open} setOpen={setopen}/>
+        )
+      }
       {/* // end of footer */}
     </Box>
   );

@@ -20,6 +20,7 @@ import AddButton from "../Components/AddButton";
 // import SearchBox from "../components/SearchBox";
 import SearchBoxNew from "../Components/SearchBox";
 import { Link } from "react-router-dom";
+import NewContentPopUp from "../Pop Up/NewContentPopUp";
 // import "../styles/font.css";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -51,6 +52,10 @@ export default function Librarymanagement() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const[openncpop , setopenncpop] =useState(false)
+  const opennewcontentpop=()=>{
+    setopenncpop(!openncpop)
+  }
 
   return (
     <Box sx={{ height: "100vh" }}>
@@ -285,7 +290,8 @@ export default function Librarymanagement() {
                         display="flex"
                         margin={2}
                         justifyContent="flex-end"
-                        sx={{ marginLeft: "87%" }}
+                        sx={{ width:'100%' }}
+                        onClick={opennewcontentpop}
                       >
                         <AddButton buttonTitle={"+ नवीन प्रकार "} />
                       </Box>
@@ -310,6 +316,12 @@ export default function Librarymanagement() {
       >
         <Footer />
       </Box>
+      {
+        openncpop && (
+          <NewContentPopUp open={openncpop} setOpen={setopenncpop}/>
+        )
+      }
+
       {/* // end of footer */}
     </Box>
   );

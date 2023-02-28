@@ -16,7 +16,7 @@ import { Box, FormControl } from "@mui/material";
 
 export default function NewBenfitPopup(props) {
   // POP up Open close
-  const [open, setOpen] = React.useState(false);
+  // const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
     props.setOpen(true);

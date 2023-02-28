@@ -46,6 +46,8 @@ import NewStaffPopup from "./Pop Up/NewStaffPopup";
 // import Issuemanagement from "./Pages/Issuemanagement1"
 import Issuemanagement1 from "./Pages/Issuemanagement1";
 import NewBenfitPopup from "./Pop Up/NewBenfitPopup";
+import NewTemplate from "./Pop Up/NewTemplate";
+import NewSubscriberPopup from "./Pop Up/NewSubscriberPopup";
 
 function App() {
   return (
@@ -107,8 +109,20 @@ function App() {
             <Issuemanagement1/>
           </Route>
 
-          <Route path='NewBenfitPopup'>
+          <Route path='/NewBenfitPopup'>
             <NewBenfitPopup/>
+          </Route>
+
+          <Route path="/IssueManagement">
+            <IssueManagement/>
+          </Route>
+
+          <Route path='/NewTemplate'>
+            <NewTemplate/>
+          </Route>
+
+          <Route path="/NewSubscriberPopup">
+            <NewSubscriberPopup/>
           </Route>
 
 

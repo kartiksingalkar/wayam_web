@@ -8,6 +8,7 @@ import AddMajkur from "../Components/AddMajkur";
 import SadarMajkur from "../Components/SadarMajkur";
 import HeaderBar from '../Components/HeaderBar'
 import SearchDownContent from "../Components/SearchDownContent";
+import { Link } from "react-router-dom";
 
 export default function ContentManagement() {
   return (
@@ -15,10 +16,11 @@ export default function ContentManagement() {
       <HeaderBar />
 
       <Box sx={{ mx: "8%" }}>
-        <LinkContent
+      <Link to="/Librarymanagement" style={{ textDecoration: 'none'  ,color:'black' }}>
+       <LinkContent
           link_title1={"लायब्ररी व्यवस्थापन"}
           link_title2={" /लायब्ररी व्यवस्थापन"}
-        />
+        /></Link> 
       </Box>
       <Box sx={{ mx: "8%", mt: "-1%" }}>
         <AddMajkur />

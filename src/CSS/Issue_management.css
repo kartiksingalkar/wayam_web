@@ -1,0 +1,114 @@
+.box{
+    width: 100%;
+    align-content: center;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+}
+.backBox{
+  width: 95%;
+  height: 600px;
+  background-color: #E1E5F8;
+  margin-top: 17px;
+  margin-left: 40px;
+  margin-right: 40px;
+  /* margin-bottom: 100px; */
+  display: flex;
+  flex-direction: row;
+}
+.prakashanTag{
+    color:#4F62B0;
+    padding-left:75px;
+    padding-top:5px;
+    font-size: 16px;
+}
+h4{
+    color:#4F62B0;
+    padding-left:75px;   
+}
+.inputBox{
+    margin-left:70px;
+    margin-top:16px; 
+}
+.inputField1{
+    width:450px;
+    /* margin-left:70px; */
+    border-radius: 5px;
+    background-color:white;
+}
+.inputField2{
+    width:350px;
+    /* margin-left:70px; */
+    border-radius: 5px;
+    background-color:white;
+}
+.img1{
+    width: 200px;
+    height: 100px;
+}
+.img2{
+    width: 70%;
+    height: 50%;
+    margin: 30%;
+    margin-left: 50%;
+}
+
+
+@media  ( max-width: 1010px) and (min-width:768px) {
+    .backBox{
+        height: auto;
+        width: 100%;
+        margin-bottom: 100px;
+    }
+    .inputBox{
+       margin-top: 20px;
+    }
+    .inputField1{                                                                                                                                                                       
+        margin-top: 40px;
+        margin-left: 0%;
+    }
+}
+@media  ( max-width: 768px) and (min-width:480px) {
+    .backBox{
+        margin-left: 20px;
+        width: 100%;
+        height: auto;
+        margin-bottom: 100px;
+    }
+    .inputBox{
+        margin-top: 20px;
+        margin-left: 10px;
+     }
+     .inputField1{                                                                                                                                                                       
+         margin-top: 40px;
+         margin-left: 0%;
+         width: 300px;
+     }
+}
+@media  ( max-width: 480px) and (min-width:320px) {
+    .backBox{
+        margin-left: 10px;
+        width: 100%;
+        height: auto;
+        margin-bottom: 100px;   
+    }
+    .inputBox{
+        margin-top: 20px;
+        margin-left: 10px;
+     }
+     .inputField1{                                                                                                                                                                       
+         margin-top: 40px;
+         margin-left: 0%;
+         width: 250px;
+     }
+     .img2{
+        width: 10px;
+        height: 10px;
+     }
+    h3{
+        font-size: 16px;
+    }
+    h4{
+        font-size: 16px;
+    }
+}
