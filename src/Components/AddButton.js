@@ -6,7 +6,7 @@ export default function AddButton(props) {
 
   return (
     <>
-      <Button sx={{width:"200px", height:"50px",color:"white", backgroundColor:"#4F62B0"}} variant="contained">{buttonTitle}</Button>
+      <Button sx={{color:"white", backgroundColor:"#4F62B0"}} variant="contained">{buttonTitle}</Button>
     </>
   );
 }

@@ -67,7 +67,7 @@ export default function Librarymanagement() {
       <Box
         sx={{
           width: "100%",
-          height: "80vh",
+          height: "90vh",
           backgroundColor: "#ffffff",
           display: "flex",
           flexDirection: "column",
@@ -80,7 +80,7 @@ export default function Librarymanagement() {
         <Box
           sx={{
             width: "97%",
-            height: "80vh",
+            height: "90vh",
             backgroundColor: "#E1E5F8",
             display: "flex",
             flexDirection: "column",
@@ -183,7 +183,7 @@ export default function Librarymanagement() {
                           width: "100%",
                           justifyContent: "flex-end",
                           margin: "16px auto  5px 16px",
-                          height:"35vh",
+                          height:"38vh",
                           overflow:"scroll ",
                           overflowX:"hidden",
                           scrollbarWidth:"thin",
@@ -217,9 +217,9 @@ export default function Librarymanagement() {
                       {/* button */}
                       <Box
                         display="flex"
-                        margin={2}
+                        // margin={2}
                         justifyContent="flex-end"
-                        sx={{width:'100%'}}
+                        sx={{width:'99.5%'}}
                       >
                         <Link to="/ContentManagement" style={{textDecoration:'none'}}>
                         <AddButton buttonTitle={"+ नवीन योजना"} />
@@ -258,7 +258,7 @@ export default function Librarymanagement() {
                           width: "100%",
                           justifyContent: "flex-end",
                           margin: "16px auto  5px 16px",
-                          height:"35vh",
+                          height:"38vh",
                           overflow:"scroll ",
                           overflowX:"hidden",
                           scrollbarWidth:"thin",
@@ -288,9 +288,8 @@ export default function Librarymanagement() {
                       {/* button */}
                       <Box
                         display="flex"
-                        margin={2}
                         justifyContent="flex-end"
-                        sx={{ width:'100%' }}
+                        sx={{ width:'99.5%' }}
                         onClick={opennewcontentpop}
                       >
                         <AddButton buttonTitle={"+ नवीन प्रकार "} />
