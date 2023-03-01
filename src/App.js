@@ -48,13 +48,31 @@ import Issuemanagement1 from "./Pages/Issuemanagement1";
 import NewBenfitPopup from "./Pop Up/NewBenfitPopup";
 import NewTemplate from "./Pop Up/NewTemplate";
 import NewSubscriberPopup from "./Pop Up/NewSubscriberPopup";
+import Login from "./Pages/Login";
+import ConfirmPassword from "./Pages/ConfirmPassword"
+import ChangePassword from "./Pages/ChangePassword"
 
 function App() {
   return (
     <>
       <Router>
         <Switch>
-          <Route exact path="/">
+        <Route exact path="/">
+            <Login/>
+          </Route>
+
+
+    <Route path="/confrimpassword">
+      <ConfirmPassword/>
+    </Route>
+
+
+    <Route path="/ChangePassword">
+      <ChangePassword/>
+    </Route>
+
+
+          <Route exact path="/Home">
             <Dashboard />
           </Route>
           <Route path="/IssueManagement">

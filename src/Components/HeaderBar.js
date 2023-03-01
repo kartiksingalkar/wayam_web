@@ -150,7 +150,7 @@ export default function PrimarySearchAppBar() {
       <AppBar position="static">
         <Toolbar sx={{bgcolor: 'white'}}>
          
-        <Link to="/">
+        <Link to="/Home">
             <img src={logoimg} alt="logo" height={40} />
       
             </Link>

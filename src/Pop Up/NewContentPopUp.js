@@ -5,8 +5,8 @@ import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+// import DialogContentText from "@mui/material/DialogContentText";
+// import DialogTitle from "@mui/material/DialogTitle";
 import { Box, Typography } from "@mui/material";
 // import { fontWeight } from "@mui/system";
 // import InputLabel from '@mui/material/InputLabel';
@@ -18,11 +18,11 @@ import SubmitButton from "../Components/SubmitButton";
 
 
 export default function NewContentPopUp(props) {
-  const [open, setOpen] = React.useState(false);
-  const [age, setAge] = React.useState('');
-  const [right, setRight] = React.useState('');
+  // const [open, setOpen] = React.useState(false);
+  // const [age, setAge] = React.useState('');
+  // const [ setRight] = React.useState('');
 
-  const [formdata,setFormdata] = useState({})
+  const [setFormdata] = useState({})
   const handleChange = (key,value) => {
     setFormdata((prevState) => {
         return {
@@ -33,9 +33,9 @@ export default function NewContentPopUp(props) {
     console.log(key); 
   };
   
-  const handleRight = () => {
-    setRight();
-  }; 
+  // const handleRight = () => {
+  //   setRight();
+  // }; 
 
   const handleClickOpen = () => {
     props.setOpen(true);
