@@ -1,40 +1,70 @@
-import { React,  useState } from "react";
+import { React, useState } from "react";
 import { Box, Typography } from "@mui/material";
 
 import Footer from "../Components/Footer";
-import HeaderBar from '../Components/HeaderBar'
+import HeaderBar from "../Components/HeaderBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 
-
 import SearchBox from "../Components/SearchBox";
 import AddButton from "../Components/AddButton";
-import BenefitManagementComponent1 from '../Components/BenefitManagementComponent1';
-import BenefitManagementComponent2 from '../Components/BenefitManagementComponent2';
+import BenefitManagementComponent1 from "../Components/BenefitManagementComponent1";
+import BenefitManagementComponent2 from "../Components/BenefitManagementComponent2";
 
-import '../CSS/benefitmanagement.css';
+import "../CSS/benefitmanagement.css";
 import NewBenfitPopup from "../Pop Up/NewBenfitPopup";
 
 const plans = [
-  { plan:"वार्षिक सभासदत्त्व " ,benefit:"लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3" },
-  { plan:"6 महिन्याचे सभासदत्त्व सभासदत्त्व " ,benefit:"लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3, लाभ क्रमांक 4" },
-  { plan:"3 महिन्याचे सभासदत्त्व वार्षिक सभासदत्त्व " ,benefit:"लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3" },
-  { plan:"1 महिन्याचे सभासदत्त्व वार्षिक सभासदत्त्व " ,benefit:"लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3, लाभ क्रमांक 4" },
-  { plan:"गेस्ट सभासदत्त्व " ,benefit:"लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3" },
-
-  ];
-
-const benefits = [
-    {benefit:"लाभ क्रमांक 1"},
-    {benefit:"लाभ क्रमांक 2"},
-    {benefit:"लाभ क्रमांक 3"},
-    {benefit:"लाभ क्रमांक 4"},
-    {benefit:"लाभ क्रमांक 5"},
+  {
+    plan: "वार्षिक सभासदत्त्व ",
+    benefit: "लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3",
+  },
+  {
+    plan: "6 महिन्याचे सभासदत्त्व ",
+    benefit: "लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3, लाभ क्रमांक 4",
+  },
+  {
+    plan: "3 महिन्याचे सभासदत्त्व वार्षिक सभासदत्त्व ",
+    benefit: "लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3",
+  },
+  {
+    plan: "1 महिन्याचे सभासदत्त्व वार्षिक सभासदत्त्व ",
+    benefit: "लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3, लाभ क्रमांक 4",
+  },
+  {
+    plan: "गेस्ट सभासदत्त्व ",
+    benefit: "लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3",
+  },
+  {
+    plan: "1 महिन्याचे सभासदत्त्व वार्षिक सभासदत्त्व ",
+    benefit: "लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3, लाभ क्रमांक 4",
+  },
+  {
+    plan: "गेस्ट सभासदत्त्व ",
+    benefit: "लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3",
+  },{
+    plan: "1 महिन्याचे सभासदत्त्व वार्षिक सभासदत्त्व ",
+    benefit: "लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3, लाभ क्रमांक 4",
+  },
+  {
+    plan: "गेस्ट सभासदत्त्व ",
+    benefit: "लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3",
+  },
 ];
 
+const benefits = [
+  { benefit: "लाभ क्रमांक 1" },
+  { benefit: "लाभ क्रमांक 2" },
+  { benefit: "लाभ क्रमांक 3" },
+  { benefit: "लाभ क्रमांक 4" },
+  { benefit: "लाभ क्रमांक 5" },
+  { benefit: "लाभ क्रमांक 6" },
+  { benefit: "लाभ क्रमांक 7" },
+  { benefit: "लाभ क्रमांक 8" },
+];
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -46,12 +76,11 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function BenefitManagement() {
   const [value, setValue] = useState(0);
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
-  const openNewBenifitPopuo = () =>{
-      setOpen(!open)
-  }
-
+  const openNewBenifitPopuo = () => {
+    setOpen(!open);
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -77,27 +106,34 @@ export default function BenefitManagement() {
       <Box
         sx={{
           width: "100%",
-          height: "80vh",
+          height: "90vh",
           backgroundColor: "#ffffff",
           display: "flex",
           flexDirection: "column",
           margin: "10px auto 10px auto",
         }}
       >
-        <Box sx={{ color: "#4F62B0",  marginLeft: "20px" }}>
+        <Box sx={{ color: "#4F62B0", marginLeft: "20px" }}>
           <Typography>योजना किंवा लाभ व्यवस्थापन</Typography>
         </Box>
         <Box
           sx={{
             width: "97%",
-            height: "80vh",
+            height: "90vh",
             backgroundColor: "#E1E5F8",
             display: "flex",
             flexDirection: "column",
             margin: "15px auto 10px auto",
           }}
         >
-          <Box sx={{ margin: "0.5%", flexGrow: 1 }}>
+          <Box
+            sx={{
+              margin: "0.5%",
+              flexGrow: 1,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <Box sx={{ width: "100%" }}>
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <Tabs
@@ -106,31 +142,28 @@ export default function BenefitManagement() {
                   aria-label="basic tabs example"
                   margin="10px 10px auto auto"
                   backgroundColor="white"
-                  sx={{margin:"0px auto auto ",backgroundColor:"#ffffff"}}
-
+                  sx={{
+                    margin: "0px auto auto 10px",
+                    backgroundColor: "#ffffff",
+                  }}
                 >
                   <Tab
                     label="योजना"
                     className="tabtext"
                     value={0}
-                   
+
                     // sx={{
                     //   backgroundColor: "#4F62B0",
                     //   color: "#ffffff",
-                
+
                     //   "&:hover": {
                     //     backgroundColor: "#4F62B0",
                     //     color:'#ffffff',
                     //   },
-                     
+
                     // }}
                   />
-                  <Tab
-                    label="लाभ"
-                    className="tabtext"
-                    value={1}
-                    
-                  />
+                  <Tab label="लाभ" className="tabtext" value={1} />
                 </Tabs>
 
                 {/* 1st tab */}
@@ -160,19 +193,46 @@ export default function BenefitManagement() {
                         </Item>
                       </Grid>
 
-                      {plans.map((item,index) =>(
+                      <Box
+                        sx={{
+                          display: "flex",
+                          width: "100%",
+                          justifyContent: "flex-end",
+                          margin: "16px auto  5px 16px",
+                          height: "38vh",
+                          overflow: "scroll ",
+                          overflowX: "hidden",
+                          scrollbarWidth: "thin",
+                          "&::-webkit-scrollbar": {
+                            width: "0.4em",
+                          },
+                          "&::-webkit-scrollbar-track": {
+                            background: "#E1E5F8",
+                          },
+                          "&::-webkit-scrollbar-thumb": {
+                            backgroundColor: "#888",
+                          },
+                          "&::-webkit-scrollbar-thumb:hover": {
+                            background: "#555",
+                          },
+                        }}
+                      >
+                        <Grid container spacing={1}>
+                          {plans.map((item, index) => (
                             <BenefitManagementComponent1
-                            plan={item.plan}
-                            benefit={item.benefit}/>
-                      ))}
-                      
+                              plan={item.plan}
+                              benefit={item.benefit}
+                            />
+                          ))}
+                        </Grid>
+                      </Box>
 
                       {/* button */}
                       <Box
                         display="flex"
                         margin={2}
                         justifyContent="flex-end"
-                        sx={{ width:'100%' }}
+                        sx={{ width: "100%" }}
                         onClick={openNewBenifitPopuo}
                       >
                         <AddButton buttonTitle={"+ नवीन योजना"} />
@@ -201,21 +261,48 @@ export default function BenefitManagement() {
                           <Box sx={{ width: "25%", textAlign: "left" }}>
                             <Typography>अंकाचे नाव </Typography>
                           </Box>
-
                         </Item>
                       </Grid>
+                      
+                      <Box
+                        sx={{
+                          display: "flex",
+                          width: "100%",
+                          justifyContent: "flex-end",
+                          margin: "16px auto  5px 16px",
+                          height:"38vh",
+                          overflow:"scroll ",
+                          overflowX:"hidden",
+                          scrollbarWidth:"thin",
+                          "&::-webkit-scrollbar": {
+                            width: "0.4em",
+                          },
+                          "&::-webkit-scrollbar-track": {
+                            background: "#E1E5F8",
+                          },
+                          "&::-webkit-scrollbar-thumb": {
+                            backgroundColor: "#888",
+                          },
+                          "&::-webkit-scrollbar-thumb:hover": {
+                            background: "#555",
+                          },
 
-                      {benefits.map((item,index) => (
-                        <BenefitManagementComponent2
-                        benefit={item.benefit}/>
+
+                        }}
+                      >
+                        <Grid container spacing={1}>
+
+                      {benefits.map((item, index) => (
+                        <BenefitManagementComponent2 benefit={item.benefit} />
                       ))}
+                      </Grid>
+                      </Box>
 
                       {/* button */}
                       <Box
                         display="flex"
-                        margin={2}
                         justifyContent="flex-end"
-                        sx={{ width:'100%'}}
+                        sx={{ width: "99.5%" }}
                         onClick={openNewBenifitPopuo}
                       >
                         <AddButton buttonTitle={"+ नवीन लाभ"} />
@@ -239,14 +326,10 @@ export default function BenefitManagement() {
           height: "10vh",
         }}
       >
-        <Footer/>
+        <Footer />
       </Box>
       {/* // end of footer */}
-      {
-        open && (
-          <NewBenfitPopup open={open} setOpen={setOpen}/>
-        )
-      }
+      {open && <NewBenfitPopup open={open} setOpen={setOpen} />}
     </Box>
   );
 }
