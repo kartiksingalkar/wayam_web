@@ -7,12 +7,14 @@ import DialogContent from "@mui/material/DialogContent";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import InputLabel from '@mui/material/InputLabel';
+import InputLabel from "@mui/material/InputLabel";
 import DialogTitle from "@mui/material/DialogTitle";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import "../CSS/PrimaryInformation.css";
 import { Box, FormControl } from "@mui/material";
+import moment from "moment";
+import axios from "axios";
 
 export default function NewBenfitPopup(props) {
   // POP up Open close
@@ -28,14 +30,57 @@ export default function NewBenfitPopup(props) {
   // DropDown
   const [age, setAge] = React.useState("");
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
+  const [benifitCategory, setBenifitCategory] = React.useState();
+  const [unit, setUnit] = React.useState();
+
+  const handleBenifitCategoryChange = (event) => {
+    handleFieldChange("benifit_category", event.target.value);
   };
+
+  const handleUnitChange = (event) => {
+    // setUnit(event.target.value);
+    handleFieldChange("unit", event.target.value);
+  };
+
+  const handleStatusChange = (event) => {
+    handleFieldChange("status", event.target.value);
+  };
+
   const [value, setValue] = React.useState(null);
+
+  const [data, setData] = React.useState({});
+  const handleFieldChange = (key, value) => {
+    setData((oldData) => ({
+      ...oldData,
+      [key]: value,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/createbenifit`,
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.data.status) {
+        props.setOpen(false);
+        props.setData((oldData)=>{
+          return [...oldData, data]
+        })
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    // console.log(data);
+  };
 
   return (
     <div>
-      
       <Button variant="outlined" onClick={handleClickOpen}>
         + नवीन लाभ
       </Button>
@@ -57,32 +102,52 @@ export default function NewBenfitPopup(props) {
             }}
             size="small"
             variant="outlined"
-          ></TextField>
+            value={data.benifit_name}
+            onChange={(e) => handleFieldChange("benifit_name", e.target.value)}
+          />
           {/* DropDown */}
           <FormControl>
-          <InputLabel id="demo-simple-select-helper">येथे प्रकाशित करा</InputLabel>
-          <Select
-            labelId="demo-simple-select-helper-label"
-            id="demo-simple-select-helper"
-            value={age}
-            label="येथे प्रकाशित करा "
-            size="small"
-            sx={{
-              width: "400px",
-              backgroundColor: "white", 
-              marginBottom: "3%",
-            //   color: "gray",
-            }}
-            onChange={handleChange}
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
+            <InputLabel id="demo-simple-select-helper">प्रकार</InputLabel>
+            <Select
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              value={data.benifit_category}
+              label="येथे प्रकाशित करा "
+              size="small"
+              sx={{
+                width: "400px",
+                backgroundColor: "white",
+                marginBottom: "3%",
+                //   color: "gray",
+              }}
+              onChange={handleBenifitCategoryChange}
+            >
+              <MenuItem value="content">content</MenuItem>
+              <MenuItem value="duration">duration</MenuItem>
+            </Select>
           </FormControl>
+
+          <FormControl>
+            <InputLabel id="demo-simple-select-helper">Status</InputLabel>
+            <Select
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              value={data.status}
+              label="Status"
+              size="small"
+              sx={{
+                width: "400px",
+                backgroundColor: "white",
+                marginBottom: "3%",
+                //   color: "gray",
+              }}
+              onChange={handleStatusChange}
+            >
+              <MenuItem value="active">Active</MenuItem>
+              <MenuItem value="inactive">Inactive</MenuItem>
+            </Select>
+          </FormControl>
+
           <TextField
             id="outlined-basic"
             label="लाभ मूल्य "
@@ -94,57 +159,78 @@ export default function NewBenfitPopup(props) {
             }}
             size="small"
             variant="outlined"
-          ></TextField>
+            value={data.value}
+            onChange={(e) => handleFieldChange("value", e.target.value)}
+          />
           <FormControl>
-          <InputLabel id="demo-simple-select-helper">युनिट निवडा</InputLabel>
-          <Select
-            labelId="demo-simple-select-helper-label"
-            id="demo-simple-select-helper"
-            value={age}
-            label="युनिट निवडा"
-            size="small"
-            sx={{
-              width: "400px",
-              backgroundColor: "white",
-              marginBottom: "3%",
-            }}
-            onChange={handleChange}
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>दिवस</MenuItem>
-            <MenuItem value={20}>महिने</MenuItem>
-            <MenuItem value={30}>काउन्ट</MenuItem>
-          </Select>
+            <InputLabel id="demo-simple-select-helper">युनिट निवडा</InputLabel>
+            <Select
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              value={data.unit}
+              label="युनिट निवडा"
+              size="small"
+              sx={{
+                width: "400px",
+                backgroundColor: "white",
+                marginBottom: "3%",
+              }}
+              onChange={handleUnitChange}
+            >
+              {/* <MenuItem value="">
+                <em>None</em>
+              </MenuItem> */}
+              <MenuItem value="days">दिवस</MenuItem>
+              <MenuItem value="months">महिने</MenuItem>
+              {/* <MenuItem value='co'>काउन्ट</MenuItem> */}
+            </Select>
           </FormControl>
           {/* Date Picker */}
-          <Box  sx={{ width: "200px", backgroundColor: "white" ,marginBottom:'5%'}}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              label="प्रारंभ तारीख"
-              size="small"
-              value={value}
-              onChange={(newValue) => {
-                setValue(newValue);
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </LocalizationProvider>
+          <Box
+            sx={{
+              width: "200px",
+              backgroundColor: "white",
+              marginBottom: "5%",
+            }}
+          >
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="प्रारंभ तारीख"
+                size="small"
+                value={data.benifit_creation_date}
+                onChange={(newValue) => {
+                  handleFieldChange(
+                    "benifit_creation_date",
+                    moment(newValue).format("DD/MM/YYYY")
+                  );
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
           </Box>
-          <Box  sx={{ width: "200px", backgroundColor: "white" ,marginBottom:'5%'}}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              label="शेवटची तारीख"
-              sx={{ width: "400px", backgroundColor: "white" }}
-              size="xs"
-              value={value}
-              onChange={(newValue) => {
-                setValue(newValue);
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </LocalizationProvider>
+          <Box
+            sx={{
+              width: "200px",
+              backgroundColor: "white",
+              marginBottom: "5%",
+            }}
+          >
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="शेवटची तारीख"
+                format="MM/dd/yyyy"
+                sx={{ width: "400px", backgroundColor: "white" }}
+                size="xs"
+                value={data.benifit_exp_date}
+                onChange={(newValue) => {
+                  handleFieldChange(
+                    "benifit_exp_date",
+                    moment(newValue).format("DD/MM/YYYY")
+                  );
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
           </Box>
         </DialogContent>
         {/* Action Button */}
@@ -157,7 +243,7 @@ export default function NewBenfitPopup(props) {
               backgroundColor: "#4F62B0",
               color: "white",
             }}
-            onClick={handleClose}
+            onClick={handleSubmit}
           >
             पक्के करा{" "}
           </Button>

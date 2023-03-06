@@ -40,7 +40,7 @@ import Dashboard from "../src/Pages/Dashboard";
 import BenefitMangement from "../src/Pages/BenefitMangement";
 import ContentManagement from "./Pages/ContentManagement";
 import OrganisationalInfo from "./Pages/OrganisationalInfo";
-import PrimaryInformation from "./Pages/PrimaryInformation"
+import PrimaryInformation from "./Pages/PrimaryInformation";
 import StaffList from "./Components/StaffList";
 import NewStaffPopup from "./Pop Up/NewStaffPopup";
 // import Issuemanagement from "./Pages/Issuemanagement1"
@@ -49,28 +49,25 @@ import NewBenfitPopup from "./Pop Up/NewBenfitPopup";
 import NewTemplate from "./Pop Up/NewTemplate";
 import NewSubscriberPopup from "./Pop Up/NewSubscriberPopup";
 import Login from "./Pages/Login";
-import ConfirmPassword from "./Pages/ConfirmPassword"
-import ChangePassword from "./Pages/ChangePassword"
+import ConfirmPassword from "./Pages/ConfirmPassword";
+import ChangePassword from "./Pages/ChangePassword";
 
 function App() {
   return (
     <>
       <Router>
         <Switch>
-        <Route exact path="/">
-            <Login/>
+          <Route exact path="/">
+            <Login />
           </Route>
 
+          <Route path="/confrimpassword">
+            <ConfirmPassword />
+          </Route>
 
-    <Route path="/confrimpassword">
-      <ConfirmPassword/>
-    </Route>
-
-
-    <Route path="/ChangePassword">
-      <ChangePassword/>
-    </Route>
-
+          <Route path="/ChangePassword">
+            <ChangePassword />
+          </Route>
 
           <Route exact path="/Home">
             <Dashboard />
@@ -89,7 +86,7 @@ function App() {
           <Route path="/BenefitMangement">
             <BenefitMangement />
           </Route>
-        
+
           {/* prakashanvyavasthapan */}
 
           {/* yojnavyavasthapan */}
@@ -108,10 +105,10 @@ function App() {
           <Route path="/PrimaryInformation">
             <PrimaryInformation />
           </Route>
-          
+
           {/* PrimaryInformation */}
 
-            <Route path="/StaffList">
+          <Route path="/StaffList">
             <StaffList />
           </Route>
 
@@ -124,26 +121,24 @@ function App() {
           </Route>
 
           <Route path="/Issuemanagement1">
-            <Issuemanagement1/>
+            <Issuemanagement1 />
           </Route>
 
-          <Route path='/NewBenfitPopup'>
-            <NewBenfitPopup/>
+          <Route path="/NewBenfitPopup">
+            <NewBenfitPopup />
           </Route>
 
           <Route path="/IssueManagement">
-            <IssueManagement/>
+            <IssueManagement />
           </Route>
 
-          <Route path='/NewTemplate'>
-            <NewTemplate/>
+          <Route path="/NewTemplate">
+            <NewTemplate />
           </Route>
 
           <Route path="/NewSubscriberPopup">
-            <NewSubscriberPopup/>
+            <NewSubscriberPopup />
           </Route>
-
-
         </Switch>
       </Router>
 

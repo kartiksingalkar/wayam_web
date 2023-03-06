@@ -1,4 +1,4 @@
-import { React, useState} from "react";
+import { React, useState } from "react";
 import { Box, Typography } from "@mui/material";
 // import Footer from "../Components/Footer";
 
@@ -10,31 +10,27 @@ import uidesign1 from "../Images/uidesign1.png";
 import "../CSS/dashboard.css";
 import { Link } from "react-router-dom";
 
-import HeaderBar from '../Components/HeaderBar'
+import HeaderBar from "../Components/HeaderBar";
 // import StaffList from "../Components/StaffList";
 import SubscriberListPopUp from "../Pop Up/SuscriberListPopUp";
 
-
 export default function Dashboard() {
- 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
-  const openStaffList = () =>{
-      setOpen(!open)
-  }
-
+  const openSubscriberList = () => {
+    setOpen(!open);
+  };
 
   return (
     // start of navbar
     <Box sx={{ height: "100vh" }}>
-        <HeaderBar />
-   
+      <HeaderBar />
+
       {/* // end of navbar */}
 
       {/* // start of dashboard */}
       <Box
         sx={{
-         
           height: "80vh",
           // backgroundColor: 'transparent',
           display: "flex",
@@ -45,59 +41,58 @@ export default function Dashboard() {
         <Box
           className="upperGrid"
           sx={{
-        
             height: "50vh",
             display: "flex",
             flexWrap: "wrap",
             flexDirection: "row",
-            justifyContent:'center',
-            mt:2
+            justifyContent: "center",
+            mt: 2,
             // flex:1,
             // margin: "10px auto 10px auto",
-
           }}
         >
           <Box
             sx={{
               width: "45%",
               textAlign: "center",
-              
+
               justifyContent: "center",
               alignItems: "center",
               backgroundColor: "#E1E5F8",
-              
+
               minWidth: "250px",
               maxWidth: "50%",
               m: 1,
             }}
           >
-            <Link to="/Organisationalinfo" style={{ textDecoration: 'none'  ,color:'black' }}>
-            <Box
-              sx={{
-                height: "10vh",
-                width: "100%",
-                justifyContent: "center",
-                alignItems: "center",
-                textAlign: "center",
-              }}
+            <Link
+              to="/Organisationalinfo"
+              style={{ textDecoration: "none", color: "black" }}
             >
-              <Typography mt={3}>संस्थेची माहिती </Typography>
-            </Box>
-            
-            <Box
-              className="box1"
-              sx={{
-                alignItems: "center",
-                justifyContent: "center",
-                textAlign: "center",
-              }}
-            >
-              <img src={management1} alt="SVG" width="80vh" height="80vh" />
-            </Box>
+              <Box
+                sx={{
+                  height: "10vh",
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  textAlign: "center",
+                }}
+              >
+                <Typography mt={3}>संस्थेची माहिती </Typography>
+              </Box>
+
+              <Box
+                className="box1"
+                sx={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textAlign: "center",
+                }}
+              >
+                <img src={management1} alt="SVG" width="80vh" height="80vh" />
+              </Box>
             </Link>
-            
           </Box>
-        
 
           <Box
             sx={{
@@ -111,9 +106,8 @@ export default function Dashboard() {
               maxWidth: "50%",
               minWidth: "250px",
               m: 1,
-           
             }}
-            onClick={openStaffList}
+            onClick={openSubscriberList}
           >
             {/* <Link to="/StaffList"> */}
             <Box
@@ -124,7 +118,7 @@ export default function Dashboard() {
                 alignItems: "center",
                 textAlign: "center",
               }}
-              onClick={openStaffList}
+              onClick={openSubscriberList}
             >
               <Typography mt={3}>सदस्य व्यवस्थापन</Typography>
             </Box>
@@ -160,7 +154,7 @@ export default function Dashboard() {
             justifyContent: "center",
             alignItems: "center",
             textAlign: "center",
-          
+
             m: 1,
           }}
         >
@@ -177,70 +171,33 @@ export default function Dashboard() {
               m: 1,
             }}
           >
-            <Link to="/BenefitMangement" style={{ textDecoration: 'none'  ,color:'black' }}>
-            <Box
-              sx={{
-                height: "10vh",
-                width: "100%",
-                justifyContent: "center",
-                alignItems: "center",
-                textAlign: "center",
-              }}
+            <Link
+              to="/BenefitMangement"
+              style={{ textDecoration: "none", color: "black" }}
             >
-              <Typography mt={3}>योजना / लाभ व्यवस्थापन </Typography>
-            </Box>
-            
+              <Box
+                sx={{
+                  height: "10vh",
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  textAlign: "center",
+                }}
+              >
+                <Typography mt={3}>योजना / लाभ व्यवस्थापन </Typography>
+              </Box>
 
-            <Box
-              sx={{
-                alignItems: "center",
-                justifyContent: "center",
-                textAlign: "center",
-              }}
-            >
-              <img src={benefits1} alt="SVG" width="80vh" height="80vh" />
-            </Box>
+              <Box
+                sx={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textAlign: "center",
+                }}
+              >
+                <img src={benefits1} alt="SVG" width="80vh" height="80vh" />
+              </Box>
             </Link>
           </Box>
-
-         <Box
-            sx={{
-              height: "37vh",
-              width: "30%",
-              backgroundColor: "#E1E5F8",
-              margin: "0px 10px 0px 10px",
-              textAlign: "center",
-              justifyContent: "center",
-              alignItems: "center",
-              minWidth: "250px",
-              m: 1,
-            }}
-          ><Link to="/Librarymanagement" style={{ textDecoration: 'none'  ,color:'black' }}> 
-            <Box
-              sx={{
-                height: "10vh",
-                width: "100%",
-                justifyContent: "center",
-                alignItems: "center",
-                textAlign: "center",
-              }}
-            >
-              <Typography mt={3}>लायब्ररी व्यवस्थापन</Typography>
-            </Box>
-
-
-            <Box
-              sx={{
-                alignItems: "center",
-                justifyContent: "center",
-                textAlign: "center",
-              }}
-            >
-              <img src={writer1} alt="SVG" width="80vh" height="80vh" />
-            </Box>
-            </Link>
-          </Box>
-          
 
           <Box
             sx={{
@@ -254,46 +211,83 @@ export default function Dashboard() {
               minWidth: "250px",
               m: 1,
             }}
-          ><Link to="/Issuemanagement1" style={{ textDecoration: 'none'  ,color:'black' }}>
-            <Box
-              sx={{
-                height: "10vh",
-                width: "100%",
-                justifyContent: "center",
-                alignItems: "center",
-                textAlign: "center",
-              }}
+          >
+            <Link
+              to="/Librarymanagement"
+              style={{ textDecoration: "none", color: "black" }}
             >
-              <Typography mt={3}>प्रकाशन व्यवस्थापन</Typography>
-            </Box>
-            <Box
-              sx={{
-                alignItems: "center",
-                justifyContent: "center",
-                textAlign: "center",
-              }}
-            >
-              <img src={uidesign1} alt="SVG" width="80vh" height="80vh" />
-            </Box>
+              <Box
+                sx={{
+                  height: "10vh",
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  textAlign: "center",
+                }}
+              >
+                <Typography mt={3}>लायब्ररी व्यवस्थापन</Typography>
+              </Box>
+
+              <Box
+                sx={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textAlign: "center",
+                }}
+              >
+                <img src={writer1} alt="SVG" width="80vh" height="80vh" />
+              </Box>
             </Link>
           </Box>
-         
+
+          <Box
+            sx={{
+              height: "37vh",
+              width: "30%",
+              backgroundColor: "#E1E5F8",
+              margin: "0px 10px 0px 10px",
+              textAlign: "center",
+              justifyContent: "center",
+              alignItems: "center",
+              minWidth: "250px",
+              m: 1,
+            }}
+          >
+            <Link
+              to="/Issuemanagement1"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <Box
+                sx={{
+                  height: "10vh",
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  textAlign: "center",
+                }}
+              >
+                <Typography mt={3}>प्रकाशन व्यवस्थापन</Typography>
+              </Box>
+              <Box
+                sx={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textAlign: "center",
+                }}
+              >
+                <img src={uidesign1} alt="SVG" width="80vh" height="80vh" />
+              </Box>
+            </Link>
+          </Box>
         </Box>
-       
       </Box>
       {/* // end of dashboard */}
 
       {/* // start of footer */}
       {/* <Footer /> */}
       {/* // end of footer */}
-      
-      {
-        open && (
-          <SubscriberListPopUp open={open} setOpen={setOpen}/>
-        )
-      }
 
-
+      {open && <SubscriberListPopUp open={open} setOpen={setOpen} />}
     </Box>
   );
 }

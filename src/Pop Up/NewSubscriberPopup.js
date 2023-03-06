@@ -9,14 +9,15 @@ import Input from "@mui/material/Input";
 import "../CSS/PrimaryInformation.css";
 import img2 from "../Images/organizationchart2.png";
 import { Box } from "@mui/system";
+import axios from "axios";
 
 export default function NewSubscriberPopup(props) {
   // Handle Change Event
-  const [formData, setFormData] = useState({});
+  const [data, setData] = useState({});
   const handleChange = (key, value) => {
-    setFormData((prevState) => {
+    setData((oldData) => {
       return {
-        ...prevState,
+        ...oldData,
         [key]: value,
       };
     });
@@ -32,6 +33,33 @@ export default function NewSubscriberPopup(props) {
 
   const handleClose = () => {
     props.setOpen(false);
+  };
+
+  const onFileChange = (profile_photo_path, file) => {
+    console.log(file);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      let response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/adduser`,
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.data.status) {
+        props.setData((oldData)=>{
+          return [...oldData, data]
+        })
+        props.setOpen(false);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -53,7 +81,6 @@ export default function NewSubscriberPopup(props) {
           {/* Left Input Box */}
           <Box sx={{ flexDirection: "row" }}>
             <TextField
-              id="outlined-basic"
               label="ई - मेल आयडी *"
               sx={{
                 width: "400px",
@@ -62,11 +89,12 @@ export default function NewSubscriberPopup(props) {
                 backgroundColor: "white",
               }}
               onChange={(e) => {
-                handleChange("Email", e.target.value);
+                handleChange("email", e.target.value);
               }}
               size="small"
               variant="outlined"
-            ></TextField>
+              value={data.email}
+            />
 
             <TextField
               id="outlined-basic"
@@ -78,11 +106,12 @@ export default function NewSubscriberPopup(props) {
                 backgroundColor: "white",
               }}
               onChange={(e) => {
-                handleChange("Pincode", e.target.value);
+                handleChange("pincode", e.target.value);
               }}
               size="small"
               variant="outlined"
-            ></TextField>
+              value={data.pincode}
+            />
             <TextField
               id="outlined-basic"
               label="पत्ता ओळ 1"
@@ -93,39 +122,32 @@ export default function NewSubscriberPopup(props) {
                 backgroundColor: "white",
               }}
               onChange={(e) => {
-                handleChange("Address1", e.target.value);
+                handleChange("address1", e.target.value);
               }}
               size="small"
               variant="outlined"
-            ></TextField>
+              value={data.address1}
+            />
             {/* Profile Upload */}
-            <Box
+            <Button
               sx={{
-                width: "380px",
-                backgroundColor: "white",
-                height: "18px",
-                justifyContent: "center",
-                border:'0.2px solid #999999',
+                width: "400px",
                 borderRadius: "5px",
-                color: "gray",
-                padding: "10px",
+                marginBottom: "3%",
+                // backgroundColor: "white",
               }}
+              variant="contained"
+              component="label"
             >
-              {/* Label */}
-              <label
-                sx={{ width: "80px", backgroundColor: "white" }}
-                for="upload-photo"
-              >
-                प्रोफाइल फोटो
-              </label>
-              {/* File Uploader */}
+              प्रोफाइल फोटो
               <input
                 type="file"
-                style={{ display: "none" }}
-                name="photo"
-                id="upload-photo"
+                hidden
+                onChange={(e) => {
+                  onFileChange("profile_photo_path", e.target.files[0]);
+                }}
               />
-            </Box>
+            </Button>
           </Box>
           {/* Right Input Box */}
           <Box sx={{ flexDirection: "column" }}>
@@ -140,11 +162,12 @@ export default function NewSubscriberPopup(props) {
                 backgroundColor: "white",
               }}
               onChange={(e) => {
-                handleChange("MobileNo", e.target.value);
+                handleChange("mbl_no", e.target.value);
               }}
               size="small"
               variant="outlined"
-            ></TextField>
+              value={data.mobilenumber}
+            />
             <TextField
               id="outlined-basic"
               label="शहर *"
@@ -156,11 +179,12 @@ export default function NewSubscriberPopup(props) {
                 backgroundColor: "white",
               }}
               onChange={(e) => {
-                handleChange("City", e.target.value);
+                handleChange("city", e.target.value);
               }}
               size="small"
               variant="outlined"
-            ></TextField>
+              value={data.city}
+            />
             <TextField
               id="outlined-basic"
               label="पत्ता ओळ 2"
@@ -172,11 +196,12 @@ export default function NewSubscriberPopup(props) {
                 backgroundColor: "white",
               }}
               onChange={(e) => {
-                handleChange("Address2", e.target.value);
+                handleChange("address2", e.target.value);
               }}
               size="small"
               variant="outlined"
-            ></TextField>
+              value={data.address2}
+            />
             <DialogActions sx={{ backgroundColor: "#E1E5F8", margin: 0 }}>
               {/* <Button onClick={handleClose}>रद्ध करा</Button> */}
               <Button
@@ -186,7 +211,7 @@ export default function NewSubscriberPopup(props) {
                   backgroundColor: "#4F62B0",
                   color: "white",
                 }}
-                onClick={handleClose}
+                onClick={handleSubmit}
               >
                 सेव करा
               </Button>

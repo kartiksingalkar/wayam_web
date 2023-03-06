@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -6,37 +6,63 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import "../CSS/PrimaryInformation.css";
 import img2 from "../Images/organizationchart2.png";
 import { Box } from "@mui/system";
+import axios from "axios";
 
 export default function NewStaffPopup(props) {
   // Pop up
-  console.log("Hello")
+  console.log("Hello");
   // const [open, setOpen] = React.useState(true);
-console.log(props)
-  const handleClickOpen = () => {
-    props.setOpen(true);
-    
-  };
+  console.log(props);
 
   const handleClose = () => {
     props.setOpen(false);
   };
   // Drop down
-  const [age, setAge] = React.useState("");
-  const handleChange = (event) => {
-    setAge(event.target.value);
+  const handleAgeChange = (event) => {
+    handleFieldChange("managerName", event.target.value);
   };
+
+  const [data, setData] = useState({});
+
+  const handleFieldChange = (key, value) => {
+    setData((oldData) => ({
+      ...oldData,
+      [key]: value,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    console.log(data);
+    try {
+      let response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/addstaffmember`,
+        data
+      );
+
+      console.log(response);
+      if (response.data.status) {
+        props.setData((oldData) => {
+          return [...oldData, data];
+        });
+      }
+      handleClose();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onFileChange = (profile_photo_path, file) => {
+    console.log(file);
+  };
+
   return (
     <div>
-        {/* Button */}
-      <Button variant="outlined" onClick={handleClickOpen}>
-      + नवीन कर्मचारी
-      </Button>
       {/* Popup Screen */}
       <Dialog maxWidth="xl" open={props.open} onClose={handleClose}>
         {/* Popup Title */}
@@ -47,11 +73,11 @@ console.log(props)
         <DialogContent
           sx={{ backgroundColor: "#E1E5F8", width: "1000px", display: "flex" }}
         >
-            {/* Left Input Box */}
+          {/* Left Input Box */}
           <Box sx={{ flexDirection: "row" }}>
             <TextField
-              id="outlined-basic"
-              label="नाव *"
+              label="नाव"
+              required
               sx={{
                 width: "400px",
                 borderRadius: "5px",
@@ -60,7 +86,10 @@ console.log(props)
               }}
               size="small"
               variant="outlined"
-            ></TextField>
+              value={data.name}
+              onChange={(e) => handleFieldChange("name", e.target.value)}
+            />
+
             <TextField
               id="outlined-basic"
               label="ई - मेल आयडी *"
@@ -72,7 +101,9 @@ console.log(props)
               }}
               size="small"
               variant="outlined"
-            ></TextField>
+              value={data.email}
+              onChange={(e) => handleFieldChange("email", e.target.value)}
+            />
             <TextField
               id="outlined-basic"
               label="पिन कोड"
@@ -84,7 +115,9 @@ console.log(props)
               }}
               size="small"
               variant="outlined"
-            ></TextField>
+              value={data.pincode}
+              onChange={(e) => handleFieldChange("pincode", e.target.value)}
+            />
             <TextField
               id="outlined-basic"
               label="पत्ता ओळ 1"
@@ -96,8 +129,10 @@ console.log(props)
               }}
               size="small"
               variant="outlined"
-            ></TextField>
-            <TextField
+              value={data.address1}
+              onChange={(e) => handleFieldChange("address1", e.target.value)}
+            />
+            {/* <TextField
               id="outlined-basic"
               label="प्रोफाइल फोटो"
               sx={{
@@ -108,22 +143,10 @@ console.log(props)
               }}
               size="small"
               variant="outlined"
-            ></TextField>
-            <TextField
-              id="outlined-basic"
-              label="जुना पासवर्ड"
-              sx={{
-                width: "400px",
-                borderRadius: "5px",
-                marginBottom: "3%",
-                backgroundColor: "white",
-              }}
-              size="small"
-              variant="outlined"
-            ></TextField>
-          </Box>
-              {/* Right Input Box */}
-          <Box sx={{ flexDirection: "column" }}>
+              type="file"
+              onFile
+            /> */}
+
             <TextField
               id="outlined-basic"
               label="मोबाईल नंबर *"
@@ -136,7 +159,34 @@ console.log(props)
               }}
               size="small"
               variant="outlined"
-            ></TextField>
+              value={data.mobileNumber}
+              onChange={(e) =>
+                handleFieldChange("mobileNumber", e.target.value)
+              }
+            />
+
+            <Button
+              sx={{
+                width: "400px",
+                borderRadius: "5px",
+                marginBottom: "3%",
+                // backgroundColor: "white",
+              }}
+              variant="contained"
+              component="label"
+            >
+              प्रोफाइल फोटो
+              <input
+                type="file"
+                hidden
+                onChange={(e) => {
+                  onFileChange("profile_photo_path", e.target.files[0]);
+                }}
+              />
+            </Button>
+          </Box>
+          {/* Right Input Box */}
+          <Box sx={{ flexDirection: "column" }}>
             <TextField
               id="outlined-basic"
               label="आधार क्रमांक *"
@@ -149,7 +199,11 @@ console.log(props)
               }}
               size="small"
               variant="outlined"
-            ></TextField>
+              value={data.aadharNumber}
+              onChange={(e) =>
+                handleFieldChange("aadharNumber", e.target.value)
+              }
+            />
             <TextField
               id="outlined-basic"
               label="शहर *"
@@ -162,7 +216,9 @@ console.log(props)
               }}
               size="small"
               variant="outlined"
-            ></TextField>
+              value={data.city}
+              onChange={(e) => handleFieldChange("city", e.target.value)}
+            />
             <TextField
               id="outlined-basic"
               label="पत्ता ओळ 2"
@@ -175,29 +231,38 @@ console.log(props)
               }}
               size="small"
               variant="outlined"
-            ></TextField>
+              value={data.address2}
+              onChange={(e) => handleFieldChange("address2", e.target.value)}
+            />
             <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">व्यवस्थापकाचे नाव</InputLabel>
-             <Select
-              labelId="demo-simple-select-helper-label"
-              id="demo-simple-select-helper"
-              value={age}
-              label="व्यवस्थापकाचे नाव"
-              size="small"
-              sx={{width:'400px',backgroundColor:"white",marginBottom: "3%",color:'gray',marginLeft: "2%",}}
-              onChange={handleChange}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
+              <InputLabel id="demo-simple-select-label">
+                व्यवस्थापकाचे नाव
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
+                value={data.managerName}
+                label="व्यवस्थापकाचे नाव"
+                size="small"
+                sx={{
+                  width: "400px",
+                  backgroundColor: "white",
+                  marginBottom: "3%",
+                  color: "gray",
+                  marginLeft: "2%",
+                }}
+                onChange={handleAgeChange}
+              >
+                {/* <MenuItem value="">
+                  <em>None</em>
+                </MenuItem> */}
+                <MenuItem value={1}>Sameer Karandikar</MenuItem>
+                <MenuItem value={2}>Shilpa Inamdar</MenuItem>
+              </Select>
             </FormControl>
             <TextField
               id="outlined-basic"
-              label="नवीन पासवर्ड"
+              label="पासवर्ड"
               sx={{
                 width: "400px",
                 borderRadius: "5px",
@@ -207,11 +272,27 @@ console.log(props)
               }}
               size="small"
               variant="outlined"
-            ></TextField>
+              value={data.newPassword}
+              onChange={(e) => handleFieldChange("password", e.target.value)}
+            />
+            <TextField
+              id="outlined-basic"
+              label=" पासवर्ड"
+              sx={{
+                width: "400px",
+                borderRadius: "5px",
+                marginBottom: "3%",
+                backgroundColor: "white",
+              }}
+              size="small"
+              variant="outlined"
+              value={data.oldPassword}
+              onChange={(e) => handleFieldChange("oldPassword", e.target.value)}
+            />
           </Box>
-            {/* Image Box */}
+          {/* Image Box */}
           <Box sx={{ flexDirection: "column" }}>
-            <img src={img2} alt='png' />
+            <img src={img2} alt="png" />
           </Box>
         </DialogContent>
         {/* Action Button */}
@@ -224,7 +305,7 @@ console.log(props)
               backgroundColor: "#4F62B0",
               color: "white",
             }}
-            onClick={handleClose}
+            onClick={handleSubmit}
           >
             सेव करा
           </Button>

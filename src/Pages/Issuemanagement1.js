@@ -1,4 +1,4 @@
-import { React,  useState } from "react";
+import { React, useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 // import Navbar from "../Components/Navbar";
 import Header from "../Components/HeaderBar";
@@ -24,6 +24,7 @@ import NewTemplate from "../Pop Up/NewTemplate";
 
 import AddButton from "../Components/AddButton";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const data = [
   { templateTitle: "टेम्प्लेट 1", type: "चौकस चौरस , गप्पाटप्पा" },
@@ -75,17 +76,62 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Issuemanagement1() {
-  const [open, setopen] = useState(false)
+  const [open, setopen] = useState(false);
 
-  const NewTemplatee = () =>{
-      setopen(!open)
-  }
+  const NewTemplatee = () => {
+    setopen(!open);
+  };
 
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const [categories, setCategories] = useState([]);
+  const [templates, setTemplates] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/getalltemplates`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.data.status) {
+          setTemplates(response.data.data);
+          console.log("templates", response.data.data);
+        }
+      } catch (e) {}
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/getallcategories`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.data.status) {
+          setCategories(response.data.data);
+          console.log("categories", response.data.data);
+        }
+      } catch (e) {}
+    }
+    fetchData();
+  }, []);
 
   return (
     <Box sx={{ height: "100vh" }}>
@@ -186,10 +232,10 @@ export default function Issuemanagement1() {
                         </Item>
                       </Grid>
 
-                      {data.map((item, index) => (
+                      {templates.map((item, index) => (
                         <IssueManagementComponent
-                          templateTitle={item.templateTitle}
-                          type={item.type}
+                          templateTitle={item.template_name}
+                          type={Object.values(item.types).join(", ")}
                         />
                       ))}
 
@@ -198,7 +244,7 @@ export default function Issuemanagement1() {
                         display="flex"
                         margin={2}
                         justifyContent="flex-end"
-                        sx={{ width:'100%' }}
+                        sx={{ width: "100%" }}
                         onClick={NewTemplatee}
                       >
                         <AddButton buttonTitle={"+ नवीन मजकूर"} />
@@ -249,17 +295,20 @@ export default function Issuemanagement1() {
                       ))}
 
                       {/* button */}
-                      
+
                       <Box
                         display="flex"
                         margin={2}
                         justifyContent="flex-end"
-                        sx={{ width:'100%'}}
-                      ><Link to='/IssueManagement' style={{textDecoration:'none'}}>
-                        <AddButton buttonTitle={"+ नवीन अंक"} />
+                        sx={{ width: "100%" }}
+                      >
+                        <Link
+                          to="/IssueManagement"
+                          style={{ textDecoration: "none" }}
+                        >
+                          <AddButton buttonTitle={"+ नवीन अंक"} />
                         </Link>
                       </Box>
-                      
                     </Grid>
                   </Box>
                 )}
@@ -281,11 +330,7 @@ export default function Issuemanagement1() {
       >
         <Footer1 />
       </Box>
-      {
-        open && (
-          <NewTemplate open={open} setOpen={setopen}/>
-        )
-      }
+      {open && <NewTemplate open={open} setOpen={setopen} />}
       {/* // end of footer */}
     </Box>
   );

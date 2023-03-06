@@ -16,7 +16,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 export default function BenefitManagementComponent1(props) {
-  const {plan, benefit} = props;
+  const {plan, benefit, duration} = props;
   return (
       <Grid item xs={12}>
                 <Item sx={{display:'flex',flexDirection:'row',justifyContent:'space-between',backgroundColor:'#FFFFFF',color:"#4F62B0"}}>
@@ -25,7 +25,7 @@ export default function BenefitManagementComponent1(props) {
                     <img src={frame} width="17.17px" height="17.17px" alt="SVG" style={{ paddingLeft:"10px",paddingRight:"10px" }}/>
                     <Typography>{plan}</Typography>
                     </Box>
-                    <Box sx={{textAlign:"left", width:"50%"}} ><Typography>{benefit}</Typography></Box>
+                    <Box sx={{textAlign:"left", width:"50%"}} ><Typography>{duration}</Typography></Box>
                 </Item>
     </Grid>
   )

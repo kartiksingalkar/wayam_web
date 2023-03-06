@@ -3,16 +3,17 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import { Box, FormControl } from "@mui/material";
 import Select from "@mui/material/Select";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import addBtn from '../Images/add.png'
+import addBtn from "../Images/add.png";
+import axios from "axios";
 
 function NewTemplate(props) {
   // POP up Open close
-  console.log(props)
+  console.log(props);
   // const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -22,27 +23,86 @@ function NewTemplate(props) {
   const handleClose = () => {
     props.setOpen(false);
   };
-  const [val, setVal] = useState([]);
-  const handleAdd = () => {
-    const abc = [...val, []];
-    setVal(abc);
-  };
-  const handleChange = (onChangeValue, i) => {
-    const inputdata = [...val];
-    inputdata[i] = onChangeValue.target.value;
-    setVal(inputdata);
-  };
-  const handleDelete = (i) => {
-    const deletVal = [...val];
-    deletVal.splice(i, 1);
-    setVal(deletVal);
-  };
-  console.log(val, "data-");
-  const [age, setAge] = React.useState("");
 
-  const handleChange1 = (event) => {
-    setAge(event.target.value);
+  const [data, setData] = useState({});
+  const [count, setCount] = useState([]);
+
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/getallcategories`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.data.status) {
+          setCategories(response.data.data);
+        }
+      } catch (e) {}
+    }
+    fetchData();
+  }, []);
+
+  const [name, setName] = useState("");
+
+  const nameChange = (key, value) => {
+    handleChange(key, value);
   };
+
+  const [countData, setCountData] = useState({});
+
+  const [type, setType] = useState({})
+
+  const handleCountChange = (key, value, name) => {
+    let obj = { ...countData, [key]: value };
+
+    setType((old)=>{
+      return {...old, [key]: name}
+    })
+
+
+    setCountData(obj);
+
+    // setCountData((oldData) => {
+    //   return { ...oldData, [key]: value };
+    // });
+    handleChange("template_data", countData);
+    handleChange("types", type)
+  };
+
+  const handleChange = (key, value) => {
+    setData((oldData) => {
+      return { ...oldData, [key]: value };
+    });
+  };
+
+  const handleSubmit = async () => {
+    console.log(data);
+    try {
+      let response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/addtemplate`,
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.data.status) {
+        console.log(response.data);
+        props.setOpen(false);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   // const [value, setValue] = React.useState(null);
   return (
     <>
@@ -56,7 +116,7 @@ function NewTemplate(props) {
           sx={{
             backgroundColor: "#E1E5F8",
             width: "94%",
-            display:"flex",
+            display: "flex",
             flexDirection: "row",
           }}
         >
@@ -72,63 +132,73 @@ function NewTemplate(props) {
                 backgroundColor: "white",
               }}
               size="small"
-              //   onChange={e=>handleChange(e,i)}
+              onChange={(e) => handleChange("template_name", e.target.value)}
               variant="outlined"
-            ></TextField>
+            />
             {/* Add Button */}
-            <img sx={{marginLeft:'2%'}} src={addBtn} alt="hello" onClick={() => handleAdd()}/>
+            <img sx={{ marginLeft: "2%" }} src={addBtn} alt="hello" />
             {/* <Button onClick={() => handleAdd()}>Add</Button> */}
-            {val.map((data, i) => {
+            {categories.map((item) => {
               return (
                 <div>
-                  <Box sx={{width:'100%',display:"flex"}}>
-                  <Box sx={{display:'flex', flexDirection: "row" }}>
-                    <FormControl>
-                      <InputLabel id="demo-simple-select-helper">
-                        साहित्य प्रकार
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-helper-label"
-                        id="demo-simple-select-helper"
-                        value={age}
-                        label="साहित्य प्रकार  "
-                        size="small"
+                  <Box sx={{ width: "100%", display: "flex" }}>
+                    <Box sx={{ display: "flex", flexDirection: "row" }}>
+                      {/* <FormControl>
+                        <InputLabel id="demo-simple-select-helper">
+                          साहित्य प्रकार
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-helper-label"
+                          id="demo-simple-select-helper"
+                          label="साहित्य प्रकार  "
+                          size="small"
+                          sx={{
+                            width: "380px",
+                            backgroundColor: "white",
+                            marginBottom: "3%",
+                          }}
+                        >
+                          <MenuItem value={10}>चौकस चौरस</MenuItem>
+                          <MenuItem value={20}>गप्पाटप्पा</MenuItem>
+                          <MenuItem value={30}>शब्दरंजन</MenuItem>
+                          <MenuItem value={40}>कल्पक</MenuItem>
+                          <MenuItem value={50}>गोष्टी</MenuItem>
+                          <MenuItem value={60}>इंग्लिश</MenuItem>
+                        </Select>
+                      </FormControl> */}
+                      <TextField
+                        id="outlined-basic"
+                        value={item.name}
+                        disabled
                         sx={{
                           width: "380px",
-                          backgroundColor: "white",
+                          borderRadius: "5px",
                           marginBottom: "3%",
+                          backgroundColor: "white",
                         }}
-                        onChange={handleChange1}
-                      >
-                        <MenuItem value="">
-                          {/* <em>None</em> */}
-                        </MenuItem>
-                        <MenuItem value={10}>चौकस चौरस</MenuItem>
-                        <MenuItem value={20}>गप्पाटप्पा</MenuItem>
-                        <MenuItem value={30}>शब्दरंजन</MenuItem>
-                        <MenuItem value={40}>कल्पक</MenuItem>
-                        <MenuItem value={50}>गोष्टी</MenuItem>
-                        <MenuItem value={60}>इंग्लिश</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Box>
-                  <Box sx={{display:"flex", flexDirection:'column' }}>
-                    <TextField
-                      id="outlined-basic"
-                      label="संख्या लिहा "
-                      sx={{
-                        width: "380px",
-                        borderRadius: "5px",
-                        marginLeft:'5%',
-                        marginBottom: "3%",
-                        backgroundColor: "white",
-                      }}
-                      size="small"
-                      onChange={(e) => handleChange(e, i)}
-                      variant="outlined"
-                    ></TextField>
-                  </Box>
-                  <Button onClick={() => handleDelete(i)}>x</Button>
+                        size="small"
+                        //   onChange={e=>handleChange(e,i)}
+                        variant="outlined"
+                      />
+                    </Box>
+                    <Box sx={{ display: "flex", flexDirection: "column" }}>
+                      <TextField
+                        id="outlined-basic"
+                        label="संख्या लिहा "
+                        sx={{
+                          width: "380px",
+                          borderRadius: "5px",
+                          marginLeft: "5%",
+                          marginBottom: "3%",
+                          backgroundColor: "white",
+                        }}
+                        size="small"
+                        onChange={(e) =>
+                          handleCountChange(item.id , e.target.value, item.name)
+                        }
+                        variant="outlined"
+                      ></TextField>
+                    </Box>
                   </Box>
                 </div>
               );
@@ -141,12 +211,12 @@ function NewTemplate(props) {
           <Button
             sx={{
               marginLeft: "0px",
-              margin:'0%',
+              margin: "0%",
               width: "390px",
               backgroundColor: "#4F62B0",
               color: "white",
             }}
-            onClick={handleClose}
+            onClick={handleSubmit}
           >
             पक्के करा{" "}
           </Button>

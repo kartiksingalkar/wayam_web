@@ -1,28 +1,27 @@
 import { Box } from "@mui/system";
-import {React , useState} from "react";
+import { React, useState } from "react";
 import Footer from "../Components/Footer";
 // import Header from "../Components/Header";
 import "../CSS/Organisational_info.css";
 import img1 from "../Images/management1.png";
 import img2 from "../Images/organizationchart2.png";
 import img3 from "../Images/organizationchart1.png";
-import HeaderBar from '../Components/HeaderBar'
+import HeaderBar from "../Components/HeaderBar";
 import { Link } from "react-router-dom";
 import StaffList from "../Components/StaffList";
-import AssignRolepopUp from "../Pop Up/AssignRolepopUp"
+import AssignRolepopUp from "../Pop Up/AssignRolepopUp";
 
 export default function OrganisationalInfo() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
-  const openStaffList = () =>{
-      setOpen(!open)
-  }
-  const [opn, setopn] = useState(false)
+  const openStaffList = () => {
+    setOpen(!open);
+  };
+  const [opn, setopn] = useState(false);
 
-  const AssignRolepage = () =>{
-      setopn(!opn)
-  }
-
+  const AssignRolepage = () => {
+    setopn(!opn);
+  };
 
   return (
     <div>
@@ -34,13 +33,12 @@ export default function OrganisationalInfo() {
       >
         {/* Left Box */}
         <Box className="firstBox">
-        <Link to="/PrimaryInformation">
- 
-          <h3 className="h3tag">प्राथमिक माहिती</h3>
-          <img className="img1" alt="hello" src={img1} />
-             </Link>
+          <Link to="/PrimaryInformation">
+            <h3 className="h3tag">प्राथमिक माहिती</h3>
+            <img className="img1" alt="hello" src={img1} />
+          </Link>
         </Box>
-     
+
         {/* Right Box */}
         <Box
           sx={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}
@@ -61,17 +59,8 @@ export default function OrganisationalInfo() {
       </Box>
       {/* Footer */}
       <Footer />
-      {
-        open && (
-          <StaffList open={open} setOpen={setOpen}/>
-        )
-      }
-      {
-        opn&&(
-          <AssignRolepopUp open={opn} setOpen={setopn}/>
-        )
-      }
-
+      {open && <StaffList open={open} setOpen={setOpen} />}
+      {opn && <AssignRolepopUp open={opn} setOpen={setopn} />}
     </div>
   );
 }

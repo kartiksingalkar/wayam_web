@@ -15,27 +15,27 @@ import { Box, Typography } from "@mui/material";
 // import Select, { SelectChangeEvent } from '@mui/material/Select';
 // import { Box } from "@mui/material";
 import SubmitButton from "../Components/SubmitButton";
-
+import axios from "axios";
 
 export default function NewContentPopUp(props) {
   // const [open, setOpen] = React.useState(false);
   // const [age, setAge] = React.useState('');
   // const [ setRight] = React.useState('');
 
-  const [setFormdata] = useState({})
-  const handleChange = (key,value) => {
-    setFormdata((prevState) => {
-        return {
-            ...prevState,
-            [key]:value,
-        }
-    })
-    console.log(key); 
+  const [data, setData] = useState({});
+  const handleChange = (key, value) => {
+    setData((prevState) => {
+      return {
+        ...prevState,
+        [key]: value,
+      };
+    });
+    console.log(key);
   };
-  
+
   // const handleRight = () => {
   //   setRight();
-  // }; 
+  // };
 
   const handleClickOpen = () => {
     props.setOpen(true);
@@ -45,36 +45,81 @@ export default function NewContentPopUp(props) {
     props.setOpen(false);
   };
 
+  const handleSubmit = async () => {
+    try {
+      let response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/addcategory`,
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.data.status) {
+        props.setData((prevData) => {
+          return [...prevData, data];
+        });
+        props.setOpen(false);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
         Open form dialog
       </Button>
-      <Dialog fullWidth maxWidth="xs" open={props.open} sx={{backgroundColor:"#E1E5F8"}} onClose={handleClose}>
-        <DialogContent sx={{backgroundColor:"#E1E5F8"}}>
+      <Dialog
+        fullWidth
+        maxWidth="xs"
+        open={props.open}
+        sx={{ backgroundColor: "#E1E5F8" }}
+        onClose={handleClose}
+      >
+        <DialogContent sx={{ backgroundColor: "#E1E5F8" }}>
           <Typography
-            sx={{ color: "#4F62B0", fontWeight: "600", backgroundColor:"#E1E5F8" }}
-          >  + नवीन मजकूर प्रकार        
-            
+            sx={{
+              color: "#4F62B0",
+              fontWeight: "600",
+              backgroundColor: "#E1E5F8",
+            }}
+          >
+            {" "}
+            + नवीन मजकूर प्रकार
           </Typography>
 
-          <Box fullWidth maxWidth='xs' sx={{display:"flex", flexDirection:'column', justifyContent:"space-between"}}>
-
-          <TextField
-            variant="outlined"
-            autoFocus
-            margin="dense"
-            id="outlined-basic"
-            placeholder="मजकूर प्रकारचे नाव"
+          <Box
             fullWidth
-            size="small"
-            sx={{borderRadius:'5px', marginBottom:"20px",backgroundColor:"white"}}
-            onChange = {(e) => {
-                handleChange("content",e.target.value);
+            maxWidth="xs"
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
             }}
-          />
+          >
+            <TextField
+              variant="outlined"
+              autoFocus
+              margin="dense"
+              id="outlined-basic"
+              placeholder="मजकूर प्रकारचे नाव"
+              fullWidth
+              size="small"
+              sx={{
+                borderRadius: "5px",
+                marginBottom: "20px",
+                backgroundColor: "white",
+              }}
+              onChange={(e) => {
+                handleChange("name", e.target.value);
+              }}
+            />
 
-          <TextField
+            {/* <TextField
             variant="outlined"
             autoFocus
             margin="dense"
@@ -86,9 +131,9 @@ export default function NewContentPopUp(props) {
             onChange = {(e) => {
                 handleChange("contentNo",e.target.value);
             }}
-          />
+          /> */}
 
-          <TextField
+            {/* <TextField
             variant="outlined"
             autoFocus
             multiline
@@ -107,13 +152,13 @@ export default function NewContentPopUp(props) {
                 }
               }}
             sx={{borderRadius:'5px', marginBottom:"20px",backgroundColor:"white"}}
-          />
-         
-        </Box>
-
+          /> */}
+          </Box>
         </DialogContent>
-        <DialogActions sx={{backgroundColor:"#E1E5F8"}}>
-            <SubmitButton buttonTitle={"सेव करा "}/>
+        <DialogActions sx={{ backgroundColor: "#E1E5F8" }}>
+          <Button onClick={handleSubmit}>
+            <SubmitButton  />
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

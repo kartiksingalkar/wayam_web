@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -9,31 +9,94 @@ import DialogTitle from "@mui/material/DialogTitle";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import "../CSS/PrimaryInformation.css";
+import Checkbox from "@mui/material/Checkbox";
+import {
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  FormLabel,
+  InputLabel,
+} from "@mui/material";
+import axios from "axios";
 
 export default function NewPlanPopup(props) {
-  // Pop Up
-  const [open, setOpen] = React.useState(false);
+  const [benifitData, setPlanData] = useState(props.benifitData);
+
+  // const handleChange = (event) => {
+  //   setChecked(event.target.checked);
+  // };
+
+  const [addedBenifits, setAddedBenifits] = useState({});
+
+  const handleCheckBox = (key, value) => {
+    setAddedBenifits((prevData) => {
+      return {
+        ...prevData,
+        [key]: !value,
+      };
+    });
+
+    console.log("addedBenifits : ", addedBenifits);
+  };
+
+  useEffect(() => {
+    console.log("benifitData", props.benifitData);
+  }, [benifitData]);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    props.setOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    props.setOpen(false);
   };
   // DropDown
-  const [age, setAge] = React.useState("");
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
+  const [data, setData] = useState({});
+
+  const handleStatusChange = (event) => {
+    handleChange("status", event.target.value);
   };
+
+  const handleChange = (key, value) => {
+    setData((prevData) => {
+      return {
+        ...prevData,
+        [key]: value,
+      };
+    });
+  };
+
+  const handleSubmit = async () => {
+    console.log("data : ", data);
+    try {
+      let response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/createplan`,
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data.status)
+      if (response.data.status) {
+        props.setPlanData((oldData)=>{
+          return [...props.planData, data]
+        })
+        props.setPlanOpen(false);
+      }
+      console.log("response : ", response);
+    } catch (e) {}
+  };
+
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
         Open form dialog
       </Button>
       {/* Pop up */}
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={props.open} onClose={handleClose}>
         <DialogTitle sx={{ backgroundColor: "#E1E5F8", width: "400px" }}>
           <h3>+ नवीन योजना </h3>
         </DialogTitle>
@@ -51,23 +114,50 @@ export default function NewPlanPopup(props) {
             }}
             size="small"
             variant="outlined"
-          ></TextField>
-          <Select
+            onChange={(e) => {
+              handleChange("plan_name", e.target.value);
+            }}
+          />
+          {/* <FormControl>
+            <InputLabel id="demo-simple-select-label">लाभ निवडा</InputLabel>
+            <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
-              value={age}
               label="लाभ निवडा"
               size="small"
-              sx={{width:'400px',backgroundColor:"white",marginBottom: "3%",color:'gray'}}
-              onChange={handleChange}
+              sx={{
+                width: "400px",
+                backgroundColor: "white",
+                marginBottom: "3%", 
+                color: "gray",
+              }}
             >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <FormControl component="fieldset" sx={{ width: "90%" }}>
+                <FormGroup aria-label="position" column>
+                  {benifitData.map((item) => {
+                    return (
+                      <FormControlLabel
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                        control={
+                          <Checkbox
+                            onChange={(e) => {
+                              handleCheckBox(item.benifit_id, e.target.checked);
+                            }}
+                          />
+                        }
+                        label={item.benifit_name}
+                        labelPlacement="start"
+                      />
+                    );
+                  })}
+                </FormGroup>
+              </FormControl>
+              
             </Select>
+          </FormControl> */}
           <TextField
             id="outlined-basic"
             label="कालावधी "
@@ -79,8 +169,33 @@ export default function NewPlanPopup(props) {
             }}
             size="small"
             variant="outlined"
-          ></TextField>
-          <TextField
+            onChange={(e) => {
+              handleChange("plan_duration", e.target.value);
+            }}
+          />
+
+          <FormControl>
+            <InputLabel id="demo-simple-select-helper">Status</InputLabel>
+            <Select
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              value={data.status}
+              label="Status"
+              size="small"
+              sx={{
+                width: "400px",
+                backgroundColor: "white",
+                marginBottom: "3%",
+                //   color: "gray",
+              }}
+              onChange={handleStatusChange}
+            >
+              <MenuItem value="active">Active</MenuItem>
+              <MenuItem value="inactive">Inactive</MenuItem>
+            </Select>
+          </FormControl>
+
+          {/* <TextField
             id="outlined-basic"
             label="प्रारंभ तारीख"
             sx={{
@@ -91,7 +206,7 @@ export default function NewPlanPopup(props) {
             }}
             size="small"
             variant="outlined"
-          ></TextField>
+          />
           <TextField
             id="outlined-basic"
             label="शेवटची तारीख"
@@ -103,7 +218,7 @@ export default function NewPlanPopup(props) {
             }}
             size="small"
             variant="outlined"
-          ></TextField>
+          /> */}
         </DialogContent>
         {/* Action Buttons */}
         <DialogActions sx={{ backgroundColor: "#E1E5F8", margin: 0 }}>
@@ -115,7 +230,7 @@ export default function NewPlanPopup(props) {
               backgroundColor: "#4F62B0",
               color: "white",
             }}
-            onClick={handleClose}
+            onClick={handleSubmit}
           >
             पक्के करा{" "}
           </Button>

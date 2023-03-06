@@ -1,5 +1,5 @@
-import { React, useState } from "react";
-import { Box,Typography } from "@mui/material";
+import { React, useEffect, useState } from "react";
+import { Box, Typography } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 // import Navbar from "../components/Navbar";
@@ -19,8 +19,9 @@ import LibraryManagementComponent2 from "../Components/LibraryManagementComponen
 import AddButton from "../Components/AddButton";
 // import SearchBox from "../components/SearchBox";
 import SearchBoxNew from "../Components/SearchBox";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import NewContentPopUp from "../Pop Up/NewContentPopUp";
+import axios from "axios";
 // import "../styles/font.css";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -44,18 +45,74 @@ const data = [
   { name: " कल्पक", type: "ऑडिओ", authorName: "उज्ज्वला दळवी" },
 ];
 
-const types = [{ type: "कथा " }, { type: "कविता" }, { type: "साहित्य" },{ type: "कथा " }, { type: "कविता" }, { type: "साहित्य" }];
+const types = [
+  { type: "कथा " },
+  { type: "कविता" },
+  { type: "साहित्य" },
+  { type: "कथा " },
+  { type: "कविता" },
+  { type: "साहित्य" },
+];
 
 export default function Librarymanagement() {
   const [value, setValue] = useState(0);
+  const history = useHistory();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const[openncpop , setopenncpop] =useState(false)
-  const opennewcontentpop=()=>{
-    setopenncpop(!openncpop)
-  }
+  const [openncpop, setopenncpop] = useState(false);
+  const opennewcontentpop = () => {
+    setopenncpop(!openncpop);
+  };
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/getallcategories`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.data.status) {
+          setData(response.data.data);
+        }
+      } catch (e) {}
+    }
+    fetchData();
+  }, []);
+
+  const [data2, setData2] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/getallcontent`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.data.status) {
+          setData2(response.data.data);
+        }
+      } catch (e) {}
+    }
+    fetchData();
+  }, []);
+
+  const goToContentManagement = () => {
+    history.push({ pathname: "/ContentManagement", state: { category: data } });
+  };
 
   return (
     <Box sx={{ height: "100vh" }}>
@@ -183,10 +240,17 @@ export default function Librarymanagement() {
                           width: "100%",
                           justifyContent: "flex-end",
                           margin: "16px auto  5px 16px",
+<<<<<<< HEAD
                           height:"38vh",
                           overflow:"scroll ",
                           overflowX:"hidden",
                           scrollbarWidth:"thin",
+=======
+                          height: "35vh",
+                          overflow: "scroll ",
+                          overflowX: "hidden",
+                          scrollbarWidth: "thin",
+>>>>>>> d17dec5 (Release 1)
                           "&::-webkit-scrollbar": {
                             width: "0.4em",
                           },
@@ -199,19 +263,17 @@ export default function Librarymanagement() {
                           "&::-webkit-scrollbar-thumb:hover": {
                             background: "#555",
                           },
-
-
                         }}
                       >
                         <Grid container spacing={1}>
-                      {data.map((item, index) => (
-                        <LibraryManagementComponent
-                          name={item.name}
-                          type={item.type}
-                          authorName={item.authorName}
-                        />
-                      ))}
-                       </Grid>
+                          {data2.map((item, index) => (
+                            <LibraryManagementComponent
+                              name={item.content_name}
+                              type={item.name}
+                              authorName={item.writer}
+                            />
+                          ))}
+                        </Grid>
                       </Box>
 
                       {/* button */}
@@ -219,11 +281,19 @@ export default function Librarymanagement() {
                         display="flex"
                         // margin={2}
                         justifyContent="flex-end"
+<<<<<<< HEAD
                         sx={{width:'99.5%'}}
+=======
+                        sx={{ width: "100%" }}
+                        onClick={goToContentManagement}
+>>>>>>> d17dec5 (Release 1)
                       >
-                        <Link to="/ContentManagement" style={{textDecoration:'none'}}>
+                        {/* <Link
+                          to="/ContentManagement"
+                          style={{ textDecoration: "none" }}
+                        > */}
                         <AddButton buttonTitle={"+ नवीन योजना"} />
-                        </Link>
+                        {/* </Link> */}
                       </Box>
                     </Grid>
                   </Box>
@@ -258,10 +328,17 @@ export default function Librarymanagement() {
                           width: "100%",
                           justifyContent: "flex-end",
                           margin: "16px auto  5px 16px",
+<<<<<<< HEAD
                           height:"38vh",
                           overflow:"scroll ",
                           overflowX:"hidden",
                           scrollbarWidth:"thin",
+=======
+                          height: "35vh",
+                          overflow: "scroll ",
+                          overflowX: "hidden",
+                          scrollbarWidth: "thin",
+>>>>>>> d17dec5 (Release 1)
                           "&::-webkit-scrollbar": {
                             width: "0.4em",
                           },
@@ -274,13 +351,11 @@ export default function Librarymanagement() {
                           "&::-webkit-scrollbar-thumb:hover": {
                             background: "#555",
                           },
-
-
                         }}
                       >
-                        <Grid container spacing={1}>
-                          {types.map((item, index) => (
-                            <LibraryManagementComponent2 type={item.type} />
+                        <Grid container spacing={0}>
+                          {data.map((item, index) => (
+                            <LibraryManagementComponent2 type={item.name} />
                           ))}
                         </Grid>
                       </Box>
@@ -289,7 +364,11 @@ export default function Librarymanagement() {
                       <Box
                         display="flex"
                         justifyContent="flex-end"
+<<<<<<< HEAD
                         sx={{ width:'99.5%' }}
+=======
+                        sx={{ width: "100%" }}
+>>>>>>> d17dec5 (Release 1)
                         onClick={opennewcontentpop}
                       >
                         <AddButton buttonTitle={"+ नवीन प्रकार "} />
@@ -315,11 +394,14 @@ export default function Librarymanagement() {
       >
         <Footer />
       </Box>
-      {
-        openncpop && (
-          <NewContentPopUp open={openncpop} setOpen={setopenncpop}/>
-        )
-      }
+      {openncpop && (
+        <NewContentPopUp
+          data={data}
+          setData={setData}
+          open={openncpop}
+          setOpen={setopenncpop}
+        />
+      )}
 
       {/* // end of footer */}
     </Box>
