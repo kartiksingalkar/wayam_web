@@ -24,7 +24,7 @@ export default function SubscriberListPopUpComponent(props) {
     <Box sx={{backgroundColor:"#E1E5F8"}}>
     <Grid item xs={12} sx={{margin:1,backgroundColor:"#E1E5F8"}}>
             <Item sx={{display:'flex',flexDirection:'row',justifyContent:'space-between',backgroundColor:'#FFFFFF',color:"#4F62B0"}}>
-                <Box sx={{width:"40%",textAlign:"center",display:"flex",flexDirection:"row"}}>
+                <Box sx={{width:"40%",textAlign:"center",display:"flex",flexDirection:"row",minWidth:"10%"}}>
                 <img src={edit} width="17.17px" height="17.17px" alt="SVG" style={{  paddingLeft:"10px",paddingRight:"10px",justifyContent:"center",}} />
                 <img src={subscriber} width="17.17px" height="17.17px" alt="SVG" style={{  paddingLeft:"10px",paddingRight:"10px",justifyContent:"center",}} />
                 <Box width="17.17px" height="17.17px" alt="SVG" sx={{ paddingLeft:"10px",paddingRight:"10px",justifyContent:'center' }}><AccountCircleIcon/></Box>
@@ -33,6 +33,7 @@ export default function SubscriberListPopUpComponent(props) {
                 <Box sx={{width:"20%",textAlign:"center", display:"flex",flexDirection:"row"}} ><Typography>{mobileno}</Typography></Box>
                 <Box sx={{width:"20%",textAlign:"center", display:"flex",flexDirection:"row"}} ><Typography>{city}</Typography></Box>
                 <Box sx={{width:"20%",textAlign:"center", display:"flex",flexDirection:"row"}} ><Typography>{pincode}</Typography></Box>
+                
             </Item>
     </Grid>
     </Box> 

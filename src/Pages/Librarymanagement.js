@@ -240,17 +240,10 @@ export default function Librarymanagement() {
                           width: "100%",
                           justifyContent: "flex-end",
                           margin: "16px auto  5px 16px",
-<<<<<<< HEAD
-                          height:"38vh",
-                          overflow:"scroll ",
-                          overflowX:"hidden",
-                          scrollbarWidth:"thin",
-=======
                           height: "35vh",
                           overflow: "scroll ",
                           overflowX: "hidden",
                           scrollbarWidth: "thin",
->>>>>>> d17dec5 (Release 1)
                           "&::-webkit-scrollbar": {
                             width: "0.4em",
                           },
@@ -281,12 +274,8 @@ export default function Librarymanagement() {
                         display="flex"
                         // margin={2}
                         justifyContent="flex-end"
-<<<<<<< HEAD
-                        sx={{width:'99.5%'}}
-=======
                         sx={{ width: "100%" }}
                         onClick={goToContentManagement}
->>>>>>> d17dec5 (Release 1)
                       >
                         {/* <Link
                           to="/ContentManagement"
@@ -328,17 +317,10 @@ export default function Librarymanagement() {
                           width: "100%",
                           justifyContent: "flex-end",
                           margin: "16px auto  5px 16px",
-<<<<<<< HEAD
-                          height:"38vh",
-                          overflow:"scroll ",
-                          overflowX:"hidden",
-                          scrollbarWidth:"thin",
-=======
                           height: "35vh",
                           overflow: "scroll ",
                           overflowX: "hidden",
                           scrollbarWidth: "thin",
->>>>>>> d17dec5 (Release 1)
                           "&::-webkit-scrollbar": {
                             width: "0.4em",
                           },
@@ -364,15 +346,12 @@ export default function Librarymanagement() {
                       <Box
                         display="flex"
                         justifyContent="flex-end"
-<<<<<<< HEAD
-                        sx={{ width:'99.5%' }}
-=======
-                        sx={{ width: "100%" }}
->>>>>>> d17dec5 (Release 1)
+                        sx={{ width: "99.5%" }}
                         onClick={opennewcontentpop}
                       >
                         <AddButton buttonTitle={"+ नवीन प्रकार "} />
                       </Box>
+
                     </Grid>
                   </Box>
                 )}

@@ -209,38 +209,45 @@ export default function IssueManagement() {
             <h4>शीर्षलेख माहिती</h4>
           </Box>
           {/* Input Field */}
-          <Box className="inputBox">
-            <TextField
-              id="outlined-basic"
-              label="अंकाचे नाव"
-              className="inputField1"
-              size="small"
-              variant="outlined"
-              value={data.issue_name}
-              onChange={(e) => {
-                handleChange("issue_name", e.target.value);
-              }}
-            />
-            <TextField
-              id="outlined-basic"
-              label="अंकाचा क्रमांक "
-              className="inputField1"
-              size="small"
-              variant="outlined"
-              sx={{ marginLeft: "25px" }}
-              value={data.issue_no}
-              onChange={(e) => {
-                handleChange("issue_no", e.target.value);
-              }}
-            />
+          <Box sx={{ width:"80%" ,display:'flex',flexDirection:'row',flexWrap:'wrap'}}>
+            <Box className="inputBox">
+              <TextField
+                id="outlined-basic"
+                label="अंकाचे नाव"
+                // className="inputField1"
+                size="small"
+                variant="outlined"
+                value={data.issue_name}
+                sx={{width:'40%',margin:'4px',borderRadius:'5px',backgroundColor:'white',minWidth:'320px'}}
+                onChange={(e) => {
+                  handleChange("issue_name", e.target.value);
+                }}
+              />
+              <TextField
+                id="outlined-basic"
+                label="अंकाचा क्रमांक "
+                // className="inputField1"
+                size="small"
+                variant="outlined"
+                sx={{width:'40%',margin:'4px',borderRadius:'5px',backgroundColor:'white',minWidth:'320px'}}
+
+                // sx={{ marginLeft: "25px" }}
+                value={data.issue_no}
+                onChange={(e) => {
+                  handleChange("issue_no", e.target.value);
+                }}
+              />
+            </Box>
           </Box>
+
+          <Box sx={{ width:"80%" ,display:'flex',flexDirection:'row',flexWrap:'wrap'}}>
           <Box className="inputBox">
             <OutlinedInput
               id="outlined-basic"
               type="file"
               placeholder="मुखपृष्ठ कव्हर पेज"
               size="small"
-              sx={{ mt: 2, bgcolor: "white", width: "80%" }}
+              sx={{width: "40%",margin:'4px',borderRadius:'5px',backgroundColor:'white',minWidth:'320px' }}
               endAdornment={
                 <InputAdornment position="end">
                   <DriveFolderUploadIcon />
@@ -256,7 +263,7 @@ export default function IssueManagement() {
               type="file"
               placeholder="मुखपृष्ठ मागील कव्हर पेज"
               size="small"
-              sx={{ mt: 2, bgcolor: "white", width: "80%" }}
+              sx={{width: "40%",margin:'4px',borderRadius:'5px',backgroundColor:'white',minWidth:'320px' }}
               endAdornment={
                 <InputAdornment position="end">
                   <DriveFolderUploadIcon />
@@ -267,13 +274,16 @@ export default function IssueManagement() {
               }}
             />
           </Box>
+          </Box>
+
+          <Box sx={{ width:"80%" ,display:'flex',flexDirection:'row',flexWrap:'wrap'}}>
           <Box className="inputBox">
             <OutlinedInput
               id="outlined-basic"
               type="file"
               placeholder="मलपृष्ठ पेज"
               size="small"
-              sx={{ mt: 2, bgcolor: "white", width: "80%" }}
+              sx={{width: "40%",margin:'4px',borderRadius:'5px',backgroundColor:'white',minWidth:'320px' }}
               endAdornment={
                 <InputAdornment position="end">
                   <DriveFolderUploadIcon />
@@ -289,7 +299,7 @@ export default function IssueManagement() {
               type="file"
               placeholder="मलपृष्ठ आतील पेज"
               size="small"
-              sx={{ mt: 2, bgcolor: "white", width: "80%" }}
+              sx={{width: "40%",margin:'4px',borderRadius:'5px',backgroundColor:'white',minWidth:'320px' }}
               endAdornment={
                 <InputAdornment position="end">
                   <DriveFolderUploadIcon />
@@ -300,12 +310,15 @@ export default function IssueManagement() {
               }}
             />
           </Box>
+          </Box>
+
+          <Box sx={{ width:"80%" ,display:'flex',flexDirection:'row',flexWrap:'wrap'}}>
           <Box className="inputBox">
             <TextField
               id="outlined-basic"
               label="तारीख"
-              className="inputField1"
               size="small"
+              sx={{width:"40%",margin:'4px',borderRadius:'5px',backgroundColor:'white',minWidth:'320px' }}
               variant="outlined"
               type="publication_date"
               value={data.publication_date}
@@ -313,7 +326,8 @@ export default function IssueManagement() {
                 handleChange("publication_date", e.target.value);
               }}
             />
-            <FormControl sx={{ marginLeft: "25px" }}>
+            <FormControl sx={{width:"40%",margin:'4px',borderRadius:'5px',backgroundColor:'white',minWidth:'320px' }}
+>
               <InputLabel id="demo-simple-select-label">
                 टेम्पलेट निवडा
               </InputLabel>
@@ -325,8 +339,8 @@ export default function IssueManagement() {
                 label="व्यवस्थापकाचे नाव"
                 size="small"
                 sx={{
-                  width: "400px",
-                  backgroundColor: "white",
+                  // width: "400px",
+                  backgroundColor: "transparent",
                   marginBottom: "3%",
                   color: "gray",
                   marginLeft: "2%",
@@ -346,19 +360,32 @@ export default function IssueManagement() {
               </Select>
             </FormControl>
           </Box>
+          </Box>
+
           <h4>कायदेशीर माहिती</h4>
+
+          <Box sx={{ width:"80%" ,display:'flex',flexDirection:'row',flexWrap:'wrap'}}>
           <Box className="inputBox">
             <TextField
               id="outlined-basic"
               label="कायदेशीर माहिती "
               className="inputField1"
               size="small"
+              sx={{
+                // width: "400px",
+                backgroundColor: "transparent",
+                marginBottom: "3%",
+                color: "gray",
+                marginLeft: "2%",
+              }}
               variant="outlined"
               value={data.legal_info}
               onChange={(e)=>{handleChange('legal_info',e.target.value)}}
             />
           </Box>
-          <Box onClick={handleSubmit} sx={{ marginLeft: "7%", marginTop: "3%" }}>
+          </Box>
+
+          <Box onClick={handleSubmit} sx={{ marginLeft: "1%", marginTop: "3%" }}>
             <SubmitButton buttonTitle="मंजुरीसाठी पाठवा" />
           </Box>
         </Box>

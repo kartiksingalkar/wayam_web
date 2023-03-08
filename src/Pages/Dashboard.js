@@ -41,7 +41,8 @@ export default function Dashboard() {
         <Box
           className="upperGrid"
           sx={{
-            height: "50vh",
+            width:'100%',
+            height: "65vh",
             display: "flex",
             flexWrap: "wrap",
             flexDirection: "row",
@@ -53,7 +54,7 @@ export default function Dashboard() {
         >
           <Box
             sx={{
-              width: "45%",
+              width: "46%",
               textAlign: "center",
 
               justifyContent: "center",
@@ -67,7 +68,7 @@ export default function Dashboard() {
           >
             <Link
               to="/Organisationalinfo"
-              style={{ textDecoration: "none", color: "black" }}
+              style={{ textDecoration: "none", color:"#4F62B0" }}
             >
               <Box
                 sx={{
@@ -117,6 +118,7 @@ export default function Dashboard() {
                 justifyContent: "center",
                 alignItems: "center",
                 textAlign: "center",
+                color:"#4F62B0",
               }}
               onClick={openSubscriberList}
             >
@@ -155,7 +157,7 @@ export default function Dashboard() {
             alignItems: "center",
             textAlign: "center",
 
-            m: 1,
+            
           }}
         >
           <Box
@@ -173,7 +175,7 @@ export default function Dashboard() {
           >
             <Link
               to="/BenefitMangement"
-              style={{ textDecoration: "none", color: "black" }}
+              style={{ textDecoration: "none", color:"#4F62B0" }}
             >
               <Box
                 sx={{
@@ -214,7 +216,7 @@ export default function Dashboard() {
           >
             <Link
               to="/Librarymanagement"
-              style={{ textDecoration: "none", color: "black" }}
+              style={{ textDecoration: "none", color:"#4F62B0" }}
             >
               <Box
                 sx={{
@@ -255,7 +257,7 @@ export default function Dashboard() {
           >
             <Link
               to="/Issuemanagement1"
-              style={{ textDecoration: "none", color: "black" }}
+              style={{ textDecoration: "none", color:"#4F62B0" }}
             >
               <Box
                 sx={{

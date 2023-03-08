@@ -1,4 +1,5 @@
-import { Box } from "@mui/system";
+import { Box, Typography } from "@mui/material";
+
 import { React, useState } from "react";
 import Footer from "../Components/Footer";
 // import Header from "../Components/Header";
@@ -29,33 +30,192 @@ export default function OrganisationalInfo() {
       <HeaderBar />
       {/* Main Container */}
       <Box
-        sx={{ width: "95%", margin: "1%", display: "flex", flexWrap: "wrap" }}
+        sx={{
+          height: "70vh",
+          // backgroundColor: 'transparent',
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          m: 2,
+        }}
       >
-        {/* Left Box */}
-        <Box className="firstBox">
-          <Link to="/PrimaryInformation">
-            <h3 className="h3tag">प्राथमिक माहिती</h3>
-            <img className="img1" alt="hello" src={img1} />
-          </Link>
+        {/* .................first side */}
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            minWidth:"250px",
+            minHeight:"200px",
+            width: "46%",
+            minHeight:"250px",
+            backgroundColor: "#E1E5F8",
+            margin: "0px auto 0px auto",
+            justifyContent: "center",
+            alignItems: "center",
+            marginBottom:'5px',
+          }}
+        >
+        {/* <Link to="/PrimaryInformation"  style={{ textDecoration: "none", color: "#4F62B0" }}> */}
+
+          <Box
+            sx={{
+              height: "35%",
+              width: "100%",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+            }}
+          >
+        <Link to="/PrimaryInformation"  style={{ textDecoration: "none", color: "#4F62B0" }}>
+
+            <Typography
+             mt={4}
+             sx={{ fontFamily: "poppins", fontWeight: 500, color: "#4F62B0",margin:"5% auto 0px auto" }}
+            >
+              प्राथमिक माहिती
+            </Typography>  
+            </Link>          
+          </Box>
+          {/* </Link> */}
+          
+          <Link to="/PrimaryInformation"  style={{ textDecoration: "none", color: "#4F62B0" }}>
+          <Box
+            sx={{
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              margin: "auto",
+            }}
+          >
+            <img src={img1} alt="SVG" width="95vh" height="95vh" />
+          </Box>
+        </Link>
+
+
         </Box>
 
-        {/* Right Box */}
+        {/* .........................first side end */}
+
+        {/* ............................2nd side */}
         <Box
-          sx={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            minWidth:"250px",
+
+            width: "49%",
+            height: "100%",
+            margin: "0px auto 0px auto",
+            marginBottom:'5px',
+          }}
         >
-          {/* Right Box 1 */}
-          <Box className="secondBox" onClick={openStaffList}>
-            <h3 className="h3tag">कर्मचारी जोडा</h3>
-            <Box>
-              <img className="img2" alt="hello" src={img2} />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+            minWidth:"250px",
+
+              height: "48%",
+              backgroundColor: "#E1E5F8",
+              margin: "0px 0px auto 0px",
+            }}
+          >
+            <Box
+              sx={{
+                height: "15%",
+                width: "100%",
+                alignItems: "center",
+                justifyContent: "center",
+                textAlign: "center",
+              }}
+              onClick={openStaffList}
+            >
+              <Typography
+                mt={2}
+                sx={{
+                  fontFamily: "poppins",
+                  fontWeight: 500,
+                  color: "#4F62B0",
+                  margin:"5% auto 1px auto"
+                }}
+              >
+                कर्मचारी जोडा
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                width: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
+                margin: "auto",
+              }}
+            >
+              <img
+                src={img2}
+                alt="SVG"
+                width="90vh"
+                height="90vh"
+              />
             </Box>
           </Box>
-          {/* Right Box 2 */}
-          <Box className="thirdBox" onClick={AssignRolepage}>
-            <h3 className="h3tag">रोल कॉन्फिगरेशन</h3>
-            <img className="img2" alt="hello" src={img3} />
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              height: "48%",
+              backgroundColor: "#E1E5F8",
+            }}
+          >
+            <Box
+              sx={{
+                height: "15%",
+                width: "100%",
+                alignItems: "center",
+                justifyContent: "center",
+                textAlign: "center",
+              }}
+              onClick={AssignRolepage}
+            >
+              <Typography
+                mt={2}
+                sx={{
+                  fontFamily: "poppins",
+                  fontWeight: 500,
+                  color: "#4F62B0",
+                  margin:"5% auto 0px auto"
+                }}
+              >
+                रोल कॉन्फिगरेशन{" "}
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                width: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
+                margin: "auto",
+              }}
+            >
+              <img
+                src={img3}
+                alt="SVG"
+                width="90vh"
+                height="90vh"
+              />
+            </Box>
           </Box>
         </Box>
+
+        {/* .............................2nd side ends */}
+
+
+
       </Box>
       {/* Footer */}
       <Footer />

@@ -65,6 +65,18 @@ const arrayofObjects = [
     type: "गप्पाटप्पा, चौकस चौरस , गप्पाटप्पा ",
     status: "अंक मंजूर झाला ",
   },
+  {
+    number: "जानेवारी 2023",
+    date: "22/01/2023 ",
+    type: "गप्पाटप्पा, चौकस चौरस , गप्पाटप्पा ",
+    status: "अंक मंजूर झाला ",
+  },
+  {
+    number: "जानेवारी 2023",
+    date: "22/01/2023 ",
+    type: "गप्पाटप्पा, चौकस चौरस , गप्पाटप्पा ",
+    status: "अंक मंजूर झाला ",
+  },
 ];
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -153,11 +165,11 @@ export default function Issuemanagement1() {
       <Box
         sx={{
           width: "100%",
-          height: "80vh",
+          height: "90vh",
           backgroundColor: "#ffffff",
           display: "flex",
           flexDirection: "column",
-          margin: "10px auto 10px auto",
+          margin: "5px auto 5px auto",
         }}
       >
         <Box sx={{ color: "#4F62B0", marginTop: "5px", marginLeft: "20px" }}>
@@ -166,43 +178,29 @@ export default function Issuemanagement1() {
         <Box
           sx={{
             width: "97%",
-            height: "80vh",
+            height: "90vh",
             backgroundColor: "#E1E5F8",
             display: "flex",
             flexDirection: "column",
             margin: "15px auto 10px auto",
           }}
         >
-          <Box sx={{ margin: "0.5%", flexGrow: 1 }}>
-            <Box sx={{ width: "100%" }}>
+          <Box sx={{ margin: "0.5%", flexGrow: 1, alignItems: "center",justifyContent: "center", }}>
+            <Box sx={{ width: "100%",alignItems: "center", justifyContent: "center" }}>
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <Tabs
                   value={value}
                   onChange={handleChange}
                   aria-label="basic tabs example"
+                  margin="10px 10px auto auto"
+                  backgroundColor="white"
+                  sx={{
+                    margin: "0px auto auto 10px",
+                    backgroundColor: "#ffffff",
+                  }}
                 >
-                  <Tab
-                    label="टेम्प्लेट "
-                    className="tab1"
-                    value={0}
-                    sx={{
-                      backgroundColor: "#ffffff",
-                      color: "#333",
-                      "&:hover": {
-                        backgroundColor: "#4F62B0",
-                      },
-                    }}
-                  />
-                  <Tab
-                    label="अंक "
-                    sx={{
-                      backgroundColor: "#ffffff",
-                      color: "#333",
-                      "&:hover": {
-                        backgroundColor: "#4F62B0",
-                      },
-                    }}
-                  />
+                  <Tab label="टेम्प्लेट " className="tab1" value={0} />
+                  <Tab label="अंक " />
                   {/* <Tab></Tab> */}
                 </Tabs>
 
@@ -232,17 +230,45 @@ export default function Issuemanagement1() {
                         </Item>
                       </Grid>
 
+
+                      <Box
+                        sx={{
+                          display: "flex",
+                          width: "100%",
+                          justifyContent: "flex-end",
+                          margin: "16px auto  5px 16px",
+                          height: "35vh",
+                          overflow: "scroll ",
+                          overflowX: "hidden",
+                          scrollbarWidth: "thin",
+                          "&::-webkit-scrollbar": {
+                            width: "0.4em",
+                          },
+                          "&::-webkit-scrollbar-track": {
+                            background: "#E1E5F8",
+                          },
+                          "&::-webkit-scrollbar-thumb": {
+                            backgroundColor: "#888",
+                          },
+                          "&::-webkit-scrollbar-thumb:hover": {
+                            background: "#555",
+                          },
+                        }}
+                      >
+                      <Grid container spacing={1}>
                       {templates.map((item, index) => (
                         <IssueManagementComponent
                           templateTitle={item.template_name}
                           type={Object.values(item.types).join(", ")}
                         />
                       ))}
+                      </Grid>
+                      </Box>
 
                       {/* button */}
                       <Box
                         display="flex"
-                        margin={2}
+                        // margin={2}
                         justifyContent="flex-end"
                         sx={{ width: "100%" }}
                         onClick={NewTemplatee}
@@ -284,7 +310,32 @@ export default function Issuemanagement1() {
                           </Box>
                         </Item>
                       </Grid>
-
+                      
+                      <Box
+                        sx={{
+                          display: "flex",
+                          width: "100%",
+                          justifyContent: "flex-end",
+                          margin: "16px auto  5px 16px",
+                          height: "35vh",
+                          overflow: "scroll ",
+                          overflowX: "hidden",
+                          scrollbarWidth: "thin",
+                          "&::-webkit-scrollbar": {
+                            width: "0.4em",
+                          },
+                          "&::-webkit-scrollbar-track": {
+                            background: "#E1E5F8",
+                          },
+                          "&::-webkit-scrollbar-thumb": {
+                            backgroundColor: "#888",
+                          },
+                          "&::-webkit-scrollbar-thumb:hover": {
+                            background: "#555",
+                          },
+                        }}
+                      >
+                      <Grid container spacing={1}>
                       {arrayofObjects.map((item, index) => (
                         <IssueManagementComponent1
                           number={item.number}
@@ -293,14 +344,16 @@ export default function Issuemanagement1() {
                           status={item.status}
                         />
                       ))}
+                      </Grid>
+                      </Box>
 
                       {/* button */}
 
                       <Box
                         display="flex"
-                        margin={2}
+                        // margin={2}
                         justifyContent="flex-end"
-                        sx={{ width: "100%" }}
+                        sx={{ width: "99.5%" }}
                       >
                         <Link
                           to="/IssueManagement"
