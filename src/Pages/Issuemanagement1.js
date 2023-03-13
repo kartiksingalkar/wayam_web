@@ -145,6 +145,31 @@ export default function Issuemanagement1() {
     fetchData();
   }, []);
 
+  const [issues, setIssues] = useState([]);
+  const [templateName, setTemplateName] = useState([])
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/getallissues`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.data.status) {
+          setIssues(response.data.data);
+          setTemplateName(response.data.template_data)
+          console.log("categories", response.data.data);
+        }
+      } catch (e) {}
+    }
+    fetchData();
+  }, []);
+
   return (
     <Box sx={{ height: "100vh" }}>
       {/* start of navbar */}
@@ -185,8 +210,21 @@ export default function Issuemanagement1() {
             margin: "15px auto 10px auto",
           }}
         >
-          <Box sx={{ margin: "0.5%", flexGrow: 1, alignItems: "center",justifyContent: "center", }}>
-            <Box sx={{ width: "100%",alignItems: "center", justifyContent: "center" }}>
+          <Box
+            sx={{
+              margin: "0.5%",
+              flexGrow: 1,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Box
+              sx={{
+                width: "100%",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <Tabs
                   value={value}
@@ -230,7 +268,6 @@ export default function Issuemanagement1() {
                         </Item>
                       </Grid>
 
-
                       <Box
                         sx={{
                           display: "flex",
@@ -255,14 +292,14 @@ export default function Issuemanagement1() {
                           },
                         }}
                       >
-                      <Grid container spacing={1}>
-                      {templates.map((item, index) => (
-                        <IssueManagementComponent
-                          templateTitle={item.template_name}
-                          type={Object.values(item.types).join(", ")}
-                        />
-                      ))}
-                      </Grid>
+                        <Grid container spacing={1}>
+                          {templates.map((item, index) => (
+                            <IssueManagementComponent
+                              templateTitle={item.template_name}
+                              type={Object.values(item.types).join(", ")}
+                            />
+                          ))}
+                        </Grid>
                       </Box>
 
                       {/* button */}
@@ -310,7 +347,7 @@ export default function Issuemanagement1() {
                           </Box>
                         </Item>
                       </Grid>
-                      
+
                       <Box
                         sx={{
                           display: "flex",
@@ -335,16 +372,19 @@ export default function Issuemanagement1() {
                           },
                         }}
                       >
-                      <Grid container spacing={1}>
-                      {arrayofObjects.map((item, index) => (
-                        <IssueManagementComponent1
-                          number={item.number}
-                          date={item.date}
-                          type={item.type}
-                          status={item.status}
-                        />
-                      ))}
-                      </Grid>
+                        <Grid container spacing={1}>
+                          {issues.map((item, index) => (
+                            <IssueManagementComponent1
+                              number={item.issue_name}
+                              date={item.date}
+                              type={item.type}
+                              status={item.status}
+                              issue_id={item.issue_id}
+                              templateName={templateName[0].types}
+                              templateData={templateName[0].template_data}
+                            />
+                          ))}
+                        </Grid>
                       </Box>
 
                       {/* button */}

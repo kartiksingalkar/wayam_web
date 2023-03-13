@@ -37,8 +37,40 @@ export default function ContentManagement(props) {
   const [planData, setPlanData] = useState([]);
   const [subData, setSubData] = useState({});
 
+  const [isForUpdate, setIsForUpdate] = useState(false);
+
   const [issues, setIssues] = useState([]);
   const [issueContent, setIssueContent] = useState([]);
+  const [contentId, setContentId] = useState();
+
+  useEffect(() => {
+    // if (location.state.update) {
+    //   setData(location.state.data2);
+    // }
+    setIsForUpdate(location.state.update);
+    if (isForUpdate) {
+      setContentId(location.state.content_id);
+    }
+  }, [contentId, isForUpdate]);
+
+  useEffect(() => {
+    if (isForUpdate) {
+      try {
+        async function getData() {
+          const response = await axios.get(
+            `${process.env.REACT_APP_API_URL}/getupdatecontent?content_id=${contentId}`
+          );
+          console.log(
+            "Content Data : " + JSON.stringify(response.data.data[0])
+          );
+          setData(response.data.data[0]);
+        }
+        getData();
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }, [contentId]);
 
   useEffect(() => {
     async function getData() {
@@ -161,24 +193,46 @@ export default function ContentManagement(props) {
   const handleSubmit = async () => {
     console.log(data);
 
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/createContent`,
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+    if (isForUpdate) {
+      try {
+        const response = await axios.patch(
+          `${process.env.REACT_APP_API_URL}/updateContent?content_id=${contentId}`,
+          data,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
-      if (response.data.status) {
-        let content_id = response.data.id;
-        uploadAudioFile(content_id);
-        uploadCoverImgFile(content_id);
+        if (response.data.status) {
+          let content_id = response.data.id;
+          uploadAudioFile(content_id);
+          uploadCoverImgFile(content_id);
+        }
+      } catch (e) {
+        console.log(e);
       }
-    } catch (e) {
-      console.log(e);
+    } else {
+      try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_API_URL}/createContent`,
+          data,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.data.status) {
+          let content_id = response.data.id;
+          uploadAudioFile(content_id);
+          uploadCoverImgFile(content_id);
+        }
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
@@ -266,6 +320,7 @@ export default function ContentManagement(props) {
               label="मजकुराचे नाव"
               variant="outlined"
               size="small"
+              value={data.content_name}
               onChange={(e) => {
                 handleChange("content_name", e.target.value);
               }}
@@ -288,6 +343,7 @@ export default function ContentManagement(props) {
               label="लेखकाचे नाव"
               sx={{ width: "100%" }}
               key="writer"
+              value={data.writer}
               onChange={(e) => {
                 handleChange("writer", e.target.value);
               }}
@@ -312,6 +368,7 @@ export default function ContentManagement(props) {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 // value={age}
+                value={data.content_category}
                 onChange={(e) => {
                   handleChange("content_category", e.target.value);
                 }}
@@ -387,6 +444,7 @@ export default function ContentManagement(props) {
               id="outlined-basic"
               placeholder="फाएलाचे नाव"
               size="small"
+              value={data.file_name}
               sx={{ bgcolor: "white", width: "80%" }}
               onChange={(e) => {
                 handleChange("file_name", e.target.value);
@@ -397,6 +455,7 @@ export default function ContentManagement(props) {
               placeholder="पृष्ठांची संख्या"
               size="small"
               sx={{ mt: 2, bgcolor: "white", width: "80%" }}
+              value={data.pages}
               onChange={(e) => {
                 handleChange("pages", e.target.value);
               }}
@@ -404,6 +463,7 @@ export default function ContentManagement(props) {
             <OutlinedInput
               id="outlined-basic"
               placeholder="साईज"
+              value={data.file_size}
               size="small"
               sx={{ mt: 2, bgcolor: "white", width: "80%" }}
               onChange={(e) => {
@@ -414,6 +474,7 @@ export default function ContentManagement(props) {
               id="outlined-basic"
               placeholder="ओळींची संख्या "
               size="small"
+              value={data.no_of_line}
               sx={{ mt: 2, bgcolor: "white", width: "80%" }}
               onChange={(e) => {
                 handleChange("no_of_line", e.target.value);
@@ -468,8 +529,9 @@ export default function ContentManagement(props) {
               placeholder="फाएलाचे नाव"
               size="small"
               sx={{ bgcolor: "white", width: "80%" }}
+              value={data.aud_file_name}
               onChange={(e) => {
-                handleChange("aut_file_name", e.target.value);
+                handleChange("aud_file_name", e.target.value);
               }}
             />
             <OutlinedInput
@@ -492,6 +554,7 @@ export default function ContentManagement(props) {
               placeholder="कालावधी"
               size="small"
               sx={{ mt: 2, bgcolor: "white", width: "80%" }}
+              value={data.aud_duration}
               onChange={(e) => {
                 handleChange("aud_duration", e.target.value);
               }}
@@ -501,6 +564,7 @@ export default function ContentManagement(props) {
               placeholder="ऑडिओ वक्ता "
               size="small"
               sx={{ mt: 2, bgcolor: "white", width: "80%" }}
+              value={data.aud_speaker}
               onChange={(e) => {
                 handleChange("", e.target.value);
               }}

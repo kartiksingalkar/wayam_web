@@ -51,6 +51,7 @@ import NewSubscriberPopup from "./Pop Up/NewSubscriberPopup";
 import Login from "./Pages/Login";
 import ConfirmPassword from "./Pages/ConfirmPassword";
 import ChangePassword from "./Pages/ChangePassword";
+import PublisherNew from "./Pages/PublisherNew";
 
 function App() {
   return (
@@ -138,6 +139,10 @@ function App() {
 
           <Route path="/NewSubscriberPopup">
             <NewSubscriberPopup />
+          </Route>
+
+          <Route path="/PublisherNew">
+            <PublisherNew />
           </Route>
         </Switch>
       </Router>

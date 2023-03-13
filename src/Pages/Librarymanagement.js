@@ -264,6 +264,10 @@ export default function Librarymanagement() {
                               name={item.content_name}
                               type={item.name}
                               authorName={item.writer}
+                              content_id={item.content_id}
+                              setData2={setData2}
+                              index={index}
+                              data={data}
                             />
                           ))}
                         </Grid>
@@ -337,7 +341,12 @@ export default function Librarymanagement() {
                       >
                         <Grid container spacing={0}>
                           {data.map((item, index) => (
-                            <LibraryManagementComponent2 type={item.name} />
+                            <LibraryManagementComponent2
+                              type={item.name}
+                              id={item.id}
+                              setData={setData}
+                              index={index}
+                            />
                           ))}
                         </Grid>
                       </Box>
@@ -351,7 +360,6 @@ export default function Librarymanagement() {
                       >
                         <AddButton buttonTitle={"+ नवीन प्रकार "} />
                       </Box>
-
                     </Grid>
                   </Box>
                 )}

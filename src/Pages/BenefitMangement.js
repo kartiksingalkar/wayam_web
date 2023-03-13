@@ -218,8 +218,10 @@ export default function BenefitManagement() {
                       {planData.map((item, index) => (
                         <BenefitManagementComponent1
                           plan={item.plan_name}
-                          // benefit={item}
+                          plan_id={item.plan_id}
                           duration={item.plan_duration}
+                          setPlanData={setPlanData}
+                          index={index}
                         />
                       ))}
 
