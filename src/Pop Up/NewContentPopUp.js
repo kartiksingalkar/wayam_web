@@ -5,23 +5,13 @@ import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-// import DialogContentText from "@mui/material/DialogContentText";
-// import DialogTitle from "@mui/material/DialogTitle";
 import { Box, Typography } from "@mui/material";
-// import { fontWeight } from "@mui/system";
-// import InputLabel from '@mui/material/InputLabel';
-// import MenuItem from '@mui/material/MenuItem';
-// import FormControl from '@mui/material/FormControl';
-// import Select, { SelectChangeEvent } from '@mui/material/Select';
-// import { Box } from "@mui/material";
+
 import SubmitButton from "../Components/SubmitButton";
 import axios from "axios";
 
 export default function NewContentPopUp(props) {
-  // const [open, setOpen] = React.useState(false);
-  // const [age, setAge] = React.useState('');
-  // const [ setRight] = React.useState('');
-
+  
   console.log(props.isForUpdate);
 
   const [data, setData] = useState({});
@@ -35,12 +25,10 @@ export default function NewContentPopUp(props) {
     console.log(key);
   };
 
-  // const handleRight = () => {
-  //   setRight();
-  // };
+  
 
   React.useEffect(() => {
-    // console.log(props.name)
+  
     if (props.isForUpdate) {
       setData((prevData) => {
         return {
@@ -154,40 +142,8 @@ export default function NewContentPopUp(props) {
               }}
             />
 
-            {/* <TextField
-            variant="outlined"
-            autoFocus
-            margin="dense"
-            id="outlined-basic"
-            placeholder="मजकूर क्रमांक "
-            fullWidth
-            size="small"
-            sx={{borderRadius:'5px', marginBottom:"20px",backgroundColor:"white"}}
-            onChange = {(e) => {
-                handleChange("contentNo",e.target.value);
-            }}
-          /> */}
-
-            {/* <TextField
-            variant="outlined"
-            autoFocus
-            multiline
-            maxRows={7}
-            onChange = {(e) => {
-                handleChange("description",e.target.value);
-            }}
-            // margin="dense"
-            // id="outlined-basic"
-            placeholder="मजकूर डिस्क्रिपशन"
-            fullWidth
-            size="small"
-            inputProps={{
-                style: {
-                  height: "90px"
-                }
-              }}
-            sx={{borderRadius:'5px', marginBottom:"20px",backgroundColor:"white"}}
-          /> */}
+          
+         
           </Box>
         </DialogContent>
         <DialogActions sx={{ backgroundColor: "#E1E5F8" }}>

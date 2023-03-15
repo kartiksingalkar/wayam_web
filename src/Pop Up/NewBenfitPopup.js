@@ -17,8 +17,7 @@ import moment from "moment";
 import axios from "axios";
 
 export default function NewBenfitPopup(props) {
-  // POP up Open close
-  // const [open, setOpen] = React.useState(false);
+  
 
   const handleClickOpen = () => {
     props.setOpen(true);
@@ -118,7 +117,7 @@ export default function NewBenfitPopup(props) {
                 width: "400px",
                 backgroundColor: "white",
                 marginBottom: "3%",
-                //   color: "gray",
+                
               }}
               onChange={handleBenifitCategoryChange}
             >
@@ -139,7 +138,7 @@ export default function NewBenfitPopup(props) {
                 width: "400px",
                 backgroundColor: "white",
                 marginBottom: "3%",
-                //   color: "gray",
+                
               }}
               onChange={handleStatusChange}
             >
@@ -177,12 +176,10 @@ export default function NewBenfitPopup(props) {
               }}
               onChange={handleUnitChange}
             >
-              {/* <MenuItem value="">
-                <em>None</em>
-              </MenuItem> */}
+             
               <MenuItem value="days">Days</MenuItem>
               <MenuItem value="months">Months</MenuItem>
-              {/* <MenuItem value='co'>काउन्ट</MenuItem> */}
+             
             </Select>
           </FormControl>
           {/* Date Picker */}
@@ -235,7 +232,7 @@ export default function NewBenfitPopup(props) {
         </DialogContent>
         {/* Action Button */}
         <DialogActions sx={{ backgroundColor: "#E1E5F8", margin: 0 }}>
-          {/* <Button onClick={handleClose}>रद्ध करा</Button> */}
+     
           <Button
             sx={{
               marginLeft: "0px",

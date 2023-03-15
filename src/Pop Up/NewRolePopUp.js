@@ -4,10 +4,9 @@ import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-// import DialogContentText from "@mui/material/DialogContentText";
-// import DialogTitle from "@mui/material/DialogTitle";
+
 import { Typography } from "@mui/material";
-// import { fontWeight } from "@mui/system";
+
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -17,7 +16,7 @@ import SubmitButton from "../Components/SubmitButton";
 
 
 export default function (props) {
-  // const [open, setOpen] = React.useState(false);
+ 
   const [age, setAge] = React.useState('');
   const [right] = React.useState('');
 

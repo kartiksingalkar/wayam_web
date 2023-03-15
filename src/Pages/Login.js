@@ -1,21 +1,20 @@
 import { React, useEffect, useState } from "react";
 import { Box, Container, TextField, Button, Typography } from "@mui/material";
-// import { useNavigate } from "react-router-dom";
+
 import logo from "../Images/wayamLogo.png";
-// import loginImage from "../Images/loginImage.png";
+
 import styles from "../Components/global";
 import { Link, useHistory } from "react-router-dom";
 
 import axios from "axios";
 
-// import Footer from "../components/Footer";
-// import { fontFamily } from "@mui/system";
+
 
 export default function Login() {
   const history = useHistory();
   //state to store the data
   const [data, setData] = useState({});
-  //   const [errors, setErrors] = useState(false);
+
 
   //function to handle change in input fields
   const handleChange = (key, value) => {
@@ -47,36 +46,8 @@ export default function Login() {
     }
   };
 
-  //   function to handle submit/login events
-  //   const handleSubmit = async () => {
-  // try {
-  //   //post request to the backend using axios
-  //   const response = await axios(
-  //     `${process.env.REACT_APP_API_URL}/api/signin`,
-  //     {
-  //       method: "post",
-  //       headers: {
-  //         "Access-Control-Allow-Origin": "*",
-  //       },
-  //       data,
-  //     }
-  //   );
-  //   // console.log(response.data);
 
-  //   //if the response is true, navigate to dashboard and store the token in local storage
-  //   if (response.data.status) {
-  //     navigate("/dashboard");
-  //     let token = `${response.data.token}`;
-  //     localStorage.setItem("token", token);
-  //   }
-  // } catch (err) {
-  //   setErrors(true);
-  //   console.log(err);
-  // }
-  //   };
-
-  // if error then rerenender the component
-  //   useEffect(() => {}, [errors]);
+ 
 
   const [matches, setMatches] = useState(
     window.matchMedia("(min-width: 800px)").matches
@@ -127,20 +98,7 @@ export default function Login() {
           </Container>
           {/* End Header Container */}
 
-          {/* Show if user enters invalid creadentials */}
-          {/* {errors && (
-            <Typography
-              variant="overline"
-              component="h1"
-              align="center"
-              sx={[
-                styles.subscript,
-                { marginTop: "24px", fontSize: "13px", color: "red" },
-              ]}
-            >
-              Invalid Credentials!!
-            </Typography>
-          )} */}
+         
 
           {/* Start of Form */}
           <Container
@@ -212,48 +170,8 @@ export default function Login() {
       </Box>
       {/* End of Form Container */}
 
-      {/* Start of Image Container
-      {matches && (
-        <Box
-          sx={{
-            backgroundColor: "primary.dark",
-            backgroundColor: "#E1E5F8;",
-            height: "92vh",
-            flex: "1",
-            width: "100px",
-          }}
-        >
-          <Box
-            sx={{
-              marginTop: 10,
-              justifyContent: "center",
-              alignItems: "center",
-              textAlign: "center",
-            }}
-          >
-            <img
-              src={loginImage}
-              alt="SVG"
-              width="50%"
-              height="50%"
-              sx={{
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            />
-          </Box>
-        </Box>
-      )}
- */}
-      {/* End of Image Container */}
-      {/* <Box sx={{
-        left: 0,
-        bottom: 0,
-        width: '100%',
-        height:"8vh",
-      }}>
-       <Footer/>
-       </Box>  */}
+      
+      
     </Box>
   );
 }

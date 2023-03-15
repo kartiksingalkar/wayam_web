@@ -1,20 +1,19 @@
 import { Button, TextField, Typography } from "@mui/material";
-import MenuItem from "@mui/material/MenuItem";
-import InputLabel from "@mui/material/InputLabel";
-import { Box, FormControl } from "@mui/material";
-import Select from "@mui/material/Select";
+
+import { Box } from "@mui/material";
+// import Select from "@mui/material/Select";
 import React, { useEffect, useState } from "react";
 // import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import addBtn from "../Images/add.png";
+
 import axios from "axios";
 
 function NewTemplate(props) {
-  // POP up Open close
+ 
   console.log(props);
-  // const [open, setOpen] = React.useState(false);
+
 
   const handleClickOpen = () => {
     props.setOpen(true);
@@ -71,7 +70,7 @@ function NewTemplate(props) {
     fetchData();
   }, []);
 
-  const [name, setName] = useState("");
+
 
   const nameChange = (key, value) => {
     handleChange(key, value);
@@ -204,55 +203,19 @@ function NewTemplate(props) {
               onChange={(e) => handleChange("template_name", e.target.value)}
               variant="outlined"
             />
-            {/* Add Button */}
-            {/* <img sx={{ marginLeft: "2%" }} src={addBtn} alt="hello" /> */}
-            {/* <Button onClick={() => handleAdd()}>Add</Button> */}
+
             {categories.map((item, index) => {
               return (
                 <div>
                   <Box sx={{ width: "100%", display: "flex" }}>
                     <Box sx={{ display: "flex", flexDirection: "row" }}>
-                      {/* <FormControl>
-                        <InputLabel id="demo-simple-select-helper">
-                          साहित्य प्रकार
-                        </InputLabel>
-                        <Select
-                          labelId="demo-simple-select-helper-label"
-                          id="demo-simple-select-helper"
-                          label="साहित्य प्रकार  "
-                          size="small"
-                          sx={{
-                            width: "380px",
-                            backgroundColor: "white",
-                            marginBottom: "3%",
-                          }}
-                        >
-                          <MenuItem value={10}>चौकस चौरस</MenuItem>
-                          <MenuItem value={20}>गप्पाटप्पा</MenuItem>
-                          <MenuItem value={30}>शब्दरंजन</MenuItem>
-                          <MenuItem value={40}>कल्पक</MenuItem>
-                          <MenuItem value={50}>गोष्टी</MenuItem>
-                          <MenuItem value={60}>इंग्लिश</MenuItem>
-                        </Select>
-                      </FormControl> */}
+                     
                       <Box sx={{width:'150px' , height:'30px', display:'flex',backgroundColor:'white' , border:1, borderColor:'grey' , justifyContent:'center' , alignItems:'center'}}>
                       <Typography sx={{width:'130px'}}>{item.name} ; -
                         </Typography>
                       </Box>
                       
-                      {/* <Typography
-                        id="outlined-basic"
-                        value=
-                        sx={{
-                          width: "380px",
-                          borderRadius: "5px",
-                          marginBottom: "3%",
-                          backgroundColor: "white",
-                        }}
-                        size="small"
-                        //   onChange={e=>handleChange(e,i)}
-                        variant="outlined"
-                      /> */}
+                     
                     </Box>
                     <Box sx={{ display: "flex", flexDirection: "column" }}>
                       <TextField

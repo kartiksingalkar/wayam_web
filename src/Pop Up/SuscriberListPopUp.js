@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Button from "@mui/material/Button";
-// import Avatar from "@mui/material/Avatar";
 import List from "@mui/material/List";
-// import ListItem from "@mui/material/ListItem";
-// import ListItemAvatar from "@mui/material/ListItemAvatar";
-// import ListItemButton from "@mui/material/ListItemButton";
-// import ListItemText from "@mui/material/ListItemText";
-// import DialogTitle from '@mui/material/DialogTitle';
+
 import Dialog from "@mui/material/Dialog";
-// import PersonIcon from "@mui/icons-material/Person";
-// import AddIcon from '@mui/icons-material/Add';
 import Typography from "@mui/material/Typography";
-// import { blue } from "@mui/material/colors";
 import { Box } from "@mui/material";
 import SearchBoxNew from "../Components/SearchBox";
 import Grid from "@mui/material/Grid";
@@ -32,9 +24,9 @@ function SimpleDialog(props) {
     onClose(selectedValue);
   };
 
-  const handleListItemClick = (value) => {
-    onClose(value);
-  };
+  // const handleListItemClick = (value) => {
+  //   onClose(value);
+  // };
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -44,40 +36,8 @@ function SimpleDialog(props) {
     color: theme.palette.text.secondary,
   }));
 
-  const emails = [];
 
-  const subscribers = [
-    {
-      email: "rushibarsing@gmail.com",
-      mobileno: "7028921267",
-      city: "पुणे ",
-      pincode: "410 301 ",
-    },
-    {
-      email: "rushibarsing@gmail.com",
-      mobileno: "7028921267",
-      city: "पुणे ",
-      pincode: "410 301 ",
-    },
-    {
-      email: "rushibarsing@gmail.com",
-      mobileno: "7028921267",
-      city: "पुणे ",
-      pincode: "410 301 ",
-    },
-    {
-      email: "rushibarsing@gmail.com",
-      mobileno: "7028921267",
-      city: "पुणे ",
-      pincode: "410 301 ",
-    },
-    {
-      email: "rushibarsing@gmail.com",
-      mobileno: "7028921267",
-      city: "पुणे ",
-      pincode: "410 301 ",
-    },
-  ];
+ 
   const [opennsp, setopennsp] = useState(false);
   const openNewSubscriber = () => {
     setopennsp(!opennsp);
@@ -161,21 +121,7 @@ function SimpleDialog(props) {
           </Box>
 
           <List sx={{ pt: 0, backgroundColor: "#E1E5F8" }}>
-            {/* {emails.map((email) => (
-            <ListItem disableGutters>
-              <ListItemButton
-                onClick={() => handleListItemClick(email)}
-                key={email}
-              >
-                <ListItemAvatar>
-                  <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
-                    <PersonIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary={email} />
-              </ListItemButton>
-            </ListItem>
-          ))} */}
+         
 
             <Box
               display="flex"

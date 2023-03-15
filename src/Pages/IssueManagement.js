@@ -256,8 +256,7 @@ export default function IssueManagement() {
       {/* Header */}
       <HeaderBar />
       {/* Container */}
-      {/* <Box className="box"> */}
-      {/* Back Blue box */}
+ 
       <Box className="backBox">
         {/* Upper Text */}
         <Box sx={{ width: "70%" }}>
@@ -296,7 +295,7 @@ export default function IssueManagement() {
               <TextField
                 id="outlined-basic"
                 label="Issue Number"
-                // className="inputField1"
+             
                 size="small"
                 variant="outlined"
                 sx={{
@@ -306,7 +305,7 @@ export default function IssueManagement() {
                   backgroundColor: "white",
                   minWidth: "320px",
                 }}
-                // sx={{ marginLeft: "25px" }}
+               
                 value={data.issue_no}
                 onChange={(e) => {
                   handleChange("issue_no", e.target.value);
@@ -482,9 +481,7 @@ export default function IssueManagement() {
                     handleTemplateChange(e.target.value);
                   }}
                 >
-                  {/* <MenuItem value="">
-                  <em>None</em>
-                </MenuItem> */}
+                 
                   {templateData.map((item) => {
                     return (
                       <MenuItem value={item.template_id}>
@@ -540,8 +537,7 @@ export default function IssueManagement() {
           <img src={img1} alt="hello" />
         </Box>
       </Box>
-      {/* </Box> */}
-      {/* Footer */}
+      
       <Footer />
     </Box>
   );

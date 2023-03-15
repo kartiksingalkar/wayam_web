@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -132,20 +132,7 @@ export default function NewStaffPopup(props) {
               value={data.address1}
               onChange={(e) => handleFieldChange("address1", e.target.value)}
             />
-            {/* <TextField
-              id="outlined-basic"
-              label="प्रोफाइल फोटो"
-              sx={{
-                width: "400px",
-                borderRadius: "5px",
-                marginBottom: "3%",
-                backgroundColor: "white",
-              }}
-              size="small"
-              variant="outlined"
-              type="file"
-              onFile
-            /> */}
+          
 
             <TextField
               id="outlined-basic"
@@ -170,7 +157,7 @@ export default function NewStaffPopup(props) {
                 width: "400px",
                 borderRadius: "5px",
                 marginBottom: "3%",
-                // backgroundColor: "white",
+             
               }}
               variant="contained"
               component="label"
@@ -253,9 +240,7 @@ export default function NewStaffPopup(props) {
                 }}
                 onChange={handleAgeChange}
               >
-                {/* <MenuItem value="">
-                  <em>None</em>
-                </MenuItem> */}
+                
                 <MenuItem value={1}>Sameer Karandikar</MenuItem>
                 <MenuItem value={2}>Shilpa Inamdar</MenuItem>
               </Select>
@@ -297,7 +282,7 @@ export default function NewStaffPopup(props) {
         </DialogContent>
         {/* Action Button */}
         <DialogActions sx={{ backgroundColor: "#E1E5F8", margin: 0 }}>
-          {/* <Button onClick={handleClose}>रद्ध करा</Button> */}
+       
           <Button
             sx={{
               marginRight: "18%",

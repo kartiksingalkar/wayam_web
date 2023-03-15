@@ -95,20 +95,7 @@ export default function PublisherNew(props) {
                 <Box sx={{ m: 3 }}>
                   <h3>Index</h3>
                   <ol>
-                    {/* {categoryCount.map((item, index) => {
-                      return (
-                        <>
-                          <li style={{ fontStyle: "inherit" }}>
-                            {name[index]}
-                          </li>
-                          {Array(parseInt(templateData[item]))
-                            .fill(5)
-                            .map((item, index) => {
-                              return <p>{item}</p>;
-                            })}
-                        </>
-                      );
-                    })} */}
+                  
 
                     {categoryCount.map((item1, index) => {
                       return (

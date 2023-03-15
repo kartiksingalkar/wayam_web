@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from "react";
 import { Box, Container, TextField, Button, Typography } from "@mui/material";
-// import { useNavigate } from "react-router-dom";
+
 import logo from "../Images/wayamLogo.png";
 import loginImage from "../Images/loginImage.png";
 import styles from "../Components/global";

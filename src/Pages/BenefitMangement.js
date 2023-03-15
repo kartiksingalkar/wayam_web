@@ -15,7 +15,7 @@ import BenefitManagementComponent1 from "../Components/BenefitManagementComponen
 import BenefitManagementComponent2 from "../Components/BenefitManagementComponent2";
 
 import "../CSS/benefitmanagement.css";
-import NewBenfitPopup from "../Pop Up/NewBenfitPopup";
+
 import axios from "axios";
 import NewPlanPopup from "../Pop Up/NewPlanPopup";
 
@@ -75,24 +75,9 @@ export default function BenefitManagement() {
     setValue(newValue);
   };
 
-  // const [benifitData, setBenifitData] = useState([]);
   const [planData, setPlanData] = useState([]);
 
-  // useEffect(() => {
-  //   async function getData() {
-  //     try {
-  //       const response = await axios.get(
-  //         `${process.env.REACT_APP_API_URL}/getallbenifits`
-  //       );
-  //       console.log(response.data.data);
-  //       setBenifitData(response.data.data);
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   }
-
-  //   getData();
-  // }, []);
+ 
 
   useEffect(() => {
     async function getData() {
@@ -174,16 +159,7 @@ export default function BenefitManagement() {
                     className="tabtext"
                     value={0}
 
-                    // sx={{
-                    //   backgroundColor: "#4F62B0",
-                    //   color: "#ffffff",
-
-                    //   "&:hover": {
-                    //     backgroundColor: "#4F62B0",
-                    //     color:'#ffffff',
-                    //   },
-
-                    // }}
+                   
                   />
                   {/* <Tab label="लाभ" className="tabtext" value={1} /> */}
                 </Tabs>
@@ -327,13 +303,7 @@ export default function BenefitManagement() {
         <Footer />
       </Box>
       {/* // end of footer */}
-      {/* {open && (
-        <NewBenfitPopup
-          setData={setBenifitData}
-          open={open}
-          setOpen={setOpen}
-        />
-      )} */}
+     
 
       {planOpen && (
         <NewPlanPopup

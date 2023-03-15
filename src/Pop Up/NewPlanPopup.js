@@ -22,9 +22,7 @@ import axios from "axios";
 export default function NewPlanPopup(props) {
   const [benifitData, setPlanData] = useState(props.benifitData);
 
-  // const handleChange = (event) => {
-  //   setChecked(event.target.checked);
-
+ 
   console.log(props);
   // };
 
@@ -135,9 +133,7 @@ export default function NewPlanPopup(props) {
 
   return (
     <div>
-      {/* <Button variant="outlined" onClick={handleClickOpen}>
-        Open form dialog
-      </Button> */}
+      
       {/* Pop up */}
       <Dialog open={props.open} onClose={handleClose}>
         <DialogTitle sx={{ backgroundColor: "#E1E5F8", width: "400px" }}>

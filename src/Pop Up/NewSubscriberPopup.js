@@ -5,7 +5,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import Input from "@mui/material/Input";
+
 import "../CSS/PrimaryInformation.css";
 import img2 from "../Images/organizationchart2.png";
 import { Box } from "@mui/system";
@@ -21,7 +21,7 @@ export default function NewSubscriberPopup(props) {
         [key]: value,
       };
     });
-    // console.log(value);
+   
     console.log(key);
   };
   // Pop up

@@ -2,27 +2,24 @@ import { React, useEffect, useState } from "react";
 import { Box, Typography, Text } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-// import Navbar from "../components/Navbar";
+
 import Header from "../Components/HeaderBar";
 import Footer from "../Components/Footer";
-// import Footer1 from "../components/Footer1";
+
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-// import { textAlign } from "@mui/system";
-// import edit from "../assets/dashboard/edit.png";
-// import frame from "../assets/dashboard/frame.png";
-// import search from "../Images/search.png";
+
 import LibraryManagementComponent from "../Components/LibraryManagementComponent";
 import LibraryManagementComponent2 from "../Components/LibraryManagementComponent2";
 
 import AddButton from "../Components/AddButton";
-// import SearchBox from "../components/SearchBox";
+
 import SearchBoxNew from "../Components/SearchBox";
 import { Link, useHistory } from "react-router-dom";
 import NewContentPopUp from "../Pop Up/NewContentPopUp";
 import axios from "axios";
-// import "../styles/font.css";
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -32,27 +29,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const data = [
-  { name: "गप्पाटप्पा ", type: "टेक्स्ट", authorName: "प्रवीण दवणे" },
-  { name: "गोष्टी परिपूर्ण भेट", type: "ऑडिओ", authorName: "गणेश मतकरी" },
-  { name: "स्वीकार", type: "टेक्स्ट", authorName: "उज्ज्वला दळवी" },
-  { name: "कविता काजव्यांचा कंदील", type: "ऑडिओ", authorName: "प्रवीण दवणे" },
-  { name: " कल्पक", type: "ऑडिओ", authorName: "उज्ज्वला दळवी" },
-  { name: "गप्पाटप्पा ", type: "टेक्स्ट", authorName: "प्रवीण दवणे" },
-  { name: "गोष्टी परिपूर्ण भेट", type: "ऑडिओ", authorName: "गणेश मतकरी" },
-  { name: "स्वीकार", type: "टेक्स्ट", authorName: "उज्ज्वला दळवी" },
-  { name: "कविता काजव्यांचा कंदील", type: "ऑडिओ", authorName: "प्रवीण दवणे" },
-  { name: " कल्पक", type: "ऑडिओ", authorName: "उज्ज्वला दळवी" },
-];
 
-const types = [
-  { type: "कथा " },
-  { type: "कविता" },
-  { type: "साहित्य" },
-  { type: "कथा " },
-  { type: "कविता" },
-  { type: "साहित्य" },
-];
 
 export default function Librarymanagement() {
   const [value, setValue] = useState(0);
@@ -176,30 +153,13 @@ export default function Librarymanagement() {
                     className="tabtext"
                     value={0}
 
-                    // sx={{
-                    //   backgroundColor: "#4F62B0",
-                    //   color: "#ffffff",
-
-                    //   "&:hover": {
-                    //     backgroundColor: "#4F62B0",
-                    //     color:'#ffffff',
-                    //   },
-
-                    // }}
+                 
                   />
                   <Tab
                     label="content type "
                     className="tabtext"
                     value={1}
-                    // sx={{
-                    //   backgroundColor: "#4F62B0",
-                    //   color: "ffffff",
-                    //   "&:hover": {
-                    //     backgroundColor: "#4F62B0",
-                    //     color:'#ffffff',
-                    //   },
-
-                    // }}
+                 
                   />
                   {/* <Tab></Tab> */}
                 </Tabs>
@@ -281,10 +241,7 @@ export default function Librarymanagement() {
                         sx={{ width: "100%" }}
                         onClick={goToContentManagement}
                       >
-                        {/* <Link
-                          to="/ContentManagement"
-                          style={{ textDecoration: "none" }}
-                        > */}
+                       
                         <AddButton buttonTitle={"+ Add Content"} />
                         {/* </Link> */}
                       </Box>

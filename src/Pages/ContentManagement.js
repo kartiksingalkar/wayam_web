@@ -222,6 +222,7 @@ export default function ContentManagement(props) {
           let content_id = contentId;
           uploadAudioFile(content_id);
           uploadCoverImgFile(content_id);
+          alert('Data Uploaded')
         }
       } catch (e) {
         console.log(e);

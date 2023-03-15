@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import { Box, Typography } from "@mui/material";
-// import Footer from "../Components/Footer";
+
 
 import management1 from "../Images/management1.png";
 import organizationchart1 from "../Images/organizationchart1.png";
@@ -11,7 +11,7 @@ import "../CSS/dashboard.css";
 import { Link } from "react-router-dom";
 
 import HeaderBar from "../Components/HeaderBar";
-// import StaffList from "../Components/StaffList";
+
 import SubscriberListPopUp from "../Pop Up/SuscriberListPopUp";
 
 export default function Dashboard() {
@@ -285,10 +285,6 @@ Library Management</Typography>
         </Box>
       </Box>
       {/* // end of dashboard */}
-
-      {/* // start of footer */}
-      {/* <Footer /> */}
-      {/* // end of footer */}
 
       {open && <SubscriberListPopUp open={open} setOpen={setOpen} />}
     </Box>
