@@ -26,8 +26,11 @@ export default function IssueManagement() {
   const [coverImgFile1, setCoverImgFile1] = useState();
   const [lastImgFile, setLastImgFile] = useState();
   const [lastImgFile1, setLastImgFile1] = useState();
+  const [isForUpdate, setIsForUpdate] = useState(
+    location.state?.isForUpdate ? true : false
+  );
 
-  const { id, isForUpdate } = location.state;
+  // const { id, isForUpdate } = location.state;
 
   const issueCoverImg = (e) => {
     setCoverImgFile(e.target.files[0]);
@@ -52,12 +55,12 @@ export default function IssueManagement() {
   };
 
   useEffect(() => {
-    console.log("IsForUpdate : " + isForUpdate);
+    // console.log("IsForUpdate : " + isForUpdate);
     if (isForUpdate) {
       async function getData() {
         try {
           const response = await axios.get(
-            `${process.env.REACT_APP_API_URL}/getissueforupdate?issue_id=${id}`,
+            `${process.env.REACT_APP_API_URL}/getissueforupdate?issue_id=${location.state.id}`,
             {
               headers: {
                 "Content-Type": "application/json",
@@ -195,7 +198,7 @@ export default function IssueManagement() {
     if (isForUpdate) {
       try {
         let response = await axios.patch(
-          `${process.env.REACT_APP_API_URL}/updateissue?issue_id=${id}`,
+          `${process.env.REACT_APP_API_URL}/updateissue?issue_id=${location.state.id}`,
           data,
           {
             headers: {
@@ -205,7 +208,7 @@ export default function IssueManagement() {
         );
 
         if (response.data.status) {
-          window.location.reload()
+          window.location.reload();
         }
       } catch (e) {
         console.log(e);
@@ -256,7 +259,7 @@ export default function IssueManagement() {
       {/* Header */}
       <HeaderBar />
       {/* Container */}
- 
+
       <Box className="backBox">
         {/* Upper Text */}
         <Box sx={{ width: "70%" }}>
@@ -295,7 +298,6 @@ export default function IssueManagement() {
               <TextField
                 id="outlined-basic"
                 label="Issue Number"
-             
                 size="small"
                 variant="outlined"
                 sx={{
@@ -305,7 +307,6 @@ export default function IssueManagement() {
                   backgroundColor: "white",
                   minWidth: "320px",
                 }}
-               
                 value={data.issue_no}
                 onChange={(e) => {
                   handleChange("issue_no", e.target.value);
@@ -481,7 +482,6 @@ export default function IssueManagement() {
                     handleTemplateChange(e.target.value);
                   }}
                 >
-                 
                   {templateData.map((item) => {
                     return (
                       <MenuItem value={item.template_id}>
@@ -537,7 +537,7 @@ export default function IssueManagement() {
           <img src={img1} alt="hello" />
         </Box>
       </Box>
-      
+
       <Footer />
     </Box>
   );

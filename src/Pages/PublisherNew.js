@@ -15,35 +15,25 @@ export default function PublisherNew(props) {
   const { issue_id, templateName, templateData } = location.state;
 
   const [categoryCount, setCategoryCount] = useState([]);
-  const [issueCount, setIssueCount] = useState([]);
   const [name, setName] = useState([]);
-
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    setCategoryCount(Object.keys(templateData));
-    setIssueCount(Object.values(templateData));
-    setName(Object.values(templateName));
-  }, [location]);
-
-  const [issueContent, setIssueContent] = useState([]);
+  const [tableName, setTableName] = useState("");
+  const [tempData, setTempData] = useState([]);
 
   useEffect(() => {
     try {
       async function fetchData() {
         try {
           const response = await axios.get(
-            `${process.env.REACT_APP_API_URL}/getissuecontent?issue_id=${issue_id}`,
+            `${process.env.REACT_APP_API_URL}/gettablename?issue_id=${issue_id}`,
             {
               headers: {
                 "Content-Type": "application/json",
               },
             }
           );
-
           if (response.data.status) {
-            setIssueContent(response.data.data);
-            console.log("categories", response.data.data);
+            setTableName(response.data.data[0].table_name);
+            console.log("New Data", response.data.data);
           }
         } catch (e) {}
       }
@@ -52,6 +42,111 @@ export default function PublisherNew(props) {
       console.log(e);
     }
   }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/gettemplatedataforissue?table_name=${tableName}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (response.data.status) {
+          console.log("New Template Data", response.data.data);
+          setTempData(response.data.data);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    fetchData();
+  }, [tableName]);
+
+  const [issueContent, setIssueContent] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/getissuecontent?issue_id=${issue_id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (response.data.status) {
+          console.log("New Issue Content", response.data.data);
+          setIssueContent(response.data.data);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    fetchData();
+  }, []);
+
+  // useEffect(() => {
+  //   setCategoryCount(Object.keys(templateData));
+  //   setIssueCount(Object.values(templateData));
+  //   setName(Object.values(templateName));
+  // }, [location]);
+
+  // const [issueContent, setIssueContent] = useState([]);
+
+  // useEffect(() => {
+  //   try {
+  //     async function fetchData() {
+  //       try {
+  //         const response = await axios.get(
+  //           `${process.env.REACT_APP_API_URL}/getissuecontent?issue_id=${issue_id}`,
+  //           {
+  //             headers: {
+  //               "Content-Type": "application/json",
+  //             },
+  //           }
+  //         );
+
+  //         if (response.data.status) {
+  //           setIssueContent(response.data.data);
+  //           console.log("categories", response.data.data);
+  //         }
+  //       } catch (e) {}
+  //     }
+  //     fetchData();
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }, []);
+
+  const activateIssue = () => {
+    try {
+      async function fetchData() {
+        try {
+          const response = await axios.patch(
+            `${process.env.REACT_APP_API_URL}/activateissue?issue_id=${issue_id}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          if (response.data.status) {
+            console.log("activate", response.data.data);
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }
+      fetchData();
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <Box>
@@ -95,13 +190,12 @@ export default function PublisherNew(props) {
                 <Box sx={{ m: 3 }}>
                   <h3>Index</h3>
                   <ol>
-                  
-
-                    {categoryCount.map((item1, index) => {
+                    {/* {categoryCount.map((item1, index) => {
                       return (
                         <>
                           <li style={{ fontStyle: "inherit" }}>
-                            {name[index]} (Maximum capacity :{templateData[item1]})
+                            {name[index]} (Maximum capacity :
+                            {templateData[item1]})
                           </li>
                           {issueContent.map((item, index) => {
                             return (
@@ -115,6 +209,31 @@ export default function PublisherNew(props) {
                               </p>
                             );
                           })}
+
+                        </>
+                      );
+                    })} */}
+
+                    {tempData.map((item, index) => {
+                      return (
+                        <>
+                          <li style={{ fontStyle: "inherit" }}>
+                            {item.category_name}
+                            <ol>
+                              {issueContent.map((item1, index1) => {
+                                return (
+                                  <>
+                                    {parseInt(item1.content_category) ===
+                                    parseInt(item.category_id) ? (
+                                      <li>{item1.content_name}</li>
+                                    ) : (
+                                      <></>
+                                    )}
+                                  </>
+                                );
+                              })}
+                            </ol>
+                          </li>
                         </>
                       );
                     })}
@@ -202,11 +321,12 @@ export default function PublisherNew(props) {
                   margin: "2%",
                 }}
               >
-              Review
+                Review
               </Button>
               <Button
                 variant="contained"
                 sx={{ width: "70%", backgroundColor: "#4F62B0" }}
+                onClick={activateIssue}
               >
                 Publish
               </Button>

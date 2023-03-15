@@ -47,6 +47,22 @@ export default function ContentManagement(props) {
   const [issueContent, setIssueContent] = useState([]);
   const [contentId, setContentId] = useState();
 
+  const handleSubscriptionCheckbox = (key, value) => {
+    setSubData((prevState) => {
+      return {
+        ...prevState,
+        [key]: value,
+      };
+    });
+    setU(!u);
+    handleChange("subscription", subData);
+    // console.log("Sub Data : ", subData);
+  };
+
+  useEffect(() => {
+    handleChange("subscription", subData);
+  }, [subData, data]);
+
   useEffect(() => {
     // if (location.state.update) {
     //   setData(location.state.data2);
@@ -68,7 +84,11 @@ export default function ContentManagement(props) {
             "Content Data : " + JSON.stringify(response.data.data[0])
           );
           setData(response.data.data[0]);
-          for (let i = 0; i <= response.data.data[0].plan_to_push[i].length; i++) {
+          for (
+            let i = 0;
+            i <= response.data.data[0].plan_to_push[i].length;
+            i++
+          ) {
             console.log(
               "Data of Sub : " + response.data.data[0].plan_to_push[i]
             );
@@ -83,7 +103,7 @@ export default function ContentManagement(props) {
         console.log(e);
       }
     }
-  }, [contentId, subData]);
+  }, [contentId, isForUpdate]);
 
   useEffect(() => {
     async function getData() {
@@ -117,20 +137,17 @@ export default function ContentManagement(props) {
 
   const [u, setU] = useState(0);
 
-  const handleIssueChange = (value) => {
-    handleChange("issue_id", value);
-  };
+  const [issue_id, setIssueId] = useState();
 
-  const handleSubscriptionCheckbox = (key, value) => {
-    setSubData((prevState) => {
+  const handleIssueChange = (value) => {
+    // handleChange("issue_id", value);
+    setData((prevState) => {
       return {
         ...prevState,
-        [key]: value,
+        issue_id: value,
       };
     });
-    setU(!u);
-    handleChange("subscription", subData);
-    // console.log("Sub Data : ", subData);
+    // setIssueId(value);
   };
 
   useEffect(() => {}, [u]);
@@ -217,12 +234,12 @@ export default function ContentManagement(props) {
             },
           }
         );
-          console.log("Hello Response : " + JSON.stringify(response))
+        console.log("Hello Response : " + JSON.stringify(response));
         if (response.data.status) {
           let content_id = contentId;
           uploadAudioFile(content_id);
           uploadCoverImgFile(content_id);
-          alert('Data Uploaded')
+          alert("Data Uploaded");
         }
       } catch (e) {
         console.log(e);
@@ -821,7 +838,7 @@ export default function ContentManagement(props) {
             <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
-              value={data.template_id}
+              // value={data.issue_name}
               label="Issue Name"
               size="small"
               sx={{
