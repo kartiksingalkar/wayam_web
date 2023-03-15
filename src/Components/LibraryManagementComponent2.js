@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import edit from "../Images/edit.png";
 import frame from "../Images/frame.png";
+import NewContentPopUp from "../Pop Up/NewContentPopUp";
 import axios from "axios";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -29,10 +30,19 @@ export default function LibraryManagementComponent2(props) {
           newData.splice(index, 1);
           return newData;
         });
+        alert("do you want to delete ?");
       }
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const [openncpop, setopenncpop] = useState(false);
+  const [isForUpdate, setIsForUpdate] = useState(false);
+
+  const handleEdit = async () => {
+    setIsForUpdate(true);
+    setopenncpop(!openncpop);
   };
 
   return (
@@ -59,6 +69,7 @@ export default function LibraryManagementComponent2(props) {
             width="17.17px"
             height="17.17px"
             alt="SVG"
+            onClick={handleEdit}
             style={{ paddingLeft: "10px", paddingRight: "10px" }}
           />
           <img
@@ -72,6 +83,15 @@ export default function LibraryManagementComponent2(props) {
           <Typography>{type}</Typography>
         </Box>
       </Item>
+      {openncpop && (
+        <NewContentPopUp
+          isForUpdate={isForUpdate}
+          type={type}
+          id={id}
+          open={openncpop}
+          setOpen={setopenncpop}
+        />
+      )}
     </Grid>
   );
 }

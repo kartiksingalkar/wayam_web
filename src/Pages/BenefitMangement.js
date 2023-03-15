@@ -100,7 +100,7 @@ export default function BenefitManagement() {
         const response = await axios.get(
           `${process.env.REACT_APP_API_URL}/getallplans`
         );
-        // console.log("Plans : " + JSON.stringify(response.data.data));
+        console.log("Plans : " + JSON.stringify(response.data.data));
         // setBenifitData(response.data.data);
         setPlanData(response.data.data)
       } catch (e) {
@@ -139,7 +139,7 @@ export default function BenefitManagement() {
         }}
       >
         <Box sx={{ color: "#4F62B0", marginLeft: "20px" }}>
-          <Typography>योजना किंवा लाभ व्यवस्थापन</Typography>
+          <Typography>Plan or benefit management</Typography>
         </Box>
         <Box
           sx={{
@@ -170,7 +170,7 @@ export default function BenefitManagement() {
                   sx={{ margin: "0px auto auto ", backgroundColor: "#ffffff" }}
                 >
                   <Tab
-                    label="योजना"
+                    label="Plan"
                     className="tabtext"
                     value={0}
 
@@ -194,7 +194,7 @@ export default function BenefitManagement() {
                     <Grid container spacing={2} justify="center">
                       <Grid item xs={8}>
                         {/* <SearchBox find={"योजना शोधा"} /> */}
-                        <SearchBox find={"योजना शोधा"} />
+                        <SearchBox find={"Find a plan"} />
                       </Grid>
                       <Grid item xs={12}>
                         <Item
@@ -207,10 +207,10 @@ export default function BenefitManagement() {
                           }}
                         >
                           <Box sx={{ width: "50%", textAlign: "left" }}>
-                            <Typography>योजनेचे नाव </Typography>
+                            <Typography>Name of the scheme</Typography>
                           </Box>
                           <Box sx={{ width: "50%", textAlign: "left" }}>
-                            <Typography>कालावधी (महिन्यांमधे)</Typography>
+                            <Typography>Duration (in months)</Typography>
                           </Box>
                         </Item>
                       </Grid>
@@ -222,6 +222,7 @@ export default function BenefitManagement() {
                           duration={item.plan_duration}
                           setPlanData={setPlanData}
                           index={index}
+                          status={item.status}
                         />
                       ))}
 
@@ -234,7 +235,7 @@ export default function BenefitManagement() {
                         onClick={openNewPlanPopup}
 
                       >
-                        <AddButton buttonTitle={"+ नवीन योजना"} />
+                        <AddButton buttonTitle={"+ New plans"} />
                       </Box>
                     </Grid>
                   </Box>

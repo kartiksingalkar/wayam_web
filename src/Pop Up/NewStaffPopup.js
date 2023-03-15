@@ -67,7 +67,7 @@ export default function NewStaffPopup(props) {
       <Dialog maxWidth="xl" open={props.open} onClose={handleClose}>
         {/* Popup Title */}
         <DialogTitle sx={{ backgroundColor: "#E1E5F8", width: "1000px" }}>
-          <h3>+ नवीन कर्मचारी </h3>
+          <h3>+ New Employee </h3>
         </DialogTitle>
         {/* Popup Contain */}
         <DialogContent
@@ -76,7 +76,7 @@ export default function NewStaffPopup(props) {
           {/* Left Input Box */}
           <Box sx={{ flexDirection: "row" }}>
             <TextField
-              label="नाव"
+              label="name"
               required
               sx={{
                 width: "400px",
@@ -92,7 +92,7 @@ export default function NewStaffPopup(props) {
 
             <TextField
               id="outlined-basic"
-              label="ई - मेल आयडी *"
+              label="Email *"
               sx={{
                 width: "400px",
                 borderRadius: "5px",
@@ -106,7 +106,7 @@ export default function NewStaffPopup(props) {
             />
             <TextField
               id="outlined-basic"
-              label="पिन कोड"
+              label="pin code"
               sx={{
                 width: "400px",
                 borderRadius: "5px",
@@ -120,7 +120,7 @@ export default function NewStaffPopup(props) {
             />
             <TextField
               id="outlined-basic"
-              label="पत्ता ओळ 1"
+              label="Address line 1"
               sx={{
                 width: "400px",
                 borderRadius: "5px",
@@ -149,7 +149,7 @@ export default function NewStaffPopup(props) {
 
             <TextField
               id="outlined-basic"
-              label="मोबाईल नंबर *"
+              label="Phone number*"
               sx={{
                 width: "400px",
                 borderRadius: "5px",
@@ -175,7 +175,7 @@ export default function NewStaffPopup(props) {
               variant="contained"
               component="label"
             >
-              प्रोफाइल फोटो
+              Profile Photo
               <input
                 type="file"
                 hidden
@@ -189,7 +189,7 @@ export default function NewStaffPopup(props) {
           <Box sx={{ flexDirection: "column" }}>
             <TextField
               id="outlined-basic"
-              label="आधार क्रमांक *"
+              label="Aadhar Number*"
               sx={{
                 width: "400px",
                 borderRadius: "5px",
@@ -206,7 +206,7 @@ export default function NewStaffPopup(props) {
             />
             <TextField
               id="outlined-basic"
-              label="शहर *"
+              label="city *"
               sx={{
                 width: "400px",
                 borderRadius: "5px",
@@ -221,7 +221,7 @@ export default function NewStaffPopup(props) {
             />
             <TextField
               id="outlined-basic"
-              label="पत्ता ओळ 2"
+              label="address line 2"
               sx={{
                 width: "400px",
                 borderRadius: "5px",
@@ -236,13 +236,13 @@ export default function NewStaffPopup(props) {
             />
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">
-                व्यवस्थापकाचे नाव
+              Name of manager
               </InputLabel>
               <Select
                 labelId="demo-simple-select-helper-label"
                 id="demo-simple-select-helper"
                 value={data.managerName}
-                label="व्यवस्थापकाचे नाव"
+                label="Name of manager"
                 size="small"
                 sx={{
                   width: "400px",
@@ -262,7 +262,7 @@ export default function NewStaffPopup(props) {
             </FormControl>
             <TextField
               id="outlined-basic"
-              label="पासवर्ड"
+              label="Password"
               sx={{
                 width: "400px",
                 borderRadius: "5px",
@@ -277,7 +277,7 @@ export default function NewStaffPopup(props) {
             />
             <TextField
               id="outlined-basic"
-              label=" पासवर्ड"
+              label=" Password"
               sx={{
                 width: "400px",
                 borderRadius: "5px",
@@ -307,7 +307,7 @@ export default function NewStaffPopup(props) {
             }}
             onClick={handleSubmit}
           >
-            सेव करा
+            Submit
           </Button>
         </DialogActions>
       </Dialog>

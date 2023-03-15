@@ -74,7 +74,7 @@ export default function OrganisationalInfo() {
              mt={4}
              sx={{ fontFamily: "poppins", fontWeight: 500, color: "#4F62B0",margin:"5% auto 0px auto" }}
             >
-              प्राथमिक माहिती
+             Preliminary information
             </Typography>  
             </Link>          
           </Box>
@@ -142,7 +142,8 @@ export default function OrganisationalInfo() {
                   margin:"5% auto 1px auto"
                 }}
               >
-                कर्मचारी जोडा
+                
+Add staff
               </Typography>
             </Box>
             <Box
@@ -190,7 +191,7 @@ export default function OrganisationalInfo() {
                   margin:"5% auto 0px auto"
                 }}
               >
-                रोल कॉन्फिगरेशन{" "}
+               Role configuration
               </Typography>
             </Box>
             <Box

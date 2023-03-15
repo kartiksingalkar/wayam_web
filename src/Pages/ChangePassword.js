@@ -88,7 +88,7 @@ const handleChange = (key, value) => {
               }}
               required
               size="small"
-              label="ई - मेल आयडी"
+              label="E-Mail Id"
               variant="outlined"
               sx={styles.textField}
             />
@@ -109,7 +109,7 @@ const handleChange = (key, value) => {
 
                     }
                 } >
-              लिंक मिळवा
+              Get Link
 
               </Typography>
             </Button>

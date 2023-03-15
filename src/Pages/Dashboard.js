@@ -79,7 +79,7 @@ export default function Dashboard() {
                   textAlign: "center",
                 }}
               >
-                <Typography mt={3}>संस्थेची माहिती </Typography>
+                <Typography mt={3}>Institute Information</Typography>
               </Box>
 
               <Box
@@ -122,7 +122,7 @@ export default function Dashboard() {
               }}
               onClick={openSubscriberList}
             >
-              <Typography mt={3}>सदस्य व्यवस्थापन</Typography>
+              <Typography mt={3}>Member Management</Typography>
             </Box>
             <Box
               sx={{
@@ -186,7 +186,7 @@ export default function Dashboard() {
                   textAlign: "center",
                 }}
               >
-                <Typography mt={3}>योजना / लाभ व्यवस्थापन </Typography>
+                <Typography mt={3}>Plan / Benefit Management</Typography>
               </Box>
 
               <Box
@@ -227,7 +227,8 @@ export default function Dashboard() {
                   textAlign: "center",
                 }}
               >
-                <Typography mt={3}>लायब्ररी व्यवस्थापन</Typography>
+                <Typography mt={3}>
+Library Management</Typography>
               </Box>
 
               <Box
@@ -268,7 +269,7 @@ export default function Dashboard() {
                   textAlign: "center",
                 }}
               >
-                <Typography mt={3}>प्रकाशन व्यवस्थापन</Typography>
+                <Typography mt={3}>Publication Management</Typography>
               </Box>
               <Box
                 sx={{

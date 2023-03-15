@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 import { Box, Container, TextField, Button, Typography } from "@mui/material";
 // import { useNavigate } from "react-router-dom";
 import logo from "../Images/wayamLogo.png";
-import loginImage from "../Images/loginImage.png";
+// import loginImage from "../Images/loginImage.png";
 import styles from "../Components/global";
 import { Link, useHistory } from "react-router-dom";
 
@@ -212,7 +212,7 @@ export default function Login() {
       </Box>
       {/* End of Form Container */}
 
-      {/* Start of Image Container */}
+      {/* Start of Image Container
       {matches && (
         <Box
           sx={{
@@ -244,7 +244,7 @@ export default function Login() {
           </Box>
         </Box>
       )}
-
+ */}
       {/* End of Image Container */}
       {/* <Box sx={{
         left: 0,

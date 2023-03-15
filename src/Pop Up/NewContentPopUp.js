@@ -22,6 +22,8 @@ export default function NewContentPopUp(props) {
   // const [age, setAge] = React.useState('');
   // const [ setRight] = React.useState('');
 
+  console.log(props.isForUpdate);
+
   const [data, setData] = useState({});
   const handleChange = (key, value) => {
     setData((prevState) => {
@@ -37,6 +39,18 @@ export default function NewContentPopUp(props) {
   //   setRight();
   // };
 
+  React.useEffect(() => {
+    // console.log(props.name)
+    if (props.isForUpdate) {
+      setData((prevData) => {
+        return {
+          ...prevData,
+          name: props.type,
+        };
+      });
+    }
+  }, []);
+
   const handleClickOpen = () => {
     props.setOpen(true);
   };
@@ -46,25 +60,46 @@ export default function NewContentPopUp(props) {
   };
 
   const handleSubmit = async () => {
-    try {
-      let response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/addcategory`,
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+    if (props.isForUpdate) {
+      try {
+        let response = await axios.patch(
+          `${process.env.REACT_APP_API_URL}/updatecategory?id=${props.id}`,
+          data,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
-      if (response.data.status) {
-        props.setData((prevData) => {
-          return [...prevData, data];
-        });
-        props.setOpen(false);
+        if (response.data.status) {
+          window.location.reload();
+          props.setOpen(false);
+        }
+      } catch (e) {
+        console.log(e);
       }
-    } catch (e) {
-      console.log(e);
+    } else {
+      try {
+        let response = await axios.post(
+          `${process.env.REACT_APP_API_URL}/addcategory`,
+          data,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.data.status) {
+          props.setData((prevData) => {
+            return [...prevData, data];
+          });
+          props.setOpen(false);
+        }
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
@@ -88,8 +123,7 @@ export default function NewContentPopUp(props) {
               backgroundColor: "#E1E5F8",
             }}
           >
-            {" "}
-            + नवीन मजकूर प्रकार
+            + New Content type
           </Typography>
 
           <Box
@@ -106,9 +140,10 @@ export default function NewContentPopUp(props) {
               autoFocus
               margin="dense"
               id="outlined-basic"
-              placeholder="मजकूर प्रकारचे नाव"
+              placeholder="Content Type Name"
               fullWidth
               size="small"
+              value={data.name}
               sx={{
                 borderRadius: "5px",
                 marginBottom: "20px",
@@ -157,7 +192,7 @@ export default function NewContentPopUp(props) {
         </DialogContent>
         <DialogActions sx={{ backgroundColor: "#E1E5F8" }}>
           <Button onClick={handleSubmit}>
-            <SubmitButton  />
+            <SubmitButton buttonTitle={"submit"} />
           </Button>
         </DialogActions>
       </Dialog>

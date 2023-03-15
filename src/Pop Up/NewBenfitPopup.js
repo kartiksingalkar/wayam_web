@@ -82,18 +82,18 @@ export default function NewBenfitPopup(props) {
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        + नवीन लाभ
+        + New benefits
       </Button>
       {/* POP UP */}
       <Dialog open={props.open} onClose={handleClose}>
         <DialogTitle sx={{ backgroundColor: "#E1E5F8", width: "400px" }}>
-          <h3>+ नवीन लाभ </h3>
+          <h3>+ New benefits </h3>
         </DialogTitle>
         <DialogContent sx={{ backgroundColor: "#E1E5F8", width: "400px" }}>
           {/* Inputs */}
           <TextField
             id="outlined-basic"
-            label="लाभाचे नाव"
+            label="Benifit Name"
             sx={{
               width: "400px",
               borderRadius: "5px",
@@ -107,12 +107,12 @@ export default function NewBenfitPopup(props) {
           />
           {/* DropDown */}
           <FormControl>
-            <InputLabel id="demo-simple-select-helper">प्रकार</InputLabel>
+            <InputLabel id="demo-simple-select-helper">Type</InputLabel>
             <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
               value={data.benifit_category}
-              label="येथे प्रकाशित करा "
+              label="Publish Here "
               size="small"
               sx={{
                 width: "400px",
@@ -150,7 +150,7 @@ export default function NewBenfitPopup(props) {
 
           <TextField
             id="outlined-basic"
-            label="लाभ मूल्य "
+            label="Benefit value"
             sx={{
               width: "400px",
               borderRadius: "5px",
@@ -163,12 +163,12 @@ export default function NewBenfitPopup(props) {
             onChange={(e) => handleFieldChange("value", e.target.value)}
           />
           <FormControl>
-            <InputLabel id="demo-simple-select-helper">युनिट निवडा</InputLabel>
+            <InputLabel id="demo-simple-select-helper">Choose Unit</InputLabel>
             <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
               value={data.unit}
-              label="युनिट निवडा"
+              label="Choose Unit"
               size="small"
               sx={{
                 width: "400px",
@@ -180,8 +180,8 @@ export default function NewBenfitPopup(props) {
               {/* <MenuItem value="">
                 <em>None</em>
               </MenuItem> */}
-              <MenuItem value="days">दिवस</MenuItem>
-              <MenuItem value="months">महिने</MenuItem>
+              <MenuItem value="days">Days</MenuItem>
+              <MenuItem value="months">Months</MenuItem>
               {/* <MenuItem value='co'>काउन्ट</MenuItem> */}
             </Select>
           </FormControl>
@@ -195,7 +195,7 @@ export default function NewBenfitPopup(props) {
           >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
-                label="प्रारंभ तारीख"
+                label="Starting Date"
                 size="small"
                 value={data.benifit_creation_date}
                 onChange={(newValue) => {
@@ -217,7 +217,7 @@ export default function NewBenfitPopup(props) {
           >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
-                label="शेवटची तारीख"
+                label="Ending Date"
                 format="MM/dd/yyyy"
                 sx={{ width: "400px", backgroundColor: "white" }}
                 size="xs"
@@ -245,7 +245,7 @@ export default function NewBenfitPopup(props) {
             }}
             onClick={handleSubmit}
           >
-            पक्के करा{" "}
+           Submit
           </Button>
         </DialogActions>
       </Dialog>

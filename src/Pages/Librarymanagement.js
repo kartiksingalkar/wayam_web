@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Text } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 // import Navbar from "../components/Navbar";
@@ -132,7 +132,7 @@ export default function Librarymanagement() {
         }}
       >
         <Box sx={{ color: "#4F62B0", marginTop: "5px", marginLeft: "20px" }}>
-          <Typography>लायब्ररी व्यवस्थापन</Typography>
+          <Typography>Library Management</Typography>
         </Box>
         <Box
           sx={{
@@ -172,7 +172,7 @@ export default function Librarymanagement() {
                   }}
                 >
                   <Tab
-                    label="मजकूर "
+                    label="content"
                     className="tabtext"
                     value={0}
 
@@ -188,7 +188,7 @@ export default function Librarymanagement() {
                     // }}
                   />
                   <Tab
-                    label="मजकूर प्रकार "
+                    label="content type "
                     className="tabtext"
                     value={1}
                     // sx={{
@@ -210,7 +210,7 @@ export default function Librarymanagement() {
                     <Grid container spacing={2} justify="center">
                       <Grid item xs={8}>
                         {/* <SearchBox find={"योजना शोधा"} /> */}
-                        <SearchBoxNew find={"मजकूर शोधा"} />
+                        <SearchBoxNew find={"find content"} />
                       </Grid>
                       <Grid item xs={12}>
                         <Item
@@ -223,13 +223,13 @@ export default function Librarymanagement() {
                           }}
                         >
                           <Box sx={{ width: "30%", textAlign: "left" }}>
-                            <Typography>नाव</Typography>
+                            <Typography>Name</Typography>
                           </Box>
                           <Box sx={{ width: "30%", textAlign: "center" }}>
-                            <Typography>मजकूर प्रकार </Typography>
+                            <Typography>Content Type </Typography>
                           </Box>
                           <Box sx={{ width: "30%", textAlign: "center" }}>
-                            <Typography>लेखकाचे नाव </Typography>
+                            <Typography>Writer</Typography>
                           </Box>
                         </Item>
                       </Grid>
@@ -285,7 +285,7 @@ export default function Librarymanagement() {
                           to="/ContentManagement"
                           style={{ textDecoration: "none" }}
                         > */}
-                        <AddButton buttonTitle={"+ नवीन योजना"} />
+                        <AddButton buttonTitle={"+ Add Content"} />
                         {/* </Link> */}
                       </Box>
                     </Grid>
@@ -297,7 +297,7 @@ export default function Librarymanagement() {
                   <Box sx={{ margin: "0.5%", flexGrow: 1 }}>
                     <Grid container spacing={2} justify="center">
                       <Grid item xs={8}>
-                        <SearchBoxNew find={"मजकूर प्रकार शोधा"} />
+                        <SearchBoxNew find={"find content"} />
                       </Grid>
                       <Grid item xs={12}>
                         <Item
@@ -310,7 +310,7 @@ export default function Librarymanagement() {
                           }}
                         >
                           <Box sx={{ width: "100%", textAlign: "left" }}>
-                            <Typography>मजकूर प्रकारचे नाव </Typography>
+                            <Typography>Content Name </Typography>
                           </Box>
                         </Item>
                       </Grid>
@@ -358,7 +358,7 @@ export default function Librarymanagement() {
                         sx={{ width: "99.5%" }}
                         onClick={opennewcontentpop}
                       >
-                        <AddButton buttonTitle={"+ नवीन प्रकार "} />
+                        <AddButton buttonTitle={"New Category"} />
                       </Box>
                     </Grid>
                   </Box>

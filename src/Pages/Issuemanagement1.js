@@ -146,7 +146,7 @@ export default function Issuemanagement1() {
   }, []);
 
   const [issues, setIssues] = useState([]);
-  const [templateName, setTemplateName] = useState([])
+  const [templateName, setTemplateName] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -162,7 +162,7 @@ export default function Issuemanagement1() {
 
         if (response.data.status) {
           setIssues(response.data.data);
-          setTemplateName(response.data.template_data)
+          setTemplateName(response.data.template_data);
           console.log("categories", response.data.data);
         }
       } catch (e) {}
@@ -198,7 +198,7 @@ export default function Issuemanagement1() {
         }}
       >
         <Box sx={{ color: "#4F62B0", marginTop: "5px", marginLeft: "20px" }}>
-          <Typography>प्रकाशन व्यवस्थापन</Typography>
+          <Typography>Publication Management</Typography>
         </Box>
         <Box
           sx={{
@@ -237,8 +237,8 @@ export default function Issuemanagement1() {
                     backgroundColor: "#ffffff",
                   }}
                 >
-                  <Tab label="टेम्प्लेट " className="tab1" value={0} />
-                  <Tab label="अंक " />
+                  <Tab label="Template " className="tab1" value={0} />
+                  <Tab label="Issue " />
                   {/* <Tab></Tab> */}
                 </Tabs>
 
@@ -247,7 +247,7 @@ export default function Issuemanagement1() {
                   <Box sx={{ margin: "0.5%", flexGrow: 1 }}>
                     <Grid container spacing={2} justify="center">
                       <Grid item xs={8}>
-                        <SearchBox find={"मजकूर शोधा"} />
+                        <SearchBox find={"Find Content"} />
                       </Grid>
                       <Grid item xs={12}>
                         <Item
@@ -260,10 +260,10 @@ export default function Issuemanagement1() {
                           }}
                         >
                           <Box sx={{ width: "50%", textAlign: "left" }}>
-                            <Typography>टेम्प्लेटचे नाव </Typography>
+                            <Typography>Template Name </Typography>
                           </Box>
                           <Box sx={{ width: "50%", textAlign: "left" }}>
-                            <Typography>साहित्य प्रकार </Typography>
+                            <Typography>Material type</Typography>
                           </Box>
                         </Item>
                       </Grid>
@@ -295,6 +295,7 @@ export default function Issuemanagement1() {
                         <Grid container spacing={1}>
                           {templates.map((item, index) => (
                             <IssueManagementComponent
+                              template_id={item.template_id}
                               templateTitle={item.template_name}
                               type={Object.values(item.types).join(", ")}
                             />
@@ -310,7 +311,7 @@ export default function Issuemanagement1() {
                         sx={{ width: "100%" }}
                         onClick={NewTemplatee}
                       >
-                        <AddButton buttonTitle={"+ नवीन मजकूर"} />
+                        <AddButton buttonTitle={"+ Add Content"} />
                       </Box>
                     </Grid>
                   </Box>
@@ -321,7 +322,7 @@ export default function Issuemanagement1() {
                   <Box sx={{ margin: "0.5%", flexGrow: 1 }}>
                     <Grid container spacing={2} justify="center">
                       <Grid item xs={8}>
-                        <SearchBox find={"अंक शोधा"} />
+                        <SearchBox find={"Find Issues"} />
                       </Grid>
                       <Grid item xs={12}>
                         <Item
@@ -334,16 +335,16 @@ export default function Issuemanagement1() {
                           }}
                         >
                           <Box sx={{ width: "25%", textAlign: "left" }}>
-                            <Typography>अंकाचे नाव </Typography>
+                            <Typography>Issue Name </Typography>
                           </Box>
                           <Box sx={{ width: "25%", textAlign: "center" }}>
-                            <Typography>तारीख</Typography>
+                            <Typography>Date</Typography>
                           </Box>
                           <Box sx={{ width: "25%", textAlign: "left" }}>
-                            <Typography>साहित्य प्रकार </Typography>
+                            <Typography>Content Type </Typography>
                           </Box>
                           <Box sx={{ width: "25%", textAlign: "left" }}>
-                            <Typography>स्टेटस</Typography>
+                            <Typography>Status</Typography>
                           </Box>
                         </Item>
                       </Grid>
@@ -399,7 +400,7 @@ export default function Issuemanagement1() {
                           to="/IssueManagement"
                           style={{ textDecoration: "none" }}
                         >
-                          <AddButton buttonTitle={"+ नवीन अंक"} />
+                          <AddButton buttonTitle={"+ New Issue"} />
                         </Link>
                       </Box>
                     </Grid>

@@ -93,7 +93,7 @@ export default function PublisherNew(props) {
                 {/* <img src={coverMagzine} alt="" /> */}
 
                 <Box sx={{ m: 3 }}>
-                  <h3>अनुक्रमानिका </h3>
+                  <h3>Index</h3>
                   <ol>
                     {/* {categoryCount.map((item, index) => {
                       return (
@@ -114,7 +114,7 @@ export default function PublisherNew(props) {
                       return (
                         <>
                           <li style={{ fontStyle: "inherit" }}>
-                            {name[index]} (कमाल क्षमता :{templateData[item1]})
+                            {name[index]} (Maximum capacity :{templateData[item1]})
                           </li>
                           {issueContent.map((item, index) => {
                             return (
@@ -150,7 +150,7 @@ export default function PublisherNew(props) {
                       to={"/Librarymanagement"}
                       style={{ textDecoration: "none" }}
                     >
-                      अपलोड करण्यासाठी येथे क्लिक करा
+                      Click here for upload
                     </Link>
                   </ol>
                 </Box>
@@ -192,7 +192,7 @@ export default function PublisherNew(props) {
           <Box sx={{ width: "90%" }}>
             <TextField
               id="outlined-multiline-static"
-              label="येथे टिप्पणी लिहा"
+              label="Write Comment Here"
               sx={{ width: "100%", marginTop: "13%" }}
               multiline
               rows={6}
@@ -215,13 +215,13 @@ export default function PublisherNew(props) {
                   margin: "2%",
                 }}
               >
-                पुनरावलोकन
+              Review
               </Button>
               <Button
                 variant="contained"
                 sx={{ width: "70%", backgroundColor: "#4F62B0" }}
               >
-                प्रकाशित करा
+                Publish
               </Button>
             </Box>
           </Box>

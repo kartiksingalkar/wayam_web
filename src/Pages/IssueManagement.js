@@ -16,14 +16,18 @@ import {
   Select,
 } from "@mui/material";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 export default function IssueManagement() {
+  const location = useLocation();
   const [data, setData] = useState({});
   const [coverImgFile, setCoverImgFile] = useState();
   const [coverImgFile1, setCoverImgFile1] = useState();
   const [lastImgFile, setLastImgFile] = useState();
   const [lastImgFile1, setLastImgFile1] = useState();
+
+  const { id, isForUpdate } = location.state;
 
   const issueCoverImg = (e) => {
     setCoverImgFile(e.target.files[0]);
@@ -45,7 +49,40 @@ export default function IssueManagement() {
 
   const handleTemplateChange = (value) => {
     handleChange("template_id", value);
-  }
+  };
+
+  useEffect(() => {
+    console.log("IsForUpdate : " + isForUpdate);
+    if (isForUpdate) {
+      async function getData() {
+        try {
+          const response = await axios.get(
+            `${process.env.REACT_APP_API_URL}/getissueforupdate?issue_id=${id}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          if (response.data.status) {
+            setData(response.data.data[0]);
+            // setData((prevData) => {
+            //   return {
+            //     ...prevData,
+            //     publication_date: data.publication_date.slice(0, 10),
+            //   };
+            // });
+            console.log("categories", response.data.data[0]);
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }
+
+      getData();
+    }
+  }, []);
 
   const issueCoverImgUpload = async (issue_id) => {
     console.log("Hello : " + issue_id);
@@ -155,25 +192,45 @@ export default function IssueManagement() {
   const [templateData, setTemplateData] = useState([]);
 
   const handleSubmit = async () => {
-    console.log(data);
-    try {
-      let response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/createissue`,
-        data
-      );
-      console.log(response.data);
-      if (response.data.status) {
-        setIssue_id(response.data.issue_id);
-        console.log("Issue Id : " + issue_id);
-        issueCoverImgUpload(response.data.issue_id);
-        issueCoverImg1Upload(response.data.issue_id);
-        issueLastImgUpload(response.data.issue_id);
-        issueLastImg1Upload(response.data.issue_id);
+    if (isForUpdate) {
+      try {
+        let response = await axios.patch(
+          `${process.env.REACT_APP_API_URL}/updateissue?issue_id=${id}`,
+          data,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.data.status) {
+          window.location.reload()
+        }
+      } catch (e) {
+        console.log(e);
       }
-    } catch (e) {
-      console.log(e);
+    } else {
+      console.log(data);
+      try {
+        let response = await axios.post(
+          `${process.env.REACT_APP_API_URL}/createissue`,
+          data
+        );
+        console.log(response.data);
+        if (response.data.status) {
+          setIssue_id(response.data.issue_id);
+          console.log("Issue Id : " + issue_id);
+          issueCoverImgUpload(response.data.issue_id);
+          issueCoverImg1Upload(response.data.issue_id);
+          issueLastImgUpload(response.data.issue_id);
+          issueLastImg1Upload(response.data.issue_id);
+        }
+      } catch (e) {
+        console.log(e);
+      }
     }
-  }
+  };
 
   useEffect(() => {
     async function getTemplates() {
@@ -209,28 +266,46 @@ export default function IssueManagement() {
             <h4>शीर्षलेख माहिती</h4>
           </Box>
           {/* Input Field */}
-          <Box sx={{ width:"80%" ,display:'flex',flexDirection:'row',flexWrap:'wrap'}}>
+          <Box
+            sx={{
+              width: "80%",
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+            }}
+          >
             <Box className="inputBox">
               <TextField
                 id="outlined-basic"
-                label="अंकाचे नाव"
+                label="Issue Name"
                 // className="inputField1"
                 size="small"
                 variant="outlined"
                 value={data.issue_name}
-                sx={{width:'40%',margin:'4px',borderRadius:'5px',backgroundColor:'white',minWidth:'320px'}}
+                sx={{
+                  width: "40%",
+                  margin: "4px",
+                  borderRadius: "5px",
+                  backgroundColor: "white",
+                  minWidth: "320px",
+                }}
                 onChange={(e) => {
                   handleChange("issue_name", e.target.value);
                 }}
               />
               <TextField
                 id="outlined-basic"
-                label="अंकाचा क्रमांक "
+                label="Issue Number"
                 // className="inputField1"
                 size="small"
                 variant="outlined"
-                sx={{width:'40%',margin:'4px',borderRadius:'5px',backgroundColor:'white',minWidth:'320px'}}
-
+                sx={{
+                  width: "40%",
+                  margin: "4px",
+                  borderRadius: "5px",
+                  backgroundColor: "white",
+                  minWidth: "320px",
+                }}
                 // sx={{ marginLeft: "25px" }}
                 value={data.issue_no}
                 onChange={(e) => {
@@ -240,103 +315,203 @@ export default function IssueManagement() {
             </Box>
           </Box>
 
-          <Box sx={{ width:"80%" ,display:'flex',flexDirection:'row',flexWrap:'wrap'}}>
-          <Box className="inputBox">
-            <OutlinedInput
-              id="outlined-basic"
-              type="file"
-              placeholder="मुखपृष्ठ कव्हर पेज"
-              size="small"
-              sx={{width: "40%",margin:'4px',borderRadius:'5px',backgroundColor:'white',minWidth:'320px' }}
-              endAdornment={
-                <InputAdornment position="end">
-                  <DriveFolderUploadIcon />
-                </InputAdornment>
-              }
-              onChange={(e) => {
-                issueCoverImg(e);
-              }}
-            />
+          <Box
+            sx={{
+              width: "80%",
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+            }}
+          >
+            <Box className="inputBox">
+              <OutlinedInput
+                id="outlined-basic"
+                type="file"
+                placeholder="Home Cover Page"
+                size="small"
+                sx={{
+                  width: "40%",
+                  margin: "4px",
+                  borderRadius: "5px",
+                  backgroundColor: "white",
+                  minWidth: "320px",
+                }}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <DriveFolderUploadIcon />
+                  </InputAdornment>
+                }
+                onChange={(e) => {
+                  issueCoverImg(e);
+                }}
+              />
 
-            <OutlinedInput
-              id="outlined-basic"
-              type="file"
-              placeholder="मुखपृष्ठ मागील कव्हर पेज"
-              size="small"
-              sx={{width: "40%",margin:'4px',borderRadius:'5px',backgroundColor:'white',minWidth:'320px' }}
-              endAdornment={
-                <InputAdornment position="end">
-                  <DriveFolderUploadIcon />
-                </InputAdornment>
-              }
-              onChange={(e) => {
-                issueCoverImg1(e);
-              }}
-            />
-          </Box>
-          </Box>
-
-          <Box sx={{ width:"80%" ,display:'flex',flexDirection:'row',flexWrap:'wrap'}}>
-          <Box className="inputBox">
-            <OutlinedInput
-              id="outlined-basic"
-              type="file"
-              placeholder="मलपृष्ठ पेज"
-              size="small"
-              sx={{width: "40%",margin:'4px',borderRadius:'5px',backgroundColor:'white',minWidth:'320px' }}
-              endAdornment={
-                <InputAdornment position="end">
-                  <DriveFolderUploadIcon />
-                </InputAdornment>
-              }
-              onChange={(e) => {
-                issueLastImg(e);
-              }}
-            />
-
-            <OutlinedInput
-              id="outlined-basic"
-              type="file"
-              placeholder="मलपृष्ठ आतील पेज"
-              size="small"
-              sx={{width: "40%",margin:'4px',borderRadius:'5px',backgroundColor:'white',minWidth:'320px' }}
-              endAdornment={
-                <InputAdornment position="end">
-                  <DriveFolderUploadIcon />
-                </InputAdornment>
-              }
-              onChange={(e) => {
-                issueLastImg1(e);
-              }}
-            />
-          </Box>
+              <OutlinedInput
+                id="outlined-basic"
+                type="file"
+                placeholder="Home Inside Cover Page"
+                size="small"
+                sx={{
+                  width: "40%",
+                  margin: "4px",
+                  borderRadius: "5px",
+                  backgroundColor: "white",
+                  minWidth: "320px",
+                }}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <DriveFolderUploadIcon />
+                  </InputAdornment>
+                }
+                onChange={(e) => {
+                  issueCoverImg1(e);
+                }}
+              />
+            </Box>
           </Box>
 
-          <Box sx={{ width:"80%" ,display:'flex',flexDirection:'row',flexWrap:'wrap'}}>
-          <Box className="inputBox">
-            <TextField
-              id="outlined-basic"
-              label="तारीख"
-              size="small"
-              sx={{width:"40%",margin:'4px',borderRadius:'5px',backgroundColor:'white',minWidth:'320px' }}
-              variant="outlined"
-              type="publication_date"
-              value={data.publication_date}
-              onChange={(e) => {
-                handleChange("publication_date", e.target.value);
-              }}
-            />
-            <FormControl sx={{width:"40%",margin:'4px',borderRadius:'5px',backgroundColor:'white',minWidth:'320px' }}
->
-              <InputLabel id="demo-simple-select-label">
-                टेम्पलेट निवडा
-              </InputLabel>
+          <Box
+            sx={{
+              width: "80%",
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+            }}
+          >
+            <Box className="inputBox">
+              <OutlinedInput
+                id="outlined-basic"
+                type="file"
+                placeholder="मलपृष्ठ पेज"
+                size="small"
+                sx={{
+                  width: "40%",
+                  margin: "4px",
+                  borderRadius: "5px",
+                  backgroundColor: "white",
+                  minWidth: "320px",
+                }}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <DriveFolderUploadIcon />
+                  </InputAdornment>
+                }
+                onChange={(e) => {
+                  issueLastImg(e);
+                }}
+              />
 
-              <Select
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
-                value={data.template_id}
-                label="व्यवस्थापकाचे नाव"
+              <OutlinedInput
+                id="outlined-basic"
+                type="file"
+                placeholder="मलपृष्ठ आतील पेज"
+                size="small"
+                sx={{
+                  width: "40%",
+                  margin: "4px",
+                  borderRadius: "5px",
+                  backgroundColor: "white",
+                  minWidth: "320px",
+                }}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <DriveFolderUploadIcon />
+                  </InputAdornment>
+                }
+                onChange={(e) => {
+                  issueLastImg1(e);
+                }}
+              />
+            </Box>
+          </Box>
+
+          <Box
+            sx={{
+              width: "80%",
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+            }}
+          >
+            <Box className="inputBox">
+              <TextField
+                id="outlined-basic"
+                label="तारीख"
+                size="small"
+                sx={{
+                  width: "40%",
+                  margin: "4px",
+                  borderRadius: "5px",
+                  backgroundColor: "white",
+                  minWidth: "320px",
+                }}
+                variant="outlined"
+                type="publication_date"
+                value={data.publication_date}
+                onChange={(e) => {
+                  handleChange("publication_date", e.target.value);
+                }}
+              />
+              <FormControl
+                sx={{
+                  width: "40%",
+                  margin: "4px",
+                  borderRadius: "5px",
+                  backgroundColor: "white",
+                  minWidth: "320px",
+                }}
+              >
+                <InputLabel id="demo-simple-select-label">
+                  टेम्पलेट निवडा
+                </InputLabel>
+
+                <Select
+                  labelId="demo-simple-select-helper-label"
+                  id="demo-simple-select-helper"
+                  value={data.template_id}
+                  label="व्यवस्थापकाचे नाव"
+                  size="small"
+                  sx={{
+                    // width: "400px",
+                    backgroundColor: "transparent",
+                    marginBottom: "3%",
+                    color: "gray",
+                    marginLeft: "2%",
+                  }}
+                  onChange={(e) => {
+                    handleTemplateChange(e.target.value);
+                  }}
+                >
+                  {/* <MenuItem value="">
+                  <em>None</em>
+                </MenuItem> */}
+                  {templateData.map((item) => {
+                    return (
+                      <MenuItem value={item.template_id}>
+                        {item.template_name}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+            </Box>
+          </Box>
+
+          <h4>कायदेशीर माहिती</h4>
+
+          <Box
+            sx={{
+              width: "80%",
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+            }}
+          >
+            <Box className="inputBox">
+              <TextField
+                id="outlined-basic"
+                label="कायदेशीर माहिती "
+                className="inputField1"
                 size="small"
                 sx={{
                   // width: "400px",
@@ -345,47 +520,19 @@ export default function IssueManagement() {
                   color: "gray",
                   marginLeft: "2%",
                 }}
-                onChange={(e)=>{handleTemplateChange(e.target.value)}}
-              >
-                {/* <MenuItem value="">
-                  <em>None</em>
-                </MenuItem> */}
-                {templateData.map((item) => {
-                  return (
-                    <MenuItem value={item.template_id}>
-                      {item.template_name}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
-          </Box>
+                variant="outlined"
+                value={data.legal_info}
+                onChange={(e) => {
+                  handleChange("legal_info", e.target.value);
+                }}
+              />
+            </Box>
           </Box>
 
-          <h4>कायदेशीर माहिती</h4>
-
-          <Box sx={{ width:"80%" ,display:'flex',flexDirection:'row',flexWrap:'wrap'}}>
-          <Box className="inputBox">
-            <TextField
-              id="outlined-basic"
-              label="कायदेशीर माहिती "
-              className="inputField1"
-              size="small"
-              sx={{
-                // width: "400px",
-                backgroundColor: "transparent",
-                marginBottom: "3%",
-                color: "gray",
-                marginLeft: "2%",
-              }}
-              variant="outlined"
-              value={data.legal_info}
-              onChange={(e)=>{handleChange('legal_info',e.target.value)}}
-            />
-          </Box>
-          </Box>
-
-          <Box onClick={handleSubmit} sx={{ marginLeft: "1%", marginTop: "3%" }}>
+          <Box
+            onClick={handleSubmit}
+            sx={{ marginLeft: "1%", marginTop: "3%" }}
+          >
             <SubmitButton buttonTitle="मंजुरीसाठी पाठवा" />
           </Box>
         </Box>

@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Button from "@mui/material/Button";
-import Avatar from "@mui/material/Avatar";
+// import Avatar from "@mui/material/Avatar";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
+// import ListItem from "@mui/material/ListItem";
+// import ListItemAvatar from "@mui/material/ListItemAvatar";
+// import ListItemButton from "@mui/material/ListItemButton";
+// import ListItemText from "@mui/material/ListItemText";
 // import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from "@mui/material/Dialog";
-import PersonIcon from "@mui/icons-material/Person";
+// import PersonIcon from "@mui/icons-material/Person";
 // import AddIcon from '@mui/icons-material/Add';
 import Typography from "@mui/material/Typography";
-import { blue } from "@mui/material/colors";
+// import { blue } from "@mui/material/colors";
 import { Box } from "@mui/material";
 import SearchBoxNew from "../Components/SearchBox";
 import Grid from "@mui/material/Grid";
@@ -110,7 +110,7 @@ function SimpleDialog(props) {
           open={open}
         >
           <Box margin={2}>
-            <SearchBoxNew find={"सदस्य शोधा"} />
+            <SearchBoxNew find={"Find Members"} />
           </Box>
 
           <Box sx={{ flexGrow: 1, backgroundColor: "#E1E5F8" }}>
@@ -127,16 +127,16 @@ function SimpleDialog(props) {
                   }}
                 >
                   <Box sx={{ width: "40%", textAlign: "center" }}>
-                    <Typography>ई - मेल आयडी</Typography>
+                    <Typography>E-mail Id</Typography>
                   </Box>
                   <Box sx={{ width: "20%", textAlign: "left" }}>
-                    <Typography>मोबाईल नंबर</Typography>
+                    <Typography>Phone Number</Typography>
                   </Box>
                   <Box sx={{ width: "20%", textAlign: "left" }}>
-                    <Typography>शहर </Typography>
+                    <Typography>City </Typography>
                   </Box>
                   <Box sx={{ width: "20%", textAlign: "left" }}>
-                    <Typography>पिन कोड </Typography>
+                    <Typography>Pin Code</Typography>
                   </Box>
                 </Item>
               </Grid>
@@ -184,7 +184,7 @@ function SimpleDialog(props) {
               sx={{ width: "90%" }}
               onClick={openNewSubscriber}
             >
-              <AddButton buttonTitle={"+ नवीन सदस्य "} />
+              <AddButton buttonTitle={"+ New Member "} />
             </Box>
           </List>
         </Dialog>

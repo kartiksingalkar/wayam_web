@@ -66,13 +66,13 @@ export default function NewSubscriberPopup(props) {
     <div>
       {/* Button */}
       <Button variant="outlined" onClick={handleClickOpen}>
-        + नवीन सदस्य
+        + New members
       </Button>
       {/* Popup Screen */}
       <Dialog maxWidth="xl" open={props.open} onClose={handleClose}>
         {/* Popup Title */}
         <DialogTitle sx={{ backgroundColor: "#E1E5F8", width: "1000px" }}>
-          <h3>+ नवीन सदस्य </h3>
+          <h3>+ New members </h3>
         </DialogTitle>
         {/* Popup Contain */}
         <DialogContent
@@ -81,7 +81,7 @@ export default function NewSubscriberPopup(props) {
           {/* Left Input Box */}
           <Box sx={{ flexDirection: "row" }}>
             <TextField
-              label="ई - मेल आयडी *"
+              label="Email Id *"
               sx={{
                 width: "400px",
                 borderRadius: "5px",
@@ -98,7 +98,7 @@ export default function NewSubscriberPopup(props) {
 
             <TextField
               id="outlined-basic"
-              label="पिन कोड"
+              label="pincode"
               sx={{
                 width: "400px",
                 borderRadius: "5px",
@@ -114,7 +114,7 @@ export default function NewSubscriberPopup(props) {
             />
             <TextField
               id="outlined-basic"
-              label="पत्ता ओळ 1"
+              label="address line 1"
               sx={{
                 width: "400px",
                 borderRadius: "5px",
@@ -139,7 +139,7 @@ export default function NewSubscriberPopup(props) {
               variant="contained"
               component="label"
             >
-              प्रोफाइल फोटो
+              Profile Photo
               <input
                 type="file"
                 hidden
@@ -153,7 +153,7 @@ export default function NewSubscriberPopup(props) {
           <Box sx={{ flexDirection: "column" }}>
             <TextField
               id="outlined-basic"
-              label="मोबाईल नंबर *"
+              label="Phone Number *"
               sx={{
                 width: "400px",
                 borderRadius: "5px",
@@ -170,7 +170,7 @@ export default function NewSubscriberPopup(props) {
             />
             <TextField
               id="outlined-basic"
-              label="शहर *"
+              label="city *"
               sx={{
                 width: "400px",
                 borderRadius: "5px",
@@ -187,7 +187,7 @@ export default function NewSubscriberPopup(props) {
             />
             <TextField
               id="outlined-basic"
-              label="पत्ता ओळ 2"
+              label="Address line 2"
               sx={{
                 width: "400px",
                 borderRadius: "5px",
@@ -213,7 +213,7 @@ export default function NewSubscriberPopup(props) {
                 }}
                 onClick={handleSubmit}
               >
-                सेव करा
+               Save
               </Button>
             </DialogActions>
           </Box>

@@ -12,7 +12,11 @@ import {
   OutlinedInput,
   Select,
   TextField,
+  Text,
+  Typography,
 } from "@mui/material";
+import styles from "../Components/global";
+
 // import SearchContentM from "../Components/SearchContentM";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -64,13 +68,22 @@ export default function ContentManagement(props) {
             "Content Data : " + JSON.stringify(response.data.data[0])
           );
           setData(response.data.data[0]);
+          for (let i = 0; i <= response.data.data[0].plan_to_push[i].length; i++) {
+            console.log(
+              "Data of Sub : " + response.data.data[0].plan_to_push[i]
+            );
+            handleSubscriptionCheckbox(
+              response.data.data[0].plan_to_push[i],
+              true
+            );
+          }
         }
         getData();
       } catch (e) {
         console.log(e);
       }
     }
-  }, [contentId]);
+  }, [contentId, subData]);
 
   useEffect(() => {
     async function getData() {
@@ -204,9 +217,9 @@ export default function ContentManagement(props) {
             },
           }
         );
-
+          console.log("Hello Response : " + JSON.stringify(response))
         if (response.data.status) {
-          let content_id = response.data.id;
+          let content_id = contentId;
           uploadAudioFile(content_id);
           uploadCoverImgFile(content_id);
         }
@@ -281,15 +294,12 @@ export default function ContentManagement(props) {
           to="/Librarymanagement"
           style={{ textDecoration: "none", color: "black" }}
         >
-          <LinkContent
-            link_title1={"लायब्ररी व्यवस्थापन"}
-            link_title2={" /लायब्ररी व्यवस्थापन"}
-          />
+          <LinkContent link_title1={"Library Management"} />
         </Link>
       </Box>
-      <Box sx={{ mx: "8%", mt: "-1%" }}>
+      {/* <Box sx={{ mx: "8%", mt: "-1%" }}>
         <AddMajkur />
-      </Box>
+      </Box> */}
 
       <Box sx={{ justifyContent: "center" }}>
         {/* <SearchContentM /> */}
@@ -316,8 +326,8 @@ export default function ContentManagement(props) {
             <TextField
               id="outlined-basic"
               sx={{ width: "100%", height: "10%" }}
-              placeholder="मजकुराचे नाव"
-              label="मजकुराचे नाव"
+              placeholder="Content Name"
+              label="Content Name"
               variant="outlined"
               size="small"
               value={data.content_name}
@@ -338,9 +348,9 @@ export default function ContentManagement(props) {
           >
             <TextField
               id="outlined-basic"
-              placeholder="लेखकाचे नाव"
+              placeholder="Writer Name"
               size="small"
-              label="लेखकाचे नाव"
+              label="Writer Name"
               sx={{ width: "100%" }}
               key="writer"
               value={data.writer}
@@ -362,7 +372,7 @@ export default function ContentManagement(props) {
           >
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">
-                मजकूर प्रकार
+                Content Type
               </InputLabel>
               <Select
                 labelId="demo-simple-select-label"
@@ -428,7 +438,7 @@ export default function ContentManagement(props) {
           }}
         >
           <Box sx={{ color: "#4F62B0", mx: "6%" }}>
-            <h3>लिखित साहित्य </h3>
+            <h3>Written Content</h3>
           </Box>
 
           <Box
@@ -442,7 +452,7 @@ export default function ContentManagement(props) {
           >
             <OutlinedInput
               id="outlined-basic"
-              placeholder="फाएलाचे नाव"
+              placeholder="File Name"
               size="small"
               value={data.file_name}
               sx={{ bgcolor: "white", width: "80%" }}
@@ -452,7 +462,8 @@ export default function ContentManagement(props) {
             />
             <OutlinedInput
               id="outlined-basic"
-              placeholder="पृष्ठांची संख्या"
+              placeholder="
+              Number of pages"
               size="small"
               sx={{ mt: 2, bgcolor: "white", width: "80%" }}
               value={data.pages}
@@ -462,7 +473,7 @@ export default function ContentManagement(props) {
             />
             <OutlinedInput
               id="outlined-basic"
-              placeholder="साईज"
+              placeholder="Size"
               value={data.file_size}
               size="small"
               sx={{ mt: 2, bgcolor: "white", width: "80%" }}
@@ -472,7 +483,7 @@ export default function ContentManagement(props) {
             />
             <OutlinedInput
               id="outlined-basic"
-              placeholder="ओळींची संख्या "
+              placeholder="Number of lines "
               size="small"
               value={data.no_of_line}
               sx={{ mt: 2, bgcolor: "white", width: "80%" }}
@@ -483,9 +494,10 @@ export default function ContentManagement(props) {
             <OutlinedInput
               type="file"
               id="outlined-basic"
-              placeholder="अपलोड फाइल"
+              placeholder="Upload File"
+              label="upload text file"
               size="small"
-              sx={{ mt: 2, mb: 2, bgcolor: "white", width: "80%" }}
+              sx={{ mt: 2, mb: 1, bgcolor: "white", width: "80%" }}
               onChange={(e) => {
                 onTxtChange(e);
               }}
@@ -496,6 +508,14 @@ export default function ContentManagement(props) {
               }
             />
           </Box>
+          <Typography
+            variant="overline"
+            component="h2"
+            align="left"
+            sx={[styles.subscript, { ml: 5 }]}
+          >
+            Upload '.Txt' file only
+          </Typography>
         </Box>
 
         {/* कथाकथन  */}
@@ -512,7 +532,7 @@ export default function ContentManagement(props) {
           }}
         >
           <Box sx={{ color: "#4F62B0", mx: "6%" }}>
-            <h3>कथाकथन </h3>
+            <h3>Storytelling</h3>
           </Box>
 
           <Box
@@ -526,7 +546,7 @@ export default function ContentManagement(props) {
           >
             <OutlinedInput
               id="outlined-basic"
-              placeholder="फाएलाचे नाव"
+              placeholder="File Name"
               size="small"
               sx={{ bgcolor: "white", width: "80%" }}
               value={data.aud_file_name}
@@ -537,7 +557,8 @@ export default function ContentManagement(props) {
             <OutlinedInput
               id="outlined-basic"
               type="file"
-              placeholder="कव्हर इमेज"
+              label="cover image"
+              placeholder="Cover Image"
               size="small"
               sx={{ mt: 2, bgcolor: "white", width: "80%" }}
               endAdornment={
@@ -549,11 +570,19 @@ export default function ContentManagement(props) {
                 handleCoverImgChange(e);
               }}
             />
+            <Typography
+              variant="overline"
+              component="h2"
+              align="left"
+              sx={[styles.subscript, { ml: 5 }]}
+            >
+              Upload Cover Image
+            </Typography>
             <OutlinedInput
               id="outlined-basic"
-              placeholder="कालावधी"
+              placeholder="Duration"
               size="small"
-              sx={{ mt: 2, bgcolor: "white", width: "80%" }}
+              sx={{ mt: 0.5, bgcolor: "white", width: "80%" }}
               value={data.aud_duration}
               onChange={(e) => {
                 handleChange("aud_duration", e.target.value);
@@ -561,7 +590,7 @@ export default function ContentManagement(props) {
             />
             <OutlinedInput
               id="outlined-basic"
-              placeholder="ऑडिओ वक्ता "
+              placeholder="Audio speaker "
               size="small"
               sx={{ mt: 2, bgcolor: "white", width: "80%" }}
               value={data.aud_speaker}
@@ -572,12 +601,12 @@ export default function ContentManagement(props) {
             <OutlinedInput
               id="outlined-basic"
               type="file"
-              placeholder="अपलोड फाइल"
+              placeholder="Upload File"
               size="small"
               onChange={(e) => {
                 handleAudioChange(e);
               }}
-              sx={{ mt: 2, mb: 2, bgcolor: "white", width: "80%" }}
+              sx={{ mt: 2, mb: 1, bgcolor: "white", width: "80%" }}
               endAdornment={
                 <InputAdornment position="end">
                   <DriveFolderUploadIcon />
@@ -585,6 +614,14 @@ export default function ContentManagement(props) {
               }
             />
           </Box>
+          <Typography
+            variant="overline"
+            component="h2"
+            align="left"
+            sx={[styles.subscript, { ml: 5 }]}
+          >
+            Upload Audio File
+          </Typography>
         </Box>
 
         {/* दृकश्राव्य  */}
@@ -602,7 +639,7 @@ export default function ContentManagement(props) {
           }}
         >
           <Box sx={{ color: "#4F62B0", mx: "6%" }}>
-            <h3>दृकश्राव्य </h3>
+            <h3>Videos </h3>
           </Box>
 
           <Box
@@ -616,7 +653,7 @@ export default function ContentManagement(props) {
           >
             <OutlinedInput
               id="outlined-basic"
-              placeholder="फाएलाचे नाव"
+              placeholder="File Name"
               size="small"
               sx={{ bgcolor: "white", width: "80%" }}
               onChange={(e) => {
@@ -625,7 +662,7 @@ export default function ContentManagement(props) {
             />
             <OutlinedInput
               id="outlined-basic"
-              placeholder="पृष्ठांची संख्या"
+              placeholder="Number of pages"
               size="small"
               sx={{ mt: 2, bgcolor: "white", width: "80%" }}
               onChange={(e) => {
@@ -634,7 +671,7 @@ export default function ContentManagement(props) {
             />
             <OutlinedInput
               id="outlined-basic"
-              placeholder="साईज"
+              placeholder="Size"
               size="small"
               sx={{ mt: 2, bgcolor: "white", width: "80%" }}
               onChange={(e) => {
@@ -643,7 +680,7 @@ export default function ContentManagement(props) {
             />
             <OutlinedInput
               id="outlined-basic"
-              placeholder="ओळींची संख्या"
+              placeholder="Number Of Lines"
               size="small"
               sx={{ mt: 2, bgcolor: "white", width: "80%" }}
               onChange={(e) => {
@@ -652,7 +689,7 @@ export default function ContentManagement(props) {
             />
             <OutlinedInput
               id="outlined-basic"
-              placeholder="अपलोड फाइल"
+              placeholder="Upload File"
               size="small"
               sx={{ mt: 2, mb: 2, bgcolor: "white", width: "80%" }}
               endAdornment={
@@ -668,15 +705,13 @@ export default function ContentManagement(props) {
         <SadarMajkur />
       </Box>
       <Box sx={{ width: "88%", margin: "auto" }}>
-        <Box sx={{ display: "flex", justifyContent: "flex-start" }}>
+        <Box sx={{ display: "flex", justifyContent: "space-around" }}>
           <FormControl>
-            <InputLabel id="demo-simple-select-label">
-              येथे प्रकाशित करा{" "}
-            </InputLabel>
+            <InputLabel id="demo-simple-select-label">Publish Here</InputLabel>
             <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
-              label="लाभ निवडा"
+              label="Choose Plan"
               size="small"
               sx={{
                 width: "400px",
@@ -688,8 +723,8 @@ export default function ContentManagement(props) {
               <FormControl component="fieldset" sx={{ width: "90%" }}>
                 <FormGroup aria-label="position" column>
                   {[
-                    { type: "अंक", id: 1, value: checked_1 },
-                    { type: "ओन्ली इन अँप", id: 2, value: checked_2 },
+                    { type: "Issue", id: 1, value: checked_1 },
+                    { type: "Only In App", id: 2, value: checked_2 },
                   ].map((item) => {
                     return (
                       <FormControlLabel
@@ -717,12 +752,12 @@ export default function ContentManagement(props) {
 
           <FormControl>
             <InputLabel id="demo-simple-select-label">
-              सुबस्क्रिपशन टाईप{" "}
+              Subscription Type
             </InputLabel>
             <Select
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
-              label="लाभ निवडा"
+              label="Choose Plan"
               size="small"
               sx={{
                 width: "400px",
@@ -765,11 +800,11 @@ export default function ContentManagement(props) {
           </FormControl>
 
           <Button
-            sx={{ width: "180px", backgroundColor: "#4F62B0" }}
+            sx={{ width: "25%", backgroundColor: "#4F62B0", height: "50%" }}
             variant="contained"
             onClick={handleSubmit}
           >
-            पक्के करा{" "}
+            Submit
           </Button>
         </Box>
       </Box>
@@ -786,7 +821,7 @@ export default function ContentManagement(props) {
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
               value={data.template_id}
-              label="अंक नाव"
+              label="Issue Name"
               size="small"
               sx={{
                 width: "400px",

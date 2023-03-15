@@ -186,7 +186,7 @@ export default function PrimaryInformation() {
 
           <TextField
             id="outlined-basic"
-            label="लोगो अपलोड करा"
+            label="Upload Your Logo"
             className="inputField2"
             size="small"
             sx={{ marginTop: "20px" }}
@@ -199,7 +199,7 @@ export default function PrimaryInformation() {
             onClick={handleSubmit}
             sx={[styles.btn, styles.basicButton, { marginTop: "40px" }]}
           >
-            प्रस्तुत करा
+           Publish 
           </Button>
         </Box>
       </Box>

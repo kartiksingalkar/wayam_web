@@ -26,7 +26,7 @@
 //   )
 // }
 import "./App.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter , Route } from "react-router-dom";
 import { Switch } from "react-router";
 import IssueManagement from "./Pages/IssueManagement";
 // import AddButton from '../src/Components/AddButton';
@@ -56,7 +56,7 @@ import PublisherNew from "./Pages/PublisherNew";
 function App() {
   return (
     <>
-      <Router>
+      <BrowserRouter>
         <Switch>
           <Route exact path="/">
             <Login />
@@ -145,7 +145,7 @@ function App() {
             <PublisherNew />
           </Route>
         </Switch>
-      </Router>
+      </BrowserRouter>
 
       {/* <AddButton/> */}
       {/* <SubmitButton/> */}

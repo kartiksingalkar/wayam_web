@@ -81,7 +81,7 @@ export default function ConfirmPassword() {
              }}
              required
              size="small"
-             label="नवीन पासवर्ड टाका "
+             label="Enter New Password "
              variant="outlined"
              sx={styles.textField}
            />
@@ -93,7 +93,7 @@ export default function ConfirmPassword() {
              }}
              required
              size="small"
-             label=" नवीन पासवर्ड कन्फर्म करा "
+             label=" Confirm New Password"
              variant="outlined"
              sx={styles.textField}
            />
@@ -114,7 +114,7 @@ export default function ConfirmPassword() {
 
                    }
                } >
-             पासवर्ड अपडेट करा
+             Update Password
              </Typography>
            </Button>
 

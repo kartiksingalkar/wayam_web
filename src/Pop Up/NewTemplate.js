@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import { Box, FormControl } from "@mui/material";
@@ -28,6 +28,28 @@ function NewTemplate(props) {
   const [count, setCount] = useState([]);
 
   const [categories, setCategories] = useState([]);
+  const [templates, setTemplates] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/getalltemplates`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.data.status) {
+          setTemplates(response.data.data);
+          console.log("templates", response.data.data);
+        }
+      } catch (e) {}
+    }
+    fetchData();
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -57,15 +79,40 @@ function NewTemplate(props) {
 
   const [countData, setCountData] = useState({});
 
-  const [type, setType] = useState({})
+  const [type, setType] = useState({});
+
+  const [tempCount, setTempCount] = useState([]);
+
+  useEffect(() => {
+    if (props.isForUpdate) {
+      async function getCount() {
+        try {
+          let response = await axios.get(
+            `${process.env.REACT_APP_API_URL}/gettemplateforupdate?template_id=${props.template_id}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          setCount(response.data.data[0].template_data);
+          console.log(count);
+          setTempCount(Object.values(response.data.data[0].template_data));
+          // console.log("Hello : " + JSON.stringify(response.data.data[0].template_data))
+        } catch (e) {
+          console.log(e);
+        }
+      }
+      getCount();
+    }
+  }, []);
 
   const handleCountChange = (key, value, name) => {
     let obj = { ...countData, [key]: value };
 
-    setType((old)=>{
-      return {...old, [key]: name}
-    })
-
+    setType((old) => {
+      return { ...old, [key]: name };
+    });
 
     setCountData(obj);
 
@@ -73,7 +120,7 @@ function NewTemplate(props) {
     //   return { ...oldData, [key]: value };
     // });
     handleChange("template_data", countData);
-    handleChange("types", type)
+    handleChange("types", type);
   };
 
   const handleChange = (key, value) => {
@@ -83,23 +130,45 @@ function NewTemplate(props) {
   };
 
   const handleSubmit = async () => {
-    console.log(data);
-    try {
-      let response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/addtemplate`,
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
+    if (props.isForUpdate) {
+      console.log(data);
+      try {
+        let response = await axios.patch(
+          `${process.env.REACT_APP_API_URL}/updatetemplate?template_id=${props.template_id}`,
+          data,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (response.data.status) {
+          console.log(response.data);
+          props.setOpen(false);
+          window.location.reload()
         }
-      );
-      if (response.data.status) {
-        console.log(response.data);
-        props.setOpen(false);
+      } catch (e) {
+        console.log(e);
       }
-    } catch (e) {
-      console.log(e);
+    } else {
+      console.log(data);
+      try {
+        let response = await axios.post(
+          `${process.env.REACT_APP_API_URL}/addtemplate`,
+          data,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (response.data.status) {
+          console.log(response.data);
+          props.setOpen(false);
+        }
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
@@ -107,7 +176,7 @@ function NewTemplate(props) {
   return (
     <>
       <Button variant="outlined" onClick={handleClickOpen}>
-        + नवीन लाभ
+        + New Benifit
       </Button>
       {/* POP UP */}
       <Dialog fullWidth maxWidth="md" open={props.open} onClose={handleClose}>
@@ -124,7 +193,7 @@ function NewTemplate(props) {
           <Box sx={{ flexDirection: "row" }}>
             <TextField
               id="outlined-basic"
-              label="टेम्पलेटचे नाव * "
+              label="Template Name * "
               sx={{
                 width: "380px",
                 borderRadius: "5px",
@@ -136,9 +205,9 @@ function NewTemplate(props) {
               variant="outlined"
             />
             {/* Add Button */}
-            <img sx={{ marginLeft: "2%" }} src={addBtn} alt="hello" />
+            {/* <img sx={{ marginLeft: "2%" }} src={addBtn} alt="hello" /> */}
             {/* <Button onClick={() => handleAdd()}>Add</Button> */}
-            {categories.map((item) => {
+            {categories.map((item, index) => {
               return (
                 <div>
                   <Box sx={{ width: "100%", display: "flex" }}>
@@ -166,10 +235,14 @@ function NewTemplate(props) {
                           <MenuItem value={60}>इंग्लिश</MenuItem>
                         </Select>
                       </FormControl> */}
-                      <TextField
+                      <Box sx={{width:'150px' , height:'30px', display:'flex',backgroundColor:'white' , border:1, borderColor:'grey' , justifyContent:'center' , alignItems:'center'}}>
+                      <Typography sx={{width:'130px'}}>{item.name} ; -
+                        </Typography>
+                      </Box>
+                      
+                      {/* <Typography
                         id="outlined-basic"
-                        value={item.name}
-                        disabled
+                        value=
                         sx={{
                           width: "380px",
                           borderRadius: "5px",
@@ -179,12 +252,13 @@ function NewTemplate(props) {
                         size="small"
                         //   onChange={e=>handleChange(e,i)}
                         variant="outlined"
-                      />
+                      /> */}
                     </Box>
                     <Box sx={{ display: "flex", flexDirection: "column" }}>
                       <TextField
                         id="outlined-basic"
-                        label="संख्या लिहा "
+                        label="Write Number "
+                        // value={tempCount[index]}
                         sx={{
                           width: "380px",
                           borderRadius: "5px",
@@ -194,10 +268,10 @@ function NewTemplate(props) {
                         }}
                         size="small"
                         onChange={(e) =>
-                          handleCountChange(item.id , e.target.value, item.name)
+                          handleCountChange(item.id, e.target.value, item.name)
                         }
                         variant="outlined"
-                      ></TextField>
+                      />
                     </Box>
                   </Box>
                 </div>
@@ -218,7 +292,7 @@ function NewTemplate(props) {
             }}
             onClick={handleSubmit}
           >
-            पक्के करा{" "}
+            Submit
           </Button>
         </DialogActions>
       </Dialog>

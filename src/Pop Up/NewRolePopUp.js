@@ -48,8 +48,7 @@ export default function (props) {
           <Typography
             sx={{ color: "#4F62B0", fontWeight: "600", backgroundColor:"#E1E5F8" }}
           >
-            {" "}
-            + नवीन रोल{" "}
+            + New Role
           </Typography>
 
           <Box fullWidth maxWidth='xs' sx={{display:"flex", flexDirection:'column', justifyContent:"space-between"}}>
@@ -59,7 +58,7 @@ export default function (props) {
             autoFocus
             margin="dense"
             id="outlined-basic"
-            placeholder="रोलचे नाव"
+            placeholder="Role Name"
             type="email"
             fullWidth
             size="small"
@@ -75,36 +74,36 @@ export default function (props) {
               labelId="module"
               id="module"
               value={age}
-              placeholder="मोड्यूल निवडा"
+              placeholder="Choose Module"
               onChange={handleChange}
             >
-              <MenuItem value={10}>मोड्यूल 1</MenuItem>
-              <MenuItem value={20}>मोड्यूल 2</MenuItem>
-              <MenuItem value={30}>मोड्यूल 3</MenuItem>
+              <MenuItem value={10}>Module 1</MenuItem>
+              <MenuItem value={20}>Module 2</MenuItem>
+              <MenuItem value={30}>Module 3</MenuItem>
             </Select>
          </FormControl>
 
          <FormControl size="small" fullWidth sx={{color: "#4F62B0",marginBottom:"20px"}}>
-            <InputLabel sx={{color: "#999999"}} id="right">अधिकार</InputLabel>
+            <InputLabel sx={{color: "#999999"}} id="right">Authority</InputLabel>
             <Select
 
               sx={{color: "#4F62B0",backgroundColor:"white"}}
               labelId="right"
               id="right"
               value={right}
-              placeholder="अधिकार "
+              placeholder="Authority "
               onChange={handleChange}
             >
-              <MenuItem value={10}>अधिकार 1</MenuItem>
-              <MenuItem value={20}>अधिकार 2</MenuItem>
-              <MenuItem value={30}>अधिकार 3</MenuItem>
+              <MenuItem value={10}>Authority 1</MenuItem>
+              <MenuItem value={20}>Authority 2</MenuItem>
+              <MenuItem value={30}>Authority 3</MenuItem>
             </Select>
          </FormControl>
         </Box>
 
         </DialogContent>
         <DialogActions sx={{backgroundColor:"#E1E5F8"}}>
-            <SubmitButton buttonTitle={"सेव करा "}/>
+            <SubmitButton buttonTitle={"Save"}/>
         </DialogActions>
       </Dialog>
     </div>

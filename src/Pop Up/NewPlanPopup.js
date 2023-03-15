@@ -24,9 +24,12 @@ export default function NewPlanPopup(props) {
 
   // const handleChange = (event) => {
   //   setChecked(event.target.checked);
+
+  console.log(props);
   // };
 
   const [addedBenifits, setAddedBenifits] = useState({});
+  const [plan_name, setplan_name] = useState();
 
   const handleCheckBox = (key, value) => {
     setAddedBenifits((prevData) => {
@@ -48,7 +51,7 @@ export default function NewPlanPopup(props) {
   };
 
   const handleClose = () => {
-    props.setOpen(false);
+    props.setPlanOpen(false);
   };
   // DropDown
 
@@ -67,45 +70,85 @@ export default function NewPlanPopup(props) {
     });
   };
 
+  useEffect(() => {
+    if (props.isForUpdate) {
+      console.log(props.plan);
+      setData((prevData) => {
+        return {
+          ...prevData,
+          plan_name: props.plan,
+          plan_duration: props.duration,
+          status: props.status,
+        };
+      });
+    }
+  }, []);
+
   const handleSubmit = async () => {
-    console.log("data : ", data);
-    try {
-      let response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/createplan`,
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
+    if (props.isForUpdate) {
+      try {
+        const response = await axios.patch(
+          `${process.env.REACT_APP_API_URL}/updateplan?plan_id=${props.plan_id}`,
+          data,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log("Hello Response : " + JSON.stringify(response));
+        if (response.data.status) {
+          console.log("Updated");
+          window.location.reload()
         }
-      );
-      console.log(response.data.status)
-      if (response.data.status) {
-        props.setPlanData((oldData)=>{
-          return [...props.planData, data]
-        })
-        props.setPlanOpen(false);
+      } catch (e) {
+        console.log(e);
       }
-      console.log("response : ", response);
-    } catch (e) {}
+    } else {
+      console.log("data : ", data);
+      if (data.plan_name === "") {
+        alert("please fill the valu");
+      } else {
+        try {
+          let response = await axios.post(
+            `${process.env.REACT_APP_API_URL}/createplan`,
+            data,
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          console.log(response.data.status);
+          if (response.data.status) {
+            // // props.setPlanData((oldData)=>{
+            // //   return [...props.planData, data]
+            // })
+            props.setPlanOpen(false);
+            window.location.reload();
+          }
+          console.log("response : ", response);
+        } catch (e) {}
+      }
+    }
   };
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      {/* <Button variant="outlined" onClick={handleClickOpen}>
         Open form dialog
-      </Button>
+      </Button> */}
       {/* Pop up */}
       <Dialog open={props.open} onClose={handleClose}>
         <DialogTitle sx={{ backgroundColor: "#E1E5F8", width: "400px" }}>
-          <h3>+ नवीन योजना </h3>
+          <h3>+ New Plan</h3>
         </DialogTitle>
         <DialogContent sx={{ backgroundColor: "#E1E5F8", width: "400px" }}>
           <DialogContentText>{/* + नवीन योजना  */}</DialogContentText>
           {/* Inputs */}
           <TextField
             id="outlined-basic"
-            label="योजनेचे नाव"
+            label="Plan Name"
             sx={{
               width: "400px",
               borderRadius: "5px",
@@ -113,6 +156,7 @@ export default function NewPlanPopup(props) {
               backgroundColor: "white",
             }}
             size="small"
+            value={data.plan_name}
             variant="outlined"
             onChange={(e) => {
               handleChange("plan_name", e.target.value);
@@ -160,13 +204,14 @@ export default function NewPlanPopup(props) {
           </FormControl> */}
           <TextField
             id="outlined-basic"
-            label="कालावधी "
+            label="Duration"
             sx={{
               width: "400px",
               borderRadius: "5px",
               marginBottom: "3%",
               backgroundColor: "white",
             }}
+            value={data.plan_duration}
             size="small"
             variant="outlined"
             onChange={(e) => {
@@ -232,7 +277,7 @@ export default function NewPlanPopup(props) {
             }}
             onClick={handleSubmit}
           >
-            पक्के करा{" "}
+            Submit
           </Button>
         </DialogActions>
       </Dialog>

@@ -133,7 +133,7 @@ const [opne, setopne] = useState(false)
         open={open}
       >
         <Box margin={2}>
-          <SearchBox find={"रोल शोधा"} />
+          <SearchBox find={"Find Role"} />
         </Box>
 
         <Box sx={{ flexGrow: 1, backgroundColor: "#E1E5F8" }}>
@@ -150,10 +150,10 @@ const [opne, setopne] = useState(false)
                 }}
               >
                 <Box sx={{ width: "50%", textAlign: "left" }}>
-                  <Typography>रोलचे नाव</Typography>
+                  <Typography>Role Name</Typography>
                 </Box>
                 <Box sx={{ width: "50%" }}>
-                  <Typography>कर्मचारी</Typography>
+                  <Typography>Employee</Typography>
                 </Box>
               </Item>
             </Grid>
@@ -172,7 +172,7 @@ const [opne, setopne] = useState(false)
               >
                 <Box sx={{ color: "#4F62B0", width: "50%", textAlign: "left" }}>
                   <Typography sx={{ marginLeft: "10px" }}>
-                    + रोल निवडा
+                    + Choose Role
                   </Typography>
                 </Box>
                 <Box
@@ -247,7 +247,7 @@ const [opne, setopne] = useState(false)
             sx={{ width:'100%' }}
             onClick={NewRolePopup}
           >
-            <AddButton buttonTitle={"+ नवीन रोल  "} />
+            <AddButton buttonTitle={"+ Add Role  "} />
           </Box>
         </List>
       </Dialog>
