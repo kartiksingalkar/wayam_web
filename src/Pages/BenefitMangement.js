@@ -18,6 +18,7 @@ import "../CSS/benefitmanagement.css";
 
 import axios from "axios";
 import NewPlanPopup from "../Pop Up/NewPlanPopup";
+import SearchBenifit from "../Components/SearchBenifit";
 
 const plans = [
   {
@@ -163,14 +164,13 @@ export default function BenefitManagement() {
                   />
                   {/* <Tab label="लाभ" className="tabtext" value={1} /> */}
                 </Tabs>
-
                 {/* 1st tab */}
                 {value === 0 && (
                   <Box sx={{ margin: "0.5%", flexGrow: 1 }}>
                     <Grid container spacing={2} justify="center">
                       <Grid item xs={8}>
                         {/* <SearchBox find={"योजना शोधा"} /> */}
-                        <SearchBox find={"Find a plan"} />
+                        <SearchBenifit find={"Find a plan"} data2={planData} setData={setPlanData} />
                       </Grid>
                       <Grid item xs={12}>
                         <Item

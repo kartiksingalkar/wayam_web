@@ -18,6 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function LibraryManagementComponent2(props) {
   const { type, id, setData, index } = props;
+  console.log(props)
 
   const handleDelete = async () => {
     try {

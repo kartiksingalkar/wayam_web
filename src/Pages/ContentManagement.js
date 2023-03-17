@@ -55,7 +55,10 @@ export default function ContentManagement(props) {
       };
     });
     setU(!u);
-    handleChange("subscription", subData);
+    setTimeout(() => {
+      handleChange("subscription", subData);
+    }, 100);
+
     // console.log("Sub Data : ", subData);
   };
 
@@ -312,7 +315,7 @@ export default function ContentManagement(props) {
           to="/Librarymanagement"
           style={{ textDecoration: "none", color: "black" }}
         >
-          <LinkContent link_title1={"Library Management"} />
+          <LinkContent link_title1={"< Library Management"} />
         </Link>
       </Box>
       {/* <Box sx={{ mx: "8%", mt: "-1%" }}>
@@ -345,7 +348,7 @@ export default function ContentManagement(props) {
               id="outlined-basic"
               sx={{ width: "100%", height: "10%" }}
               placeholder="Content Name"
-              label="Content Name"
+              // label="Content Name"
               variant="outlined"
               size="small"
               value={data.content_name}
@@ -368,7 +371,7 @@ export default function ContentManagement(props) {
               id="outlined-basic"
               placeholder="Writer Name"
               size="small"
-              label="Writer Name"
+              // label="Writer Name"
               sx={{ width: "100%" }}
               key="writer"
               value={data.writer}
@@ -497,7 +500,7 @@ export default function ContentManagement(props) {
               type="file"
               id="outlined-basic"
               placeholder="Upload File"
-              label="upload text file"
+              // label="upload text file"
               size="small"
               sx={{ mt: 2, mb: 1, bgcolor: "white", width: "80%" }}
               onChange={(e) => {

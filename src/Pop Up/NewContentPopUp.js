@@ -5,13 +5,13 @@ import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import { Box, Typography } from "@mui/material";
+import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
+import { Box, InputAdornment, OutlinedInput, Typography } from "@mui/material";
 
 import SubmitButton from "../Components/SubmitButton";
 import axios from "axios";
 
 export default function NewContentPopUp(props) {
-  
   console.log(props.isForUpdate);
 
   const [data, setData] = useState({});
@@ -25,10 +25,7 @@ export default function NewContentPopUp(props) {
     console.log(key);
   };
 
-  
-
   React.useEffect(() => {
-  
     if (props.isForUpdate) {
       setData((prevData) => {
         return {
@@ -47,6 +44,38 @@ export default function NewContentPopUp(props) {
     props.setOpen(false);
   };
 
+  const [coverImgFile, setCoverImgFile] = useState();
+
+  const handleCoverImgChange = (e) => {
+    setCoverImgFile(e.target.files[0]);
+  };
+
+  const [id, setId] = useState();
+
+  const uploadCategoryImgFile = async (id) => {
+    // console.log("Hello : " + content_id);
+
+    const formData = new FormData();
+    formData.append("category_img", coverImgFile);
+    formData.append("id", props.id);
+    // formData.append("content_type", "audio");
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/uploadcategoryimg?id=${id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const handleSubmit = async () => {
     if (props.isForUpdate) {
       try {
@@ -61,6 +90,7 @@ export default function NewContentPopUp(props) {
         );
 
         if (response.data.status) {
+          uploadCategoryImgFile(props.id);
           window.location.reload();
           props.setOpen(false);
         }
@@ -80,6 +110,10 @@ export default function NewContentPopUp(props) {
         );
 
         if (response.data.status) {
+          // console.log("My ID : " +);
+          // setId(response.data.data[0].id)
+
+          uploadCategoryImgFile(response.data.data[0].id);
           props.setData((prevData) => {
             return [...prevData, data];
           });
@@ -141,10 +175,24 @@ export default function NewContentPopUp(props) {
                 handleChange("name", e.target.value);
               }}
             />
-
-          
-         
           </Box>
+
+          <OutlinedInput
+            id="outlined-basic"
+            type="file"
+            label="cover image"
+            placeholder="Cover Image"
+            size="small"
+            sx={{ mt: 2, bgcolor: "white", width: "80%" }}
+            endAdornment={
+              <InputAdornment position="end">
+                <DriveFolderUploadIcon />
+              </InputAdornment>
+            }
+            onChange={(e) => {
+              handleCoverImgChange(e);
+            }}
+          />
         </DialogContent>
         <DialogActions sx={{ backgroundColor: "#E1E5F8" }}>
           <Button onClick={handleSubmit}>

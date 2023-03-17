@@ -8,13 +8,10 @@ import { Link, useHistory } from "react-router-dom";
 
 import axios from "axios";
 
-
-
 export default function Login() {
   const history = useHistory();
   //state to store the data
   const [data, setData] = useState({});
-
 
   //function to handle change in input fields
   const handleChange = (key, value) => {
@@ -29,11 +26,11 @@ export default function Login() {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/signin`,
+        `${process.env.REACT_APP_API_URL}/adminlogin`,
         data
       );
-      if(response.data.status){
-        history.push('/Home')
+      if (response.data.status) {
+        history.push("/Home");
         let token = `${response.data.token}`;
         let user_id = `${response.data.id}`;
         let mbl_no = `${response.data.mbl_no}`;
@@ -45,9 +42,6 @@ export default function Login() {
       console.log(e);
     }
   };
-
-
- 
 
   const [matches, setMatches] = useState(
     window.matchMedia("(min-width: 800px)").matches
@@ -98,8 +92,6 @@ export default function Login() {
           </Container>
           {/* End Header Container */}
 
-         
-
           {/* Start of Form */}
           <Container
             sx={{
@@ -116,8 +108,7 @@ export default function Login() {
               }}
               required
               size="small"
-              label="वापरकर्ता नाव
-              "
+              label="User Name"
               variant="outlined"
               sx={styles.textField}
             />
@@ -128,7 +119,7 @@ export default function Login() {
               }}
               required
               size="small"
-              label="पासवर्ड "
+              label="Password "
               variant="outlined"
               sx={styles.textField}
             />
@@ -139,7 +130,7 @@ export default function Login() {
                 align="right"
                 sx={styles.subscript}
               >
-                पासवर्ड विसरलात?
+               Forgot Password
               </Typography>
             </Link>
 
@@ -160,7 +151,7 @@ export default function Login() {
                   textAlign: "center",
                 }}
               >
-                येथे लॉगिन करा
+                Login
               </Typography>
               {/* </Link> */}
             </Button>
@@ -169,9 +160,6 @@ export default function Login() {
         </Box>
       </Box>
       {/* End of Form Container */}
-
-      
-      
     </Box>
   );
 }

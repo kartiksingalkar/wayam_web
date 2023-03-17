@@ -25,6 +25,8 @@ import NewTemplate from "../Pop Up/NewTemplate";
 import AddButton from "../Components/AddButton";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import SearchTemplate from "../Components/SearchTemplate";
+import SearchIssue from "../Components/SearchIssue";
 
 const data = [
   { templateTitle: "टेम्प्लेट 1", type: "चौकस चौरस , गप्पाटप्पा" },
@@ -247,7 +249,7 @@ export default function Issuemanagement1() {
                   <Box sx={{ margin: "0.5%", flexGrow: 1 }}>
                     <Grid container spacing={2} justify="center">
                       <Grid item xs={8}>
-                        <SearchBox find={"Find Content"} />
+                        <SearchTemplate find={"Find Content"} data2={templateName} setData={setTemplateName} />
                       </Grid>
                       <Grid item xs={12}>
                         <Item
@@ -322,7 +324,7 @@ export default function Issuemanagement1() {
                   <Box sx={{ margin: "0.5%", flexGrow: 1 }}>
                     <Grid container spacing={2} justify="center">
                       <Grid item xs={8}>
-                        <SearchBox find={"Find Issues"} />
+                        <SearchIssue find={"Find Issues"} data2={issues} setData={setIssues} />
                       </Grid>
                       <Grid item xs={12}>
                         <Item

@@ -279,7 +279,7 @@ export default function IssueManagement() {
             <Box className="inputBox">
               <TextField
                 id="outlined-basic"
-                label="Issue Name"
+                placeholder="Issue Name"
                 // className="inputField1"
                 size="small"
                 variant="outlined"
@@ -297,7 +297,7 @@ export default function IssueManagement() {
               />
               <TextField
                 id="outlined-basic"
-                label="Issue Number"
+                placeholder="Issue Number"
                 size="small"
                 variant="outlined"
                 sx={{
@@ -436,7 +436,7 @@ export default function IssueManagement() {
             <Box className="inputBox">
               <TextField
                 id="outlined-basic"
-                label="तारीख"
+                placeholder="तारीख"
                 size="small"
                 sx={{
                   width: "40%",
@@ -469,7 +469,7 @@ export default function IssueManagement() {
                   labelId="demo-simple-select-helper-label"
                   id="demo-simple-select-helper"
                   value={data.template_id}
-                  label="व्यवस्थापकाचे नाव"
+                  placeholder="व्यवस्थापकाचे नाव"
                   size="small"
                   sx={{
                     // width: "400px",
@@ -507,7 +507,7 @@ export default function IssueManagement() {
             <Box className="inputBox">
               <TextField
                 id="outlined-basic"
-                label="कायदेशीर माहिती "
+                placeholder="कायदेशीर माहिती "
                 className="inputField1"
                 size="small"
                 sx={{

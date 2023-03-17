@@ -21,7 +21,7 @@ export default function NewSubscriberPopup(props) {
         [key]: value,
       };
     });
-   
+
     console.log(key);
   };
   // Pop up
@@ -42,7 +42,7 @@ export default function NewSubscriberPopup(props) {
   const handleSubmit = async () => {
     try {
       let response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/adduser`,
+        `${process.env.REACT_APP_API_URL}/signupuser`,
         data,
         {
           headers: {
@@ -52,9 +52,9 @@ export default function NewSubscriberPopup(props) {
       );
 
       if (response.data.status) {
-        props.setData((oldData)=>{
-          return [...oldData, data]
-        })
+        props.setData((oldData) => {
+          return [...oldData, data];
+        });
         props.setOpen(false);
       }
     } catch (err) {
@@ -166,7 +166,7 @@ export default function NewSubscriberPopup(props) {
               }}
               size="small"
               variant="outlined"
-              value={data.mobilenumber}
+              value={data.mbl_no}
             />
             <TextField
               id="outlined-basic"
@@ -202,6 +202,42 @@ export default function NewSubscriberPopup(props) {
               variant="outlined"
               value={data.address2}
             />
+
+            <TextField
+              id="outlined-basic"
+              label="State"
+              sx={{
+                width: "400px",
+                borderRadius: "5px",
+                marginBottom: "3%",
+                marginLeft: "2%",
+                backgroundColor: "white",
+              }}
+              onChange={(e) => {
+                handleChange("state", e.target.value);
+              }}
+              size="small"
+              variant="outlined"
+              value={data.state}
+            />
+
+            <TextField
+              id="outlined-basic"
+              label="Password"
+              sx={{
+                width: "400px",
+                borderRadius: "5px",
+                marginBottom: "3%",
+                marginLeft: "2%",
+                backgroundColor: "white",
+              }}
+              onChange={(e) => {
+                handleChange("password", e.target.value);
+              }}
+              size="small"
+              variant="outlined"
+              value={data.password}
+            />
             <DialogActions sx={{ backgroundColor: "#E1E5F8", margin: 0 }}>
               {/* <Button onClick={handleClose}>रद्ध करा</Button> */}
               <Button
@@ -213,7 +249,7 @@ export default function NewSubscriberPopup(props) {
                 }}
                 onClick={handleSubmit}
               >
-               Save
+                Save
               </Button>
             </DialogActions>
           </Box>
