@@ -47,7 +47,7 @@ export default function IssueManagementComponent(props) {
             flexDirection: "row",
           }}
         >
-          <Button onClick={handleEdit}>
+          {/* <Button onClick={handleEdit}>
             {" "}
             <img
               src={edit}
@@ -56,8 +56,8 @@ export default function IssueManagementComponent(props) {
               alt="SVG"
               style={{ paddingLeft: "10px", paddingRight: "10px" }}
             />
-          </Button>
-          <Button onClick={handleDelete}>
+          </Button> */}
+          {/* <Button onClick={handleDelete}>
             {" "}
             <img
               src={frame}
@@ -66,7 +66,7 @@ export default function IssueManagementComponent(props) {
               alt="SVG"
               style={{ paddingLeft: "10px", paddingRight: "10px" }}
             />
-          </Button>
+          </Button> */}
           <Typography>{templateTitle}</Typography>
         </Box>
         <Box sx={{ textAlign: "left", width: "50%" }}>

@@ -11,9 +11,7 @@ import DialogContent from "@mui/material/DialogContent";
 import axios from "axios";
 
 function NewTemplate(props) {
- 
   console.log(props);
-
 
   const handleClickOpen = () => {
     props.setOpen(true);
@@ -70,8 +68,6 @@ function NewTemplate(props) {
     fetchData();
   }, []);
 
-
-
   const nameChange = (key, value) => {
     handleChange(key, value);
   };
@@ -107,19 +103,34 @@ function NewTemplate(props) {
   }, []);
 
   const handleCountChange = (key, value, name) => {
-    let obj = { ...countData, [key]: value };
+    let typeobj = {};
 
     setType((old) => {
-      return { ...old, [key]: name };
+      typeobj = { ...old, [key]: name };
+      return typeobj;
     });
 
-    setCountData(obj);
+    let countobj = { ...countData, [key]: value };
+
+    // setCountData((oldData) => {
+    //   countobj = { ...oldData, [key]: value };
+    //   return countobj;
+    // });
 
     // setCountData((oldData) => {
     //   return { ...oldData, [key]: value };
     // });
-    handleChange("template_data", countData);
-    handleChange("types", type);
+    console.log(countData);
+
+    // setTimeout(() => {
+    handleChange("template_data", countobj);
+    handleChange("types", typeobj);
+
+    setCountData((oldData)=>{
+      return {...oldData, [key]: value}
+    })
+    
+    // }, 200);
   };
 
   const handleChange = (key, value) => {
@@ -144,7 +155,7 @@ function NewTemplate(props) {
         if (response.data.status) {
           console.log(response.data);
           props.setOpen(false);
-          window.location.reload()
+          window.location.reload();
         }
       } catch (e) {
         console.log(e);
@@ -192,7 +203,8 @@ function NewTemplate(props) {
           <Box sx={{ flexDirection: "row" }}>
             <TextField
               id="outlined-basic"
-              label="Template Name * "
+              placeholder="Template Name * "
+              // value={templates[0].template_name}
               sx={{
                 width: "380px",
                 borderRadius: "5px",
@@ -209,19 +221,28 @@ function NewTemplate(props) {
                 <div>
                   <Box sx={{ width: "100%", display: "flex" }}>
                     <Box sx={{ display: "flex", flexDirection: "row" }}>
-                     
-                      <Box sx={{width:'150px' , height:'30px', display:'flex',backgroundColor:'white' , border:1, borderColor:'grey' , justifyContent:'center' , alignItems:'center'}}>
-                      <Typography sx={{width:'130px'}}>{item.name} ; -
+                      <Box
+                        sx={{
+                          width: "150px",
+                          height: "30px",
+                          display: "flex",
+                          backgroundColor: "white",
+                          border: 1,
+                          borderColor: "grey",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography sx={{ width: "130px" }}>
+                          {item.name} ; -
                         </Typography>
                       </Box>
-                      
-                     
                     </Box>
                     <Box sx={{ display: "flex", flexDirection: "column" }}>
                       <TextField
                         id="outlined-basic"
-                        label="Write Number "
-                        // value={tempCount[index]}
+                        placeholder="Write Number "
+                        value={tempCount[index]}
                         sx={{
                           width: "380px",
                           borderRadius: "5px",

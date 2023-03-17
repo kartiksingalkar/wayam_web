@@ -22,12 +22,12 @@ import axios from "axios";
 export default function NewPlanPopup(props) {
   const [benifitData, setPlanData] = useState(props.benifitData);
 
- 
   console.log(props);
   // };
 
   const [addedBenifits, setAddedBenifits] = useState({});
   const [plan_name, setplan_name] = useState();
+  const[error , setError] = useState()
 
   const handleCheckBox = (key, value) => {
     setAddedBenifits((prevData) => {
@@ -83,7 +83,15 @@ export default function NewPlanPopup(props) {
   }, []);
 
   const handleSubmit = async () => {
+    var re = /^[0-9]{10}$/;
     if (props.isForUpdate) {
+      if (data.plan_name.length === 0 ) {
+        // alert("please fill the value");
+        setError(true)
+      }else{
+
+     
+
       try {
         const response = await axios.patch(
           `${process.env.REACT_APP_API_URL}/updateplan?plan_id=${props.plan_id}`,
@@ -97,16 +105,20 @@ export default function NewPlanPopup(props) {
         console.log("Hello Response : " + JSON.stringify(response));
         if (response.data.status) {
           console.log("Updated");
-          window.location.reload()
+          window.location.reload();
         }
       } catch (e) {
         console.log(e);
-      }
+      }}
     } else {
       console.log("data : ", data);
-      if (data.plan_name === "") {
-        alert("please fill the valu");
-      } else {
+      if (data.plan_name.length === 0 || data.plan_duration.length === 0 ) {
+        alert("please fill the value");
+        setError(true)
+      }else if( re.test(!data.plan_duration)){
+        alert("please fill the value");
+      }
+       else {
         try {
           let response = await axios.post(
             `${process.env.REACT_APP_API_URL}/createplan`,
@@ -133,7 +145,6 @@ export default function NewPlanPopup(props) {
 
   return (
     <div>
-      
       {/* Pop up */}
       <Dialog open={props.open} onClose={handleClose}>
         <DialogTitle sx={{ backgroundColor: "#E1E5F8", width: "400px" }}>
@@ -158,6 +169,7 @@ export default function NewPlanPopup(props) {
               handleChange("plan_name", e.target.value);
             }}
           />
+          {error &&<p style={{color:'red'}} >please fill the value</p>}
           {/* <FormControl>
             <InputLabel id="demo-simple-select-label">लाभ निवडा</InputLabel>
             <Select

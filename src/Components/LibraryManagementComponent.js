@@ -30,9 +30,8 @@ export default function LibraryManagementComponent(props) {
           const newData = [...prev];
           newData.splice(index, 1);
           return newData;
-          
         });
-        alert('do you want to delete ?')
+        alert("do you want to delete ?");
       }
     } catch (err) {
       console.log(err);

@@ -18,8 +18,9 @@ import AddButton from "../Components/AddButton";
 import SearchBoxNew from "../Components/SearchBox";
 import { Link, useHistory } from "react-router-dom";
 import NewContentPopUp from "../Pop Up/NewContentPopUp";
+import SearchContent from "../Components/SearchContent";
 import axios from "axios";
-
+import SearchContentType from "../Components/SearchContentType";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -28,8 +29,6 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: "center",
   color: theme.palette.text.secondary,
 }));
-
-
 
 export default function Librarymanagement() {
   const [value, setValue] = useState(0);
@@ -82,6 +81,7 @@ export default function Librarymanagement() {
         if (response.data.status) {
           setData2(response.data.data);
         }
+        console.log(response.data.data);
       } catch (e) {}
     }
     fetchData();
@@ -148,19 +148,8 @@ export default function Librarymanagement() {
                     backgroundColor: "#ffffff",
                   }}
                 >
-                  <Tab
-                    label="content"
-                    className="tabtext"
-                    value={0}
-
-                 
-                  />
-                  <Tab
-                    label="content type "
-                    className="tabtext"
-                    value={1}
-                 
-                  />
+                  <Tab label="content" className="tabtext" value={0} />
+                  <Tab label="content type " className="tabtext" value={1} />
                   {/* <Tab></Tab> */}
                 </Tabs>
 
@@ -170,7 +159,11 @@ export default function Librarymanagement() {
                     <Grid container spacing={2} justify="center">
                       <Grid item xs={8}>
                         {/* <SearchBox find={"योजना शोधा"} /> */}
-                        <SearchBoxNew find={"find content"} />
+                        <SearchContent
+                          find={"find content"}
+                          data2={data2}
+                          setData2={setData2}
+                        />
                       </Grid>
                       <Grid item xs={12}>
                         <Item
@@ -241,7 +234,6 @@ export default function Librarymanagement() {
                         sx={{ width: "100%" }}
                         onClick={goToContentManagement}
                       >
-                       
                         <AddButton buttonTitle={"+ Add Content"} />
                         {/* </Link> */}
                       </Box>
@@ -254,7 +246,7 @@ export default function Librarymanagement() {
                   <Box sx={{ margin: "0.5%", flexGrow: 1 }}>
                     <Grid container spacing={2} justify="center">
                       <Grid item xs={8}>
-                        <SearchBoxNew find={"find content"} />
+                        <SearchContentType find={"find content"} data2={data} setData={setData} />
                       </Grid>
                       <Grid item xs={12}>
                         <Item

@@ -36,8 +36,6 @@ function SimpleDialog(props) {
     color: theme.palette.text.secondary,
   }));
 
-
- 
   const [opennsp, setopennsp] = useState(false);
   const openNewSubscriber = () => {
     setopennsp(!opennsp);
@@ -113,16 +111,18 @@ function SimpleDialog(props) {
             {data.map((item, index) => (
               <SubscriberListPopUpComponent
                 email={item.email}
+                user_id={item.user_id}
                 mobileno={item.mbl_no}
                 city={item.city}
                 pincode={item.pincode}
+                setData={setData}
+                data={data}
+                index={index}
               />
             ))}
           </Box>
 
           <List sx={{ pt: 0, backgroundColor: "#E1E5F8" }}>
-         
-
             <Box
               display="flex"
               margin={2}
