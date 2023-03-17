@@ -412,23 +412,7 @@ export default function ContentManagement(props) {
             </FormControl>
           </Box>
 
-          {/* <Box sx={{ width: "25%", mx: 4, mt: 1, minWidth: "350px" }}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">
-                मजकूर प्रकार{" "}
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                label="Age"
-                size="small"
-              >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </FormControl>
-          </Box> */}
+        
         </Box>
 
         {/* <SearchContentM /> */}
