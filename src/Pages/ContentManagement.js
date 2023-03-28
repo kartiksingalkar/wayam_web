@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../Components/Footer";
+import * as docx from "docx";
+import { Document, Paragraph } from "docx";
+import PizZip from "pizzip";
+import Docxtemplater from "docxtemplater";
+
 // import ContentInside from "../Components/ContentInside";
 import {
   Box,
@@ -290,20 +295,58 @@ export default function ContentManagement(props) {
 
   const [txtFileData, setTxtFileData] = useState("");
 
-  const onTxtChange = (e) => {
-    e.preventDefault();
+  const onTxtChange = (event) => {
+    const file = event.target.files[0];
     const reader = new FileReader();
-    reader.onload = async (e) => {
-      const txt = e.target.result;
+    reader.addEventListener("load", async () => {
+      const content = reader.result;
+      const zip = new PizZip(content);
+      const doc = new Docxtemplater().loadZip(zip);
+      const text = doc.getFullText();
       setData((prevState) => {
         return {
           ...prevState,
-          content_text: txt,
+          content_text: text,
         };
       });
-      console.log(txt);
-    };
-    reader.readAsText(e.target.files[0]);
+      // console.log(text);
+    });
+    reader.readAsArrayBuffer(file);
+
+    // const file = e.target.files[0];
+    // const reader = new FileReader();
+    // reader.onload = () => {
+    //   const buffer = reader.result;
+    //   const doc = new docx.Document(buffer);
+    //   const content = doc.getText();
+    //   console.log(content);
+    // };
+    // reader.readAsText(file);
+
+    // e.preventDefault();
+    // const reader = new FileReader();
+
+    // reader.addEventListener("load", () => {
+    //   const content = reader.result;
+    //   const doc = new Document();
+    //   doc.load(content).then(() => {
+    //     const text = doc.getBody().getText();
+    //     console.log(text);
+    //   });
+    //   // console.log(content);
+    // });
+
+    // reader.onload = async (e) => {
+    //   const txt = e.target.result;
+    // setData((prevState) => {
+    //   return {
+    //     ...prevState,
+    //     content_text: txt,
+    //   };
+    // });
+    //   console.log(txt);
+    // };
+    // reader.readAsArrayBuffer(e.target.files[0]);
   };
 
   return (
@@ -414,8 +457,6 @@ export default function ContentManagement(props) {
               </Select>
             </FormControl>
           </Box>
-
-        
         </Box>
 
         {/* <SearchContentM /> */}

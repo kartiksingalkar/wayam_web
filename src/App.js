@@ -29,12 +29,6 @@ import "./App.css";
 import { BrowserRouter , HashRouter, Route } from "react-router-dom";
 import { Switch } from "react-router";
 import IssueManagement from "./Pages/IssueManagement";
-// import AddButton from '../src/Components/AddButton';
-// import SubmitButton from '../src/Components/SubmitButton';
-// import SearchBox from '../src/Components/SearchBox';
-// import BenefitManagementComponent1 from '../src/Components/BenefitManagementComponent1';
-// import BenefitManagementComponent2 from '../src/Components/BenefitManagementComponent2';
-// import HeaderBar from '../src/Components/HeaderBar'
 import Librarymanagement from "../src/Pages/Librarymanagement";
 import Dashboard from "../src/Pages/Dashboard";
 import BenefitMangement from "../src/Pages/BenefitMangement";
