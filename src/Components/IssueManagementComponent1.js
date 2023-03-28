@@ -4,6 +4,8 @@ import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import edit from "../Images/edit.png";
+import edit2 from "../Images/edit2.png";
+
 import frame from "../Images/frame.png";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
@@ -83,7 +85,7 @@ export default function IssueManagementComponent1(props) {
         >
           <img
             onClick={handleEditContent}
-            src={edit}
+            src={edit2}
             width="17.17px"
             height="17.17px"
             alt="SVG"

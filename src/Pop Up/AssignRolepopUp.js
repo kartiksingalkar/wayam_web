@@ -216,7 +216,7 @@ const [opne, setopne] = useState(false)
             display="flex"
             margin={2}
             justifyContent="flex-end"
-            sx={{ width:'100%' }}
+            sx={{ width:'90%' }}
             onClick={NewRolePopup}
           >
             <AddButton buttonTitle={"+ Add Role  "} />
