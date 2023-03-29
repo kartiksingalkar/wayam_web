@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../Components/Footer";
-import * as docx from "docx";
-import { Document, Paragraph } from "docx";
-import PizZip from "pizzip";
-import Docxtemplater from "docxtemplater";
-
 // import ContentInside from "../Components/ContentInside";
 import {
   Box,
@@ -171,6 +166,7 @@ export default function ContentManagement(props) {
 
   const [audioFile, setAudioFile] = useState();
   const [coverImgFile, setCoverImgFile] = useState();
+  const [docxFile, setDocxFile] = useState();
 
   const handleAudioChange = (e) => {
     setAudioFile(e.target.files[0]);
@@ -180,13 +176,16 @@ export default function ContentManagement(props) {
     setCoverImgFile(e.target.files[0]);
   };
 
+  const handleDocxChnage = (e) => {
+    setDocxFile(e.target.files[0]);
+  };
+
   const uploadCoverImgFile = async (content_id) => {
     console.log("Hello : " + content_id);
 
     const formData = new FormData();
     formData.append("cover_image", coverImgFile);
     formData.append("content_id", content_id);
-    // formData.append("content_type", "audio");
 
     try {
       const response = await axios.post(
@@ -247,6 +246,7 @@ export default function ContentManagement(props) {
           let content_id = contentId;
           uploadAudioFile(content_id);
           uploadCoverImgFile(content_id);
+          uploadDocx(content_id);
           alert("Data Uploaded");
         }
       } catch (e) {
@@ -268,6 +268,7 @@ export default function ContentManagement(props) {
           let content_id = response.data.id;
           uploadAudioFile(content_id);
           uploadCoverImgFile(content_id);
+          uploadDocx(content_id);
         }
       } catch (e) {
         console.log(e);
@@ -295,58 +296,46 @@ export default function ContentManagement(props) {
 
   const [txtFileData, setTxtFileData] = useState("");
 
-  const onTxtChange = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.addEventListener("load", async () => {
-      const content = reader.result;
-      const zip = new PizZip(content);
-      const doc = new Docxtemplater().loadZip(zip);
-      const text = doc.getFullText();
-      setData((prevState) => {
-        return {
-          ...prevState,
-          content_text: text,
-        };
-      });
-      // console.log(text);
-    });
-    reader.readAsArrayBuffer(file);
+  // const onTxtChange = (e) => {
+  //   e.preventDefault();
+  //   const reader = new FileReader();
+  //   reader.onload = async (e) => {
+  //     const txt = e.target.result;
+  //     setData((prevState) => {
+  //       return {
+  //         ...prevState,
+  //         content_text: txt,
+  //       };
+  //     });
+  //     console.log(txt);
+  //   };
+  //   reader.readAsText(e.target.files[0]);
+  // };
 
-    // const file = e.target.files[0];
-    // const reader = new FileReader();
-    // reader.onload = () => {
-    //   const buffer = reader.result;
-    //   const doc = new docx.Document(buffer);
-    //   const content = doc.getText();
-    //   console.log(content);
-    // };
-    // reader.readAsText(file);
+  const uploadDocx = async (content_id) => {
+    console.log("Hello : " + content_id);
 
-    // e.preventDefault();
-    // const reader = new FileReader();
+    const formData = new FormData();
+    formData.append("docx_file", docxFile);
+    formData.append("content_id", content_id);
 
-    // reader.addEventListener("load", () => {
-    //   const content = reader.result;
-    //   const doc = new Document();
-    //   doc.load(content).then(() => {
-    //     const text = doc.getBody().getText();
-    //     console.log(text);
-    //   });
-    //   // console.log(content);
-    // });
+    console.log(docxFile);
 
-    // reader.onload = async (e) => {
-    //   const txt = e.target.result;
-    // setData((prevState) => {
-    //   return {
-    //     ...prevState,
-    //     content_text: txt,
-    //   };
-    // });
-    //   console.log(txt);
-    // };
-    // reader.readAsArrayBuffer(e.target.files[0]);
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/uploaddocx?content_id=${content_id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("Uploading content");
+      console.log(response.data);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -457,6 +446,24 @@ export default function ContentManagement(props) {
               </Select>
             </FormControl>
           </Box>
+
+          {/* <Box sx={{ width: "25%", mx: 4, mt: 1, minWidth: "350px" }}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">
+                मजकूर प्रकार{" "}
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Age"
+                size="small"
+              >
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </Select>
+            </FormControl>
+          </Box> */}
         </Box>
 
         {/* <SearchContentM /> */}
@@ -545,7 +552,7 @@ export default function ContentManagement(props) {
               size="small"
               sx={{ mt: 2, mb: 1, bgcolor: "white", width: "80%" }}
               onChange={(e) => {
-                onTxtChange(e);
+                handleDocxChnage(e);
               }}
               endAdornment={
                 <InputAdornment position="end">
@@ -560,7 +567,7 @@ export default function ContentManagement(props) {
             align="left"
             sx={[styles.subscript, { ml: 5 }]}
           >
-            Upload '.Txt' file only
+            Upload '.docx' file only
           </Typography>
         </Box>
 
