@@ -78,6 +78,9 @@ export default function NewContentPopUp(props) {
 
   const handleSubmit = async () => {
     if (props.isForUpdate) {
+      if(data.name.length === 0){
+        alert("Please select a category name");
+      }else{
       try {
         let response = await axios.patch(
           `${process.env.REACT_APP_API_URL}/updatecategory?id=${props.id}`,
@@ -97,7 +100,11 @@ export default function NewContentPopUp(props) {
       } catch (e) {
         console.log(e);
       }
-    } else {
+    } }
+    else {
+      if(data.name.length === 0){
+        alert("Please select a category name");
+      }else{
       try {
         let response = await axios.post(
           `${process.env.REACT_APP_API_URL}/addcategory`,
@@ -122,7 +129,7 @@ export default function NewContentPopUp(props) {
       } catch (e) {
         console.log(e);
       }
-    }
+      }}
   };
 
   return (

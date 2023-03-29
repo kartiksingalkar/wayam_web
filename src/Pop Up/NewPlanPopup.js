@@ -16,8 +16,10 @@ import {
   FormGroup,
   FormLabel,
   InputLabel,
+  Typography,
 } from "@mui/material";
 import axios from "axios";
+import { Box } from "@mui/system";
 
 export default function NewPlanPopup(props) {
   const [benifitData, setPlanData] = useState(props.benifitData);
@@ -27,7 +29,8 @@ export default function NewPlanPopup(props) {
 
   const [addedBenifits, setAddedBenifits] = useState({});
   const [plan_name, setplan_name] = useState();
-  const[error , setError] = useState()
+  const[error , setError] = useState();
+  const [errorDuration , setErrorDuration] = useState();
 
   const handleCheckBox = (key, value) => {
     setAddedBenifits((prevData) => {
@@ -83,12 +86,18 @@ export default function NewPlanPopup(props) {
   }, []);
 
   const handleSubmit = async () => {
-    var re = /^[0-9]{10}$/;
+    var re = /^[0-9]*$/;
     if (props.isForUpdate) {
-      if (data.plan_name.length === 0 ) {
+      if (data.plan_name.length === 0  ) {
         // alert("please fill the value");
         setError(true)
-      }else{
+      }
+      else if(data.plan_duration.length === 0){
+        // alert("please fill the value");
+        setErrorDuration(true)
+      }
+
+      else{
 
      
 
@@ -116,7 +125,8 @@ export default function NewPlanPopup(props) {
         alert("please fill the value");
         setError(true)
       }else if( re.test(!data.plan_duration)){
-        alert("please fill the value");
+        // alert("please fill the value");
+        setErrorDuration(true)
       }
        else {
         try {
@@ -212,7 +222,7 @@ export default function NewPlanPopup(props) {
           </FormControl> */}
           <TextField
             id="outlined-basic"
-            label="Duration"
+            label="Duration (please enter in Days only)"
             sx={{
               width: "400px",
               borderRadius: "5px",
@@ -226,6 +236,8 @@ export default function NewPlanPopup(props) {
               handleChange("plan_duration", e.target.value);
             }}
           />
+          <Box sx={{mt:-1}}><Typography>please enter days in numbers only</Typography></Box>
+          {errorDuration && <p style={{color:'red'}} >please enter days</p>}
 
           <FormControl>
             <InputLabel id="demo-simple-select-helper">Status</InputLabel>
