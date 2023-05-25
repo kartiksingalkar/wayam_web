@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, TextField, Typography, Button } from "@mui/material";
 
 import Footer from "../Components/Footer";
 import HeaderBar from "../Components/HeaderBar";
@@ -20,51 +20,68 @@ import axios from "axios";
 import NewPlanPopup from "../Pop Up/NewPlanPopup";
 import SearchBenifit from "../Components/SearchBenifit";
 
-const plans = [
-  {
-    plan: "वार्षिक सभासदत्त्व ",
-    benefit: "लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3",
-  },
-  {
-    plan: "6 महिन्याचे सभासदत्त्व सभासदत्त्व ",
-    benefit: "लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3, लाभ क्रमांक 4",
-  },
-  {
-    plan: "3 महिन्याचे सभासदत्त्व वार्षिक सभासदत्त्व ",
-    benefit: "लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3",
-  },
-  {
-    plan: "1 महिन्याचे सभासदत्त्व वार्षिक सभासदत्त्व ",
-    benefit: "लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3, लाभ क्रमांक 4",
-  },
-  {
-    plan: "गेस्ट सभासदत्त्व ",
-    benefit: "लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3",
-  },
-];
+// const plans = [
+//   {
+//     plan: "वार्षिक सभासदत्त्व ",
+//     benefit: "लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3",
+//   },
+//   {
+//     plan: "6 महिन्याचे सभासदत्त्व सभासदत्त्व ",
+//     benefit: "लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3, लाभ क्रमांक 4",
+//   },
+//   {
+//     plan: "3 महिन्याचे सभासदत्त्व वार्षिक सभासदत्त्व ",
+//     benefit: "लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3",
+//   },
+//   {
+//     plan: "1 महिन्याचे सभासदत्त्व वार्षिक सभासदत्त्व ",
+//     benefit: "लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3, लाभ क्रमांक 4",
+//   },
+//   {
+//     plan: "गेस्ट सभासदत्त्व ",
+//     benefit: "लाभ क्रमांक 1, लाभ क्रमांक 2, लाभ क्रमांक 3",
+//   },
+// ];
 
-const benefits = [
-  { benefit: "लाभ क्रमांक 1" },
-  { benefit: "लाभ क्रमांक 2" },
-  { benefit: "लाभ क्रमांक 3" },
-  { benefit: "लाभ क्रमांक 4" },
-  { benefit: "लाभ क्रमांक 5" },
-];
+// const benefits = [
+//   { benefit: "लाभ क्रमांक 1" },
+//   { benefit: "लाभ क्रमांक 2" },
+//   { benefit: "लाभ क्रमांक 3" },
+//   { benefit: "लाभ क्रमांक 4" },
+//   { benefit: "लाभ क्रमांक 5" },
+// ];
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
+// const Item = styled(Paper)(({ theme }) => ({
+//   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+//   ...theme.typography.body2,
+//   padding: theme.spacing(1),
+//   textAlign: "center",
+//   color: theme.palette.text.secondary,
+// }));
 
 export default function BenefitManagement() {
+
+  const [openncpop, setopenncpop] = useState(false);
+  const opennewcontentpop = () => {
+    setopenncpop(!openncpop);
+  };
+
+
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+    } else {
+      setSelectedFile(null);
+    }
+  }
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
   const [planOpen, setPlanOpen] = useState(false);
 
-  const openNewPlanPopup = ()=>{
+  const openNewPlanPopup = () => {
     setPlanOpen(!planOpen)
   }
 
@@ -78,7 +95,7 @@ export default function BenefitManagement() {
 
   const [planData, setPlanData] = useState([]);
 
- 
+
 
   useEffect(() => {
     async function getData() {
@@ -97,7 +114,7 @@ export default function BenefitManagement() {
     getData();
   }, []);
 
-  return(
+  return (
     <Box sx={{ height: "100vh" }}>
       {/* start of navbar */}
       <Box
@@ -124,172 +141,95 @@ export default function BenefitManagement() {
           margin: "10px auto 10px auto",
         }}
       >
-        <Box sx={{ color: "#4F62B0", marginLeft: "20px" }}>
-          <Typography>Plan or benefit management</Typography>
+        <Box sx={{ color: "#4F62B0", marginLeft: "20px", display: "flex", flexWrap: "wrap", flexDirection: "row" }}>
+          <Typography>Plan management</Typography>
         </Box>
         <Box
           sx={{
             width: "97%",
-            height: "90vh",
+            height: "100%",
             backgroundColor: "#E1E5F8",
             display: "flex",
             flexDirection: "column",
             margin: "15px auto 10px auto",
+            display: "flex", flexWrap: "wrap",
+            '@media (max-width:768px)':{height:"auto"}
           }}
         >
           <Box
             sx={{
               margin: "0.5%",
               flexGrow: 1,
-              alignItems: "center",
-              justifyContent: "center",
+              display: "flex",
+              flexWrap: "wrap",
+              flexDirection: "column",
+              marginBottom:'10px',
+
             }}
           >
-            <Box sx={{ width: "100%" }}>
-              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                <Tabs
-                  value={value}
-                  onChange={handleChange}
-                  aria-label="basic tabs example"
-                  margin="10px 10px auto auto"
-                  backgroundColor="white"
-                  sx={{ margin: "0px auto auto ", backgroundColor: "#ffffff" }}
-                >
-                  <Tab
-                    label="Plan"
-                    className="tabtext"
-                    value={0}
+            <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-around", flexWrap: "wrap" }}>
+              <Box sx={{ width: "20%", display: "flex", flexDirection: "column", marginLeft: 10, flexWrap: "wrap", minWidth: "320px", "@media (max-width:768px)": { margin: "0px", justifyContent: "center" } }}>
+                <TextField id="outlined-basic" label="Name of the Plan" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
+                
+                <TextField id="outlined-basic" label="Plan Activation Date" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
+                <TextField id="outlined-basic" label="Plan Expiray Date" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
 
-                   
-                  />
-                  {/* <Tab label="लाभ" className="tabtext" value={1} /> */}
-                </Tabs>
-                {/* 1st tab */}
-                {value === 0 && (
-                  <Box sx={{ margin: "0.5%", flexGrow: 1 }}>
-                    <Grid container spacing={2} justify="center">
-                      <Grid item xs={8}>
-                        {/* <SearchBox find={"योजना शोधा"} /> */}
-                        <SearchBenifit find={"Find a plan"} data2={planData} setData={setPlanData} />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <Item
-                          sx={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            backgroundColor: "#4F62B0",
-                            color: "white",
-                          }}
-                        >
-                          <Box sx={{ width: "50%", textAlign: "left" }}>
-                            <Typography>Name of the scheme</Typography>
-                          </Box>
-                          <Box sx={{ width: "50%", textAlign: "left" }}>
-                            <Typography>Duration (in months)</Typography>
-                          </Box>
-                        </Item>
-                      </Grid>
-
-                      {planData.map((item, index) => (
-                        <BenefitManagementComponent1
-                          plan={item.plan_name}
-                          plan_id={item.plan_id}
-                          duration={item.plan_duration}
-                          setPlanData={setPlanData}
-                          index={index}
-                          status={item.status}
-                        />
-                      ))}
-
-                      {/* button */}
-                      <Box
-                        display="flex"
-                        margin={2}
-                        justifyContent="flex-end"
-                        sx={{ width: "100%" }}
-                        onClick={openNewPlanPopup}
-
-                      >
-                        <AddButton buttonTitle={"+ New plans"} />
-                      </Box>
-                    </Grid>
-                  </Box>
-                )}
-
-                {/* 2nd tab */}
-                {value === 1 && (
-                  <Box sx={{ margin: "0.5%", flexGrow: 1 }}>
-                    <Grid container spacing={2} justify="center">
-                      <Grid item xs={8}>
-                        <SearchBox find={"लाभ शोधा"} />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <Item
-                          sx={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            backgroundColor: "#4F62B0",
-                            color: "white",
-                          }}
-                        >
-                          <Box sx={{ width: "25%", textAlign: "left" }}>
-                            <Typography>अंकाचे नाव </Typography>
-                          </Box>
-                        </Item>
-                      </Grid>
-                      
-                      <Box
-                        sx={{
-                          display: "flex",
-                          width: "100%",
-                          justifyContent: "flex-end",
-                          margin: "16px auto  5px 16px",
-                          height:"38vh",
-                          overflow:"scroll ",
-                          overflowX:"hidden",
-                          scrollbarWidth:"thin",
-                          "&::-webkit-scrollbar": {
-                            width: "0.4em",
-                          },
-                          "&::-webkit-scrollbar-track": {
-                            background: "#E1E5F8",
-                          },
-                          "&::-webkit-scrollbar-thumb": {
-                            backgroundColor: "#888",
-                          },
-                          "&::-webkit-scrollbar-thumb:hover": {
-                            background: "#555",
-                          },
-                        }}>
-                        
-                      {planData.map((item, index) => (
-                        <BenefitManagementComponent2
-                          benefit={item.plan_name}/>
-                        
-                      ))}
-                      
-                      </Box>
-
-                      {/* button */}
-                      <Box
-                        display="flex"
-                        justifyContent="flex-end"
-                        sx={{ width: "100%" }}
-                        onClick={openNewBenifitPopuo}
-                      >
-                        <AddButton buttonTitle={"+ नवीन लाभ"} />
-                      </Box>
-                    </Grid>
-                  </Box>
-                )}
               </Box>
+
+              <Box sx={{ width: "20%", display: "flex", flexDirection: "column", flexWrap: "wrap", minWidth: "320px", "@media (max-width:768px)": { margin: "0px", justifyContent: "center" } }}>
+                <TextField id="outlined-basic" label="Plan Charges" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
+                <TextField id="outlined-basic" label="Taxes" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
+                <TextField id="outlined-basic" label="Total Amount" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
+
+
+
+              </Box>
+
+              <Box sx={{ width: "20%", display: "flex", flexDirection: "column", flexWrap: "wrap", minWidth: "320px",marginBottom:"20px", "@media (max-width:768px)": { margin: "0px", justifyContent: "center" } }}>
+                <TextField id="outlined-basic" label="Select Eligible Subscriber Group " variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
+                <Box>
+                  <Box style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
+
+
+                    <input type="file" onChange={handleFileChange} style={{ margin: 20 }} />
+                    {selectedFile ? (
+                      <div>
+                        {/* <p>Selected File: {selectedFile.name}</p> */}
+                        <img src={URL.createObjectURL(selectedFile)} alt="Selected" style={{ width: 300, margin: 20 }} size="medium" />
+                      </div>
+                    ) : (
+                      <p style={{ margin: 20 }}>No file chosen</p>
+                    )}
+
+                  </Box>
+                </Box>
+                <Box
+                  display="flex"
+                  justifyContent="flex-end"
+                  sx={{ width: "98%", margin: "10px", marginY: "30px", '@media (max-width:768px)': { width: '320px' } }}
+                  onClick={opennewcontentpop}
+                >
+                  <AddButton buttonTitle={"Submit"} />
+                </Box>
+
+              </Box>
+
+
+
             </Box>
+
+
           </Box>
+
+
+
+
+
         </Box>
+
       </Box>
       {/* end of main ptype  */}
+
 
       {/* start of footer */}
       <Box
@@ -303,16 +243,16 @@ export default function BenefitManagement() {
         <Footer />
       </Box>
       {/* // end of footer */}
-     
 
-      {planOpen && (
+
+      {/* {planOpen && (
         <NewPlanPopup
-        planData={planData}
-        setPlanData={setPlanData}
-        open={planOpen}
-        setPlanOpen={setPlanOpen}
+          planData={planData}
+          setPlanData={setPlanData}
+          open={planOpen}
+          setPlanOpen={setPlanOpen}
         />
-      )}
+      )} */}
     </Box>
   );
 }
