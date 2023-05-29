@@ -433,7 +433,8 @@
 // }
 
 import { React, useEffect, useState } from "react";
-import { Box, Typography, TextField } from "@mui/material";
+import { Box, Typography, TextField ,OutlinedInput,
+  InputAdornment} from "@mui/material";
 // import Navbar from "../Components/Navbar";
 import Header from "../Components/HeaderBar";
 import Footer1 from "../Components/Footer";
@@ -462,7 +463,7 @@ import axios from "axios";
 import SearchTemplate from "../Components/SearchTemplate";
 import SearchIssue from "../Components/SearchIssue";
 import {Switch} from "antd";
-
+import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 const data = [
   { templateTitle: "टेम्प्लेट 1", type: "चौकस चौरस , गप्पाटप्पा" },
   { templateTitle: "टेम्प्लेट 2", type: "कल्पक, शब्दरंजन " },
@@ -584,6 +585,39 @@ export default function Issuemanagement1() {
   const [value, setValue] = useState('');
 
 
+  const [coverImgFile, setCoverImgFile] = useState();
+
+  const handleCoverImgChange = (e) => {
+    setCoverImgFile(e.target.files[0]);
+  };
+  const uploadCoverImgFile = async (content_id) => {
+    console.log("Hello : " + content_id);
+
+    const data = new FormData();
+    data.append("benifit_img", coverImgFile);
+    data.append("content_id", content_id);
+    console.log(content_id);
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/uploadbenifitimage?plan_id=${content_id}`,
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("asdasd", response.data);
+      if (response.data) {
+        console.log("navigating to dashboard");
+        alert("Plan Created Successfully");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const handleInputChange = (e) => {
     const value = e.target.value;
     console.log(value); // Print the value in the console
@@ -595,11 +629,23 @@ export default function Issuemanagement1() {
     setValue(event.target.value);
   };
 
-  const[toggle,setToggle] = useState(false);
-  const toggler =()=>
-  {
-    toggle ? setToggle(false):setToggle(true);
+  // const[toggle,setToggle] = useState(false);
+  // const toggler =()=>
+  // {
+  //   toggle ? setToggle(false):setToggle(true);
+
+  //   console.log(toggle);
+  // }
+
+
+  const [toggleValue, setToggleValue] = useState(false);
+
+  function handleToggleChange(event) {
+    const value = event.target.checked;
+    console.log(value);
+    setToggleValue(value);
   }
+
 
   const [selectedFile, setSelectedFile] = useState(null);
   const handleFileChange = (event) => {
@@ -732,6 +778,22 @@ export default function Issuemanagement1() {
                 <p style={{ margin: 20 }}>No file chosen</p>
               )}
             </Box>
+            <OutlinedInput
+                  id="outlined-basic"
+                  type="file"
+                  label="cover image"
+                  placeholder="Cover Image"
+                  size="small"
+                  sx={{ mt: 2, bgcolor: "white", width: "80%" }}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <DriveFolderUploadIcon />
+                    </InputAdornment>
+                  }
+                  onChange={(e) => {
+                    handleCoverImgChange(e);
+                  }}
+                />
 
             <Box
               style={{
@@ -759,13 +821,29 @@ export default function Issuemanagement1() {
                 <p style={{ margin: 20 }}>No file chosen</p>
               )}
             </Box>
+            <OutlinedInput
+                  id="outlined-basic"
+                  type="file"
+                  label="cover image"
+                  placeholder="Cover Image"
+                  size="small"
+                  sx={{ mt: 2, bgcolor: "white", width: "80%" }}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <DriveFolderUploadIcon />
+                    </InputAdornment>
+                  }
+                  onChange={(e) => {
+                    handleCoverImgChange(e);
+                  }}
+                />
                 
             
             
               <Typography  value={value} 
               onChange={handleAnk} >ताजा अंक</Typography>
             
-              <Switch onClick ={toggler} />
+              <Switch onChange={handleToggleChange} />
               
               <Typography value={value} 
               onChange={handleAnk}>मागील अंक</Typography>
