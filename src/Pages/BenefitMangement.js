@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import { Box, TextField, Typography, Button } from "@mui/material";
+import { Box, TextField, Typography, Button, OutlinedInput, InputAdornment } from "@mui/material";
 
 import Footer from "../Components/Footer";
 import HeaderBar from "../Components/HeaderBar";
@@ -19,6 +19,8 @@ import "../CSS/benefitmanagement.css";
 import axios from "axios";
 import NewPlanPopup from "../Pop Up/NewPlanPopup";
 import SearchBenifit from "../Components/SearchBenifit";
+import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
+
 
 // const plans = [
 //   {
@@ -62,17 +64,51 @@ import SearchBenifit from "../Components/SearchBenifit";
 export default function BenefitManagement() {
 
   const [openncpop, setopenncpop] = useState(false);
-  const opennewcontentpop = () => {
-    setopenncpop(!openncpop);
+  const opennewcontentpop = async() => {
+    console.log('submitting data' , data)
+  try{
+    console.log(data , "api comming")
+    let response = await axios.post(
+      `${process.env.REACT_APP_API_URL}/createplan`,
+      data,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log("filesuploading",response.data)
+    if(response.status){
+      console.log("your response is",response.data.id)
+  let content_id=response.data.id
+      uploadCoverImgFile(content_id)
+    }
+    // if(res)
+    if(response.status === 200){
+      console.log("sdfsdf",response.data)
+    }
+  }catch(err){
+    console.log(err)
+
+  }
+    // setopenncpop(!openncpop);
   };
 
-
+  // uploadbenifitimage
   const [selectedFile, setSelectedFile] = useState(null);
 
+  const [coverImg , setCoverImg] = useState()
   const handleFileChange = (event) => {
+    setCoverImg(event.target.files[0])
+  
+
     const file = event.target.files[0];
+
+    console.log("sfsdfsdfsdF",data.img_path)
+
     if (file) {
       setSelectedFile(file);
+      console.log(file)
     } else {
       setSelectedFile(null);
     }
@@ -81,38 +117,61 @@ export default function BenefitManagement() {
   const [open, setOpen] = useState(false);
   const [planOpen, setPlanOpen] = useState(false);
 
-  const openNewPlanPopup = () => {
-    setPlanOpen(!planOpen)
+  
+  const [data, setData] = useState({});
+  const uploadImage = async() =>{
+    const data = new FormData();
+    data.append("cover_image", coverImg);
+    console.log(data.cover_image)
   }
+  // code is here
+  const [coverImgFile, setCoverImgFile] = useState();
 
-  const openNewBenifitPopuo = () => {
-    setOpen(!open);
+  const handleCoverImgChange = (e) => {
+    setCoverImgFile(e.target.files[0]);
   };
+  const uploadCoverImgFile = async (content_id) => {
+    console.log("Hello : " + content_id);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+    const data = new FormData();
+    data.append("benifit_img", coverImgFile);
+    data.append("content_id", content_id);
+    console.log(content_id)
 
-  const [planData, setPlanData] = useState([]);
-
-
-
-  useEffect(() => {
-    async function getData() {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/getallplans`
-        );
-        console.log("Plans : " + JSON.stringify(response.data.data));
-        // setBenifitData(response.data.data);
-        setPlanData(response.data.data)
-      } catch (e) {
-        console.log(e);
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/uploadbenifitimage?plan_id=${content_id}`,
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("asdasd",response.data);
+      if(response.data){
+        console.log("navigating to dashboard")
+        alert("Plan Created Successfully")
       }
+    } catch (e) {
+      console.log(e);
     }
+  };
 
-    getData();
-  }, []);
+  // till here
+
+
+
+  const handleChange = (key, value) => {
+    setData((prevState) => {
+      return {
+        ...prevState,
+        [key]: value,
+      };
+    });
+    console.log(data)
+  };
+
 
   return (
     <Box sx={{ height: "100vh" }}>
@@ -153,7 +212,7 @@ export default function BenefitManagement() {
             flexDirection: "column",
             margin: "15px auto 10px auto",
             display: "flex", flexWrap: "wrap",
-            '@media (max-width:768px)':{height:"auto"}
+            '@media (max-width:768px)': { height: "auto" }
           }}
         >
           <Box
@@ -163,30 +222,73 @@ export default function BenefitManagement() {
               display: "flex",
               flexWrap: "wrap",
               flexDirection: "column",
-              marginBottom:'10px',
+              marginBottom: '10px',
 
             }}
           >
             <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-around", flexWrap: "wrap" }}>
               <Box sx={{ width: "20%", display: "flex", flexDirection: "column", marginLeft: 10, flexWrap: "wrap", minWidth: "320px", "@media (max-width:768px)": { margin: "0px", justifyContent: "center" } }}>
-                <TextField id="outlined-basic" label="Name of the Plan" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
-                
-                <TextField id="outlined-basic" label="Plan Activation Date" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
-                <TextField id="outlined-basic" label="Plan Expiray Date" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
+                <TextField value={data.plan_name}
+                 onChange={(e) => {
+                   handleChange("plan_name", e.target.value);
+                 }} placeholder="Name of the Plan" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
 
+<Box>
+
+                <TextField 
+                value={data.plan_start_date}
+                 onChange={(e) => {
+                   handleChange("plan_start_date", e.target.value);
+                 }}
+                 placeholder="Plan Activation Date" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
+<Typography sx={{color:'blue' , fontSize:10 ,ml:5}} >Format(yyyy-mm-dd)only</Typography>
+</Box>
+                
+<Box>
+
+<TextField 
+value={data.plan_end_date}
+ onChange={(e) => {
+   handleChange("plan_end_date", e.target.value);
+ }}
+ placeholder="Plan Activation Date" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
+<Typography sx={{color:'blue' , fontSize:10 ,ml:5}} >Format(yyyy-mm-dd)</Typography>
+</Box>
               </Box>
 
               <Box sx={{ width: "20%", display: "flex", flexDirection: "column", flexWrap: "wrap", minWidth: "320px", "@media (max-width:768px)": { margin: "0px", justifyContent: "center" } }}>
-                <TextField id="outlined-basic" label="Plan Charges" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
-                <TextField id="outlined-basic" label="Taxes" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
-                <TextField id="outlined-basic" label="Total Amount" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
+                <TextField
+                 value={data.plan_payment}
+                 onChange={(e) => {
+                   handleChange("plan_payment", e.target.value);
+                 }}
+                 placeholder="plan charges"
+                  variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
+                
+                <TextField 
+                 value={data.plan_duration}
+                 onChange={(e) => {
+                   handleChange("plan_duration", e.target.value);
+                 }}
+                  placeholder="Duration" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
+                <TextField
+                  // value={data.plan_name}
+                  // onChange={(e) => {
+                  //   handleChange("plan_name", e.target.value);
+                  // }}
+                   placeholder="Total Amount" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
 
 
 
               </Box>
 
-              <Box sx={{ width: "20%", display: "flex", flexDirection: "column", flexWrap: "wrap", minWidth: "320px",marginBottom:"20px", "@media (max-width:768px)": { margin: "0px", justifyContent: "center" } }}>
-                <TextField id="outlined-basic" label="Select Eligible Subscriber Group " variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
+              <Box sx={{ width: "20%", display: "flex", flexDirection: "column", flexWrap: "wrap", minWidth: "320px", marginBottom: "20px", "@media (max-width:768px)": { margin: "0px", justifyContent: "center" } }}>
+                <TextField  
+                // value={data.plan_name}
+                //  onChange={(e) => {
+                //    handleChange("plan_name", e.target.value);
+                //  }} 
+                 placeholder="Select Eligible Subscriber Group " variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
                 <Box>
                   <Box style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
 
@@ -203,6 +305,22 @@ export default function BenefitManagement() {
 
                   </Box>
                 </Box>
+                <OutlinedInput
+              id="outlined-basic"
+              type="file"
+              label="cover image"
+              placeholder="Cover Image"
+              size="small"
+              sx={{ mt: 2, bgcolor: "white", width: "80%" }}
+              endAdornment={
+                <InputAdornment position="end">
+                  <DriveFolderUploadIcon />
+                </InputAdornment>
+              }
+              onChange={(e) => {
+                handleCoverImgChange(e);
+              }}
+            />
                 <Box
                   display="flex"
                   justifyContent="flex-end"
