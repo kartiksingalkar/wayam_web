@@ -19,6 +19,9 @@ import "../CSS/benefitmanagement.css";
 import axios from "axios";
 import NewPlanPopup from "../Pop Up/NewPlanPopup";
 import SearchBenifit from "../Components/SearchBenifit";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 // const plans = [
 //   {
@@ -61,11 +64,16 @@ import SearchBenifit from "../Components/SearchBenifit";
 
 export default function BenefitManagement() {
 
+  const [selectedDate, setSelectedDate] = useState('');
+
+  const handleDateChange = (event) => {
+    setSelectedDate(event.target.value);
+  };
+
   const [openncpop, setopenncpop] = useState(false);
   const opennewcontentpop = () => {
     setopenncpop(!openncpop);
   };
-
 
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -76,14 +84,14 @@ export default function BenefitManagement() {
     } else {
       setSelectedFile(null);
     }
-  }
+  };
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
   const [planOpen, setPlanOpen] = useState(false);
 
   const openNewPlanPopup = () => {
-    setPlanOpen(!planOpen)
-  }
+    setPlanOpen(!planOpen);
+  };
 
   const openNewBenifitPopuo = () => {
     setOpen(!open);
@@ -95,8 +103,6 @@ export default function BenefitManagement() {
 
   const [planData, setPlanData] = useState([]);
 
-
-
   useEffect(() => {
     async function getData() {
       try {
@@ -105,7 +111,7 @@ export default function BenefitManagement() {
         );
         console.log("Plans : " + JSON.stringify(response.data.data));
         // setBenifitData(response.data.data);
-        setPlanData(response.data.data)
+        setPlanData(response.data.data);
       } catch (e) {
         console.log(e);
       }
@@ -141,7 +147,15 @@ export default function BenefitManagement() {
           margin: "10px auto 10px auto",
         }}
       >
-        <Box sx={{ color: "#4F62B0", marginLeft: "20px", display: "flex", flexWrap: "wrap", flexDirection: "row" }}>
+        <Box
+          sx={{
+            color: "#4F62B0",
+            marginLeft: "20px",
+            display: "flex",
+            flexWrap: "wrap",
+            flexDirection: "row",
+          }}
+        >
           <Typography>Plan management</Typography>
         </Box>
         <Box
@@ -152,8 +166,9 @@ export default function BenefitManagement() {
             display: "flex",
             flexDirection: "column",
             margin: "15px auto 10px auto",
-            display: "flex", flexWrap: "wrap",
-            '@media (max-width:768px)':{height:"auto"}
+            display: "flex",
+            flexWrap: "wrap",
+            "@media (max-width:768px)": { height: "auto" },
           }}
         >
           <Box
@@ -163,73 +178,178 @@ export default function BenefitManagement() {
               display: "flex",
               flexWrap: "wrap",
               flexDirection: "column",
-              marginBottom:'10px',
-
+              marginBottom: "10px",
             }}
           >
-            <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-around", flexWrap: "wrap" }}>
-              <Box sx={{ width: "20%", display: "flex", flexDirection: "column", marginLeft: 10, flexWrap: "wrap", minWidth: "320px", "@media (max-width:768px)": { margin: "0px", justifyContent: "center" } }}>
-                <TextField id="outlined-basic" label="Name of the Plan" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
-                
-                <TextField id="outlined-basic" label="Plan Activation Date" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
-                <TextField id="outlined-basic" label="Plan Expiray Date" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
-
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-around",
+                flexWrap: "wrap",
+              }}
+            >
+              <Box
+                sx={{
+                  width: "20%",
+                  display: "flex",
+                  flexDirection: "column",
+                  marginLeft: 10,
+                  flexWrap: "wrap",
+                  minWidth: "320px",
+                  "@media (max-width:768px)": {
+                    margin: "0px",
+                    justifyContent: "center",
+                  },
+                }}
+              >
+                <TextField
+                  id="outlined-basic"
+                  label="Name of the Plan"
+                  variant="outlined"
+                  size="small"
+                  style={{
+                    background: "#FFFFFF",
+                    width: 320,
+                    margin: 20,
+                    borderRadius: "5px",
+                  }}
+                />
+                <input
+        type="date"
+        value={selectedDate}
+        onChange={handleDateChange}
+        size="large" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }}
+      />
+               
+                {/* <TextField id="outlined-basic" label="Plan Activation Date" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
+                <TextField id="outlined-basic" label="Plan Expiray Date" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} /> */}
               </Box>
 
-              <Box sx={{ width: "20%", display: "flex", flexDirection: "column", flexWrap: "wrap", minWidth: "320px", "@media (max-width:768px)": { margin: "0px", justifyContent: "center" } }}>
-                <TextField id="outlined-basic" label="Plan Charges" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
-                <TextField id="outlined-basic" label="Taxes" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
-                <TextField id="outlined-basic" label="Total Amount" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
-
-
-
+              <Box
+                sx={{
+                  width: "20%",
+                  display: "flex",
+                  flexDirection: "column",
+                  flexWrap: "wrap",
+                  minWidth: "320px",
+                  "@media (max-width:768px)": {
+                    margin: "0px",
+                    justifyContent: "center",
+                  },
+                }}
+              >
+                <TextField
+                  id="outlined-basic"
+                  label="Plan Charges"
+                  variant="outlined"
+                  size="small"
+                  style={{
+                    background: "#FFFFFF",
+                    width: 320,
+                    margin: 20,
+                    borderRadius: "5px",
+                  }}
+                />
+                <TextField
+                  id="outlined-basic"
+                  label="Taxes"
+                  variant="outlined"
+                  size="small"
+                  style={{
+                    background: "#FFFFFF",
+                    width: 320,
+                    margin: 20,
+                    borderRadius: "5px",
+                  }}
+                />
+                <TextField
+                  id="outlined-basic"
+                  label="Total Amount"
+                  variant="outlined"
+                  size="small"
+                  style={{
+                    background: "#FFFFFF",
+                    width: 320,
+                    margin: 20,
+                    borderRadius: "5px",
+                  }}
+                />
               </Box>
 
-              <Box sx={{ width: "20%", display: "flex", flexDirection: "column", flexWrap: "wrap", minWidth: "320px",marginBottom:"20px", "@media (max-width:768px)": { margin: "0px", justifyContent: "center" } }}>
-                <TextField id="outlined-basic" label="Select Eligible Subscriber Group " variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
+              <Box
+                sx={{
+                  width: "20%",
+                  display: "flex",
+                  flexDirection: "column",
+                  flexWrap: "wrap",
+                  minWidth: "320px",
+                  marginBottom: "20px",
+                  "@media (max-width:768px)": {
+                    margin: "0px",
+                    justifyContent: "center",
+                  },
+                }}
+              >
+                <TextField
+                  id="outlined-basic"
+                  label="Select Eligible Subscriber Group "
+                  variant="outlined"
+                  size="small"
+                  style={{
+                    background: "#FFFFFF",
+                    width: 320,
+                    margin: 20,
+                    borderRadius: "5px",
+                  }}
+                />
                 <Box>
-                  <Box style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
-
-
-                    <input type="file" onChange={handleFileChange} style={{ margin: 20 }} />
+                  <Box
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      flexWrap: "wrap",
+                    }}
+                  >
+                    <input
+                      type="file"
+                      onChange={handleFileChange}
+                      style={{ margin: 20 }}
+                    />
                     {selectedFile ? (
                       <div>
                         {/* <p>Selected File: {selectedFile.name}</p> */}
-                        <img src={URL.createObjectURL(selectedFile)} alt="Selected" style={{ width: 300, margin: 20 }} size="medium" />
+                        <img
+                          src={URL.createObjectURL(selectedFile)}
+                          alt="Selected"
+                          style={{ width: 300, margin: 20 }}
+                          size="medium"
+                        />
                       </div>
                     ) : (
                       <p style={{ margin: 20 }}>No file chosen</p>
                     )}
-
                   </Box>
                 </Box>
                 <Box
                   display="flex"
                   justifyContent="flex-end"
-                  sx={{ width: "98%", margin: "10px", marginY: "30px", '@media (max-width:768px)': { width: '320px' } }}
+                  sx={{
+                    width: "98%",
+                    margin: "10px",
+                    marginY: "30px",
+                    "@media (max-width:768px)": { width: "320px" },
+                  }}
                   onClick={opennewcontentpop}
                 >
                   <AddButton buttonTitle={"Submit"} />
                 </Box>
-
               </Box>
-
-
-
             </Box>
-
-
           </Box>
-
-
-
-
-
         </Box>
-
       </Box>
       {/* end of main ptype  */}
-
 
       {/* start of footer */}
       <Box
@@ -243,7 +363,6 @@ export default function BenefitManagement() {
         <Footer />
       </Box>
       {/* // end of footer */}
-
 
       {/* {planOpen && (
         <NewPlanPopup
