@@ -66,8 +66,15 @@ export default function BenefitManagement() {
 
   const [selectedDate, setSelectedDate] = useState('');
 
+  
+  const [selected, setSelected] = useState('');
+
   const handleDateChange = (event) => {
     setSelectedDate(event.target.value);
+  };
+
+  const handleDate = (event) => {
+    setSelected(event.target.value);
   };
 
   const [openncpop, setopenncpop] = useState(false);
@@ -215,15 +222,12 @@ export default function BenefitManagement() {
                     borderRadius: "5px",
                   }}
                 />
-                <input
-        type="date"
-        value={selectedDate}
-        onChange={handleDateChange}
-        size="large" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }}
-      />
-               
-                {/* <TextField id="outlined-basic" label="Plan Activation Date" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
-                <TextField id="outlined-basic" label="Plan Expiray Date" variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} /> */}
+        
+                <TextField id="outlined-basic"  type="date"  value={selectedDate}
+        onChange={handleDate} variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
+                  
+                  <TextField id="outlined-basic"   type="date"  value={selectedDate}
+        onChange={handleDateChange} variant="outlined" size="small" style={{ background: "#FFFFFF", width: 320, margin: 20, borderRadius: "5px" }} />
               </Box>
 
               <Box
