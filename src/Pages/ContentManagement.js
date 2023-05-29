@@ -67,9 +67,6 @@ export default function ContentManagement(props) {
   }, [subData, data]);
 
   useEffect(() => {
-    // if (location.state.update) {
-    //   setData(location.state.data2);
-    // }
     setIsForUpdate(location.state.update);
     if (isForUpdate) {
       setContentId(location.state.content_id);
@@ -143,14 +140,12 @@ export default function ContentManagement(props) {
   const [issue_id, setIssueId] = useState();
 
   const handleIssueChange = (value) => {
-    // handleChange("issue_id", value);
     setData((prevState) => {
       return {
         ...prevState,
         issue_id: value,
       };
     });
-    // setIssueId(value);
   };
 
   useEffect(() => {}, [u]);
