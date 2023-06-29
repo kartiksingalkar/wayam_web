@@ -46,6 +46,8 @@ import Login from "./Pages/Login";
 import ConfirmPassword from "./Pages/ConfirmPassword";
 import ChangePassword from "./Pages/ChangePassword";
 import PublisherNew from "./Pages/PublisherNew";
+import IssueStatus from "./Pages/IssueStatus";
+import BannerPage from "./Pages/BannerPage";
 
 function App() {
   return (
@@ -138,6 +140,13 @@ function App() {
           <Route path="/PublisherNew">
             <PublisherNew />
           </Route>
+          <Route path="/issuestatus">
+            <IssueStatus />
+          </Route>
+          <Route path="/addbanner">
+            <BannerPage />
+          </Route>
+          
         </Switch>
       </HashRouter>
 

@@ -10,23 +10,26 @@ import {
 
 import Footer from "../Components/Footer";
 import HeaderBar from "../Components/HeaderBar";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import { styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
+// import Tabs from "@mui/material/Tabs";
+// import Tab from "@mui/material/Tab";
+// import { styled } from "@mui/material/styles";
+// import Paper from "@mui/material/Paper";
+// import Grid from "@mui/material/Grid";
 
 import SearchBox from "../Components/SearchBox";
 import AddButton from "../Components/AddButton";
-import BenefitManagementComponent1 from "../Components/BenefitManagementComponent1";
-import BenefitManagementComponent2 from "../Components/BenefitManagementComponent2";
-
+// import BenefitManagementComponent1 from "../Components/BenefitManagementComponent1";
+// import BenefitManagementComponent2 from "../Components/BenefitManagementComponent2";
+import { Link, useHistory } from "react-router-dom";
 import "../CSS/benefitmanagement.css";
 
 import axios from "axios";
 import NewPlanPopup from "../Pop Up/NewPlanPopup";
 import SearchBenifit from "../Components/SearchBenifit";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
+// import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import Allplans from "./Allplans";
 
 // const plans = [
 //   {
@@ -51,22 +54,6 @@ import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 //   },
 // ];
 
-// const benefits = [
-//   { benefit: "लाभ क्रमांक 1" },
-//   { benefit: "लाभ क्रमांक 2" },
-//   { benefit: "लाभ क्रमांक 3" },
-//   { benefit: "लाभ क्रमांक 4" },
-//   { benefit: "लाभ क्रमांक 5" },
-// ];
-
-// const Item = styled(Paper)(({ theme }) => ({
-//   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-//   ...theme.typography.body2,
-//   padding: theme.spacing(1),
-//   textAlign: "center",
-//   color: theme.palette.text.secondary,
-// }));
-
 export default function BenefitManagement() {
   const [selectedDate, setSelectedDate] = useState("");
 
@@ -75,7 +62,7 @@ export default function BenefitManagement() {
   const handleDateChange = (event) => {
     setSelectedDate(event.target.value);
   };
-
+  const history = useHistory();
   const handleDate = (event) => {
     setSelected(event.target.value);
   };
@@ -138,6 +125,28 @@ export default function BenefitManagement() {
     data.append("cover_image", coverImg);
     console.log(data.cover_image);
   };
+  const [plans, setPlanData] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/getallplans`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        // console.log("all plans fetched", response.data.data);
+        if (response.data.status) {
+          setPlanData(response.data.data);
+        }
+        // console.log(response.data.data);
+      } catch (e) {}
+    }
+    fetchData();
+  }, []);
+
   // code is here
   const [coverImgFile, setCoverImgFile] = useState();
 
@@ -173,7 +182,7 @@ export default function BenefitManagement() {
   };
 
   // till here
-
+  // const navigate = useNavigate();
   const handleChange = (key, value) => {
     setData((prevState) => {
       return {
@@ -181,7 +190,12 @@ export default function BenefitManagement() {
         [key]: value,
       };
     });
-    console.log(data);
+    // console.log(data);
+  };
+  const addBanner = () => {
+    // navigate('/addbanner')
+    history.push("/addbanner");
+    console.log("banner clicked");
   };
 
   return (
@@ -204,7 +218,7 @@ export default function BenefitManagement() {
       <Box
         sx={{
           width: "100%",
-          height: "90vh",
+          height: "50vh",
           backgroundColor: "#ffffff",
           display: "flex",
           flexDirection: "column",
@@ -310,7 +324,7 @@ export default function BenefitManagement() {
                     onChange={(e) => {
                       handleChange("plan_end_date", e.target.value);
                     }}
-                    placeholder="Plan Activation Date"
+                    placeholder="Plan Deactivation Date"
                     variant="outlined"
                     size="small"
                     style={{
@@ -401,7 +415,7 @@ export default function BenefitManagement() {
                   },
                 }}
               >
-                <TextField
+                {/* <TextField
                   // value={data.plan_name}
                   //  onChange={(e) => {
                   //    handleChange("plan_name", e.target.value);
@@ -415,42 +429,15 @@ export default function BenefitManagement() {
                     margin: 20,
                     borderRadius: "5px",
                   }}
-                />
-                <Box>
-                  <Box
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      flexWrap: "wrap",
-                    }}
-                  >
-                    <input
-                      type="file"
-                      onChange={handleFileChange}
-                      style={{ margin: 20 }}
-                    />
-                    {selectedFile ? (
-                      <div>
-                        {/* <p>Selected File: {selectedFile.name}</p> */}
-                        <img
-                          src={URL.createObjectURL(selectedFile)}
-                          alt="Selected"
-                          style={{ width: 300, margin: 20 }}
-                          size="medium"
-                        />
-                      </div>
-                    ) : (
-                      <p style={{ margin: 20 }}>No file chosen</p>
-                    )}
-                  </Box>
-                </Box>
+                /> */}
+
                 <OutlinedInput
                   id="outlined-basic"
                   type="file"
                   label="cover image"
                   placeholder="Cover Image"
                   size="small"
-                  sx={{ mt: 2, bgcolor: "white", width: "80%" }}
+                  sx={{ mt: 2, bgcolor: "white", width: "97%", ml: 3 }}
                   endAdornment={
                     <InputAdornment position="end">
                       <DriveFolderUploadIcon />
@@ -464,14 +451,47 @@ export default function BenefitManagement() {
                   display="flex"
                   justifyContent="flex-end"
                   sx={{
-                    width: "98%",
+                    width: "92%",
                     margin: "10px",
                     marginY: "30px",
                     "@media (max-width:768px)": { width: "320px" },
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "#4F62B0",
+                    height: 40,
+                    borderRadius: 2,
+                    boxShadow: 5,
+                    ml: 3,
+                  }}
+                  onClick={addBanner}
+                >
+                  {/* <AddButton buttonTitle={"AddBanner"} /> */}
+                  <Typography sx={{ color: "white" }}>AddBanner</Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  justifyContent="flex-end"
+                  sx={{
+                    width: "92%",
+                    margin: "10px",
+                    marginY: "30px",
+                    "@media (max-width:768px)": { width: "320px" },
+                    ml: 3,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "#4F62B0",
+                    height: 40,
+                    borderRadius: 2,
+                    boxShadow: 5,
+                    mt: 3,
                   }}
                   onClick={opennewcontentpop}
                 >
-                  <AddButton buttonTitle={"Submit"} />
+                  <Typography sx={{ color: "white" }}>Submit</Typography>
+
+                  {/* <AddButton buttonTitle={"Submit"} /> */}
                 </Box>
               </Box>
             </Box>
@@ -479,7 +499,39 @@ export default function BenefitManagement() {
         </Box>
       </Box>
       {/* end of main ptype  */}
+      {/* <Box sx={{width:'100%',height:'20vh',border:1,}} > */}
 
+      {/* <Box sx={{width:'100%', height:'100%', border:1, }} > */}
+      <Box
+        sx={{
+          width: "100%",
+          height: 'auto',
+          border: 1,
+          display: "flex",
+          flexDirection: "row",
+          overflowY: "scroll",
+          my:5,
+          position: "absolute",
+        }}
+      >
+        {plans.map((item) => (
+          <Box
+            sx={{
+              mx: 1,
+              display: "flex",
+              flexDirection: "row",
+              // border: 1,
+              my: 1,
+              height: 150,
+            }}
+          >
+            <Allplans plans={item} />
+            {/* <Typography sx={{color:'black'}} >{item.plan_name}</Typography> */}
+          </Box>
+        ))}
+        {/* </Box> */}
+      </Box>
+      {/* </Box> */}
       {/* start of footer */}
       <Box
         sx={{
