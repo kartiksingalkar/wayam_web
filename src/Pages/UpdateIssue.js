@@ -87,7 +87,7 @@ export default function UpdateIssue(props) {
     //   }else{
       try {
         let response = await axios.patch(
-          `${process.env.REACT_APP_API_URL}/updateissue?id=${props.data.id}`,
+          `${process.env.REACT_APP_API_URL}/updateissue?issue_id=${props.data.id}`,
           data,
           {
             headers: {

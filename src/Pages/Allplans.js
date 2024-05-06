@@ -26,7 +26,7 @@ export default function Allplans(props) {
           fileReaderInstance.onload = () => {
             const base64data = fileReaderInstance.result;
             setImg(base64data);
-            console.log("got the image",base64data)
+            // console.log("got the image",base64data)
           };
         } catch (error) {
           console.error("asA", error);

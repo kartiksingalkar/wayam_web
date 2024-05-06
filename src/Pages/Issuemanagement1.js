@@ -461,7 +461,7 @@
 // import axios from "axios";
 // import SearchTemplate from "../Components/SearchTemplate";
 // import SearchIssue from "../Components/SearchIssue";
-// // import {Switch} from "antd";
+ import {Switch} from "antd";
 
 // const data = [
 //   { templateTitle: "टेम्प्लेट 1", type: "चौकस चौरस , गप्पाटप्पा" },
@@ -840,6 +840,7 @@ import SearchIssue from "../Components/SearchIssue";
 // import { Switch } from "antd";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import Issuelist from "./Issuelist";
+import SubmitButton from "../Components/SubmitButton";
 // import {  } from "react-router-dom";
 
 // import Typography from '@mui/material/Typography';
@@ -881,7 +882,7 @@ export default function Issuemanagement1() {
 
         if (response.data.status) {
           setTemplates(response.data.data);
-          console.log("templates", response.data.data);
+          // console.log("templates", response.data.data);
         }
       } catch (e) {}
     }
@@ -902,7 +903,7 @@ export default function Issuemanagement1() {
 
         if (response.data.status) {
           setCategories(response.data.data);
-          console.log("categories", response.data.data);
+          // console.log("categories", response.data.data);
         }
       } catch (e) {}
     }
@@ -1126,6 +1127,10 @@ const handleStatus=()=>{
     });
     console.log(data);
   };
+
+  const handleSubmitissue = async () => {
+    console.log("handle submit" , data)
+  }
   return (
     <Box sx={{ height: "100vh" }}>
       {/* start of navbar */}
@@ -1199,7 +1204,7 @@ const handleStatus=()=>{
                 background: "#FFFFFF",
                 width: 250,
                 margin: 20,
-                mt:2
+                mt:2,height:40,
                 // borderRadius: "5px",
               }}
             />
@@ -1210,7 +1215,7 @@ const handleStatus=()=>{
               label="cover this image"
               placeholder="Cover this Image"
               size="small"
-              sx={{ mt: 2, bgcolor: "white", width: "80%" , m:2 }}
+              sx={{ mt: 2, bgcolor: "white", width: "80%" , m:2 ,height:40, }}
               endAdornment={
                 <InputAdornment position="end">
                   <DriveFolderUploadIcon />
@@ -1228,7 +1233,7 @@ const handleStatus=()=>{
               label="cover image"
               placeholder="Cover Image"
               size="small"
-              sx={{ mt: 2, bgcolor: "white", width: "80%" ,m:2}}
+              sx={{ mt: 2, bgcolor: "white", width: "80%" ,height:40,m:2}}
               endAdornment={
                 <InputAdornment position="end">
                   <DriveFolderUploadIcon />
@@ -1238,26 +1243,68 @@ const handleStatus=()=>{
                 handlePdfChange(e);
               }}
             />
-              <input
+              {/* <input
                 type="file"
                 onChange={handleFileChange}
                 style={{ margin: 20 }}
-              />
-              {selectedFile ? (
-                <div>
-                  {/* <p>Selected File: {selectedFile.name}</p> */}
-                  <img
-                    src={URL.createObjectURL(selectedFile)}
-                    alt="Selected"
-                    style={{ width: 300, margin: 20 }}
-                    size="medium"
-                  />
-                </div>
-              ) : (
-                <p style={{ margin: 20 }}>No file chosen</p>
-              )}
+              /> */}
+            
+                <RadioGroup
+                row
+                // aria-labelledby="demo-row-radio-buttons-group-label"
+                sx={{width:'100%',display:'flex',flexDirection:'row',justifyContent:'space-around',my:2}}
+                name="row-radio-buttons-group"
+                value={data.status}
+                onChange={(e) => {
+                  handleChange("status", e.target.value);
+                }}
+                onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+              >
+                {/* <Typography sx={Styles.gender}>Gender</Typography> */}
+                <FormControlLabel
+                  sx={{
+                    "& .MuiFormControlLabel-label": {
+                      fontFamily: "MontserratRegular",
+                    },
+                    "& .css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked":
+                      { color: "#4F62B0" },
+                  }}
+                  value="ok"
+                  control={<Radio />}
+                  label="मागील अंक"
+                />
+                <FormControlLabel
+                  sx={{
+                    "& .MuiFormControlLabel-label": {
+                      fontFamily: "MontserratRegular",
+                    },
+                    "& .css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked":
+                      { color: "#4F62B0" },
+                  }}
+                  value="active"
+                  control={<Radio />}
+                  label="ताजा अंक"
+                />
+                 <FormControlLabel
+                  sx={{
+                    "& .MuiFormControlLabel-label": {
+                      fontFamily: "MontserratRegular",
+                    },
+                    "& .css-vqmohf-MuiButtonBase-root-MuiRadio-root.Mui-checked":
+                      { color: "#4F62B0" },
+                  }}
+                  value="deactive"
+                  control={<Radio />}
+                  label="ड्राफ्ट"
+                />
+              </RadioGroup>
+              <Button onClick={()=>{handleSubmit()}}>
+            <SubmitButton buttonTitle={"Creater Pdf"} />
+          </Button>
             </Box>
-            <OutlinedInput
+            {/* <OutlinedInput
                   id="outlined-basic"
                   type="file"
                   label="cover image"
@@ -1273,22 +1320,21 @@ const handleStatus=()=>{
                     handleCoverImgChange(e);
                   }}
                 />
-                
+                 */}
             
             
-              <Typography  value={value} 
-              onChange={handleAnk} >ताजा अंक</Typography>
+              {/* <Typography  value={value} 
+              onChange={handleAnk} >ताजा अंक</Typography> */}
             
-              <Switch onChange={handleToggleChange} />
+             {/* // <Switch onChange={handleToggleChange} /> */}
               
-              <Typography value={value} 
-              onChange={handleAnk}>मागील अंक</Typography>
+              {/* <Typography value={value} 
+              onChange={handleAnk}>मागील अंक</Typography> */}
               {/* {toggle ? <div>Taja</div>:<div>Magil</div>} */}
             
             
                 
                 
-          </Box>
           <Box sx={{width:'25%' , height:500 , border:1,m:2 , display:'flex' , justifyContent:'center' , alignItems:"center" , flexDirection:'column',overflowY:'scroll' }} >
             {issue.map((item) => (
               <Box sx={{width:300 ,height:300,my:3 , display:'flex' , justifyContent:'center', alignItems:'center'}} >
@@ -1298,10 +1344,11 @@ const handleStatus=()=>{
             
 
         </Box>
+          </Box>
       </Box>
           </Box>       
         </Box>
-      </Box>
+
       {/* end of main ptype  */}
 
       {/* start of footer */}

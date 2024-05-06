@@ -12,9 +12,9 @@ import SubmitButton from "../Components/SubmitButton";
 import axios from "axios";
 
 export default function NewContentPopUp(props) {
-  console.log(props.data);
-
+  
   const [data, setData] = useState(props.data);
+  // console.log("All plans",data);
   const handleChange = (key, value) => {
     setData((prevState) => {
       return {
@@ -107,6 +107,30 @@ export default function NewContentPopUp(props) {
     //  }
     
   };
+
+  const handleDelete = async () => {
+console.log(props.data.plan_id);
+try {
+  let response = await axios.delete(
+    `${process.env.REACT_APP_API_URL}/deleteplan?plan_id=${props.data.plan_id}`,
+    data,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (response.data.status) {
+    // uploadCategoryImgFile(props.data.plan_id);
+    console.log("done")
+    window.location.reload();
+    props.setOpen(false);
+  }
+} catch (e) {
+  console.log(e);
+}
+  }
 
   return (
     <div>
@@ -270,6 +294,9 @@ export default function NewContentPopUp(props) {
         <DialogActions sx={{ backgroundColor: "#E1E5F8" }}>
           <Button onClick={handleSubmit}>
             <SubmitButton buttonTitle={"Update"} />
+          </Button>
+          <Button onClick={()=>handleDelete()}>
+            <SubmitButton buttonTitle={"Delete Banner"} />
           </Button>
           <Button onClick={handleCancel}>
             <SubmitButton buttonTitle={"Cancel"} />
