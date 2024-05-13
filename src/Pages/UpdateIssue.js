@@ -107,6 +107,36 @@ export default function UpdateIssue(props) {
     //  }
     
   };
+  const handleDelete = async () => {
+    
+    // if (props.isForUpdate) {
+    //   if(data.name.length === 0){
+    //     alert("Please select a category name");
+    //   }else{
+      // console.log(props.data.issue_id,"idddddddd")
+      try {
+        let response = await axios.patch(
+          `${process.env.REACT_APP_API_URL}/deleteissue?issue_id=${props.data.issue_id}`,
+          data,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.data.status) {
+      
+          window.location.reload();
+          props.setOpen(false);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+     
+    
+  };
+
 
   return (
     <div>
@@ -242,6 +272,9 @@ export default function UpdateIssue(props) {
           </Button>
           <Button onClick={handleCancel}>
             <SubmitButton buttonTitle={"Cancel"} />
+          </Button>
+          <Button onClick={handleDelete} >
+            <SubmitButton buttonTitle={"Delete "} />
           </Button>
         </DialogActions>
       </Dialog>
