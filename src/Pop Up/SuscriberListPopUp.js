@@ -43,6 +43,38 @@ function SimpleDialog(props) {
 
   const [data, setData] = useState([]);
 
+  // Downlod csv
+  const onClickDownload = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/users/download`,
+        {
+          responseType: 'blob',
+        }
+      );
+  
+      if (response.status === 200) {
+        // Create a link element, set the download attribute, and trigger a click to download the file
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'users.csv'); // Replace 'users.csv' with the desired file name
+        document.body.appendChild(link);
+        link.click();
+  
+        // Clean up the URL object
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(link);
+  
+        alert('File Downloaded');
+      } else {
+        throw new Error('Failed to download file');
+      }
+    } catch (error) {
+      alert('Error: ' + error.message);
+    }
+  };
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -70,7 +102,15 @@ function SimpleDialog(props) {
           <Box margin={2}>
             <SearchBoxNew find={"Find Members"} />
           </Box>
-
+          <Box
+              display="flex"
+              margin={2}
+              justifyContent="flex-start"
+              sx={{ width: "28%" }}
+              onClick={onClickDownload}
+            >
+              <AddButton buttonTitle={"Download All Users"} />
+            </Box>
           <Box sx={{ flexGrow: 1, backgroundColor: "#E1E5F8" }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
